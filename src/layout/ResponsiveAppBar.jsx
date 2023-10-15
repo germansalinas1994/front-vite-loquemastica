@@ -26,7 +26,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 const pagesNav = [
   { id: 1, name: 'Productos', route: '/productos' },
   { id: 2, name: 'Categorias', route: '/categorias' },
-  { id: 3, name: 'Blog', route: '/blog' }
+  { id: 3, name: 'Blog', route: '/prueba' }
 ]
 
 const settings = [
