@@ -13,11 +13,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import { useCarrito } from "../../components/Cart/CarritoProvider";
+import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2'
 
 
 const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
 
 const Publicacion = () => {
+    const { isAuthenticated } = useAuth0();
     //import la funcion agregal al carrito del carrito provider
     const { agregarAlCarrito } = useCarrito();
 
@@ -44,7 +47,15 @@ const Publicacion = () => {
 
     const handleAgregarAlCarrito = () => {
         debugger;
-        agregarAlCarrito({ id: publicacion.idPublicacion, cantidad: selectedQuantity });
+        if (isAuthenticated) {
+            agregarAlCarrito({ id: publicacion.idPublicacion, cantidad: selectedQuantity });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Necesitas estar logueado para agregar al carrito',
+            })
+        }
     }
 
 
@@ -67,13 +78,13 @@ const Publicacion = () => {
 
                         <Grid container spacing={2} >
                             <Grid item xs={12} sm={10} md={8} lg={6}>
-                                <Box display='fixed' height={0.9} width={1} sx={{backgroundColor:'primary'}}>
-                                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center',maxWidth:0.8,margin:5 }}>
+                                <Box display='fixed' height={0.9} width={1} sx={{ backgroundColor: 'primary' }}>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', maxWidth: 0.8, margin: 5 }}>
                                         <CardMedia
                                             component="img"
                                             image={publicacion.idProductoNavigation.urlImagen}
                                             alt={publicacion.idProductoNavigation.descripcion}
-                                            sx={{ maxWidth: '100%',margin: 3, display: 'flex', alignItems: 'center', justifyContent: 'center'  }}
+                                            sx={{ maxWidth: '100%', margin: 3, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                                         />
                                     </Box>
                                 </Box>

@@ -1,5 +1,4 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
@@ -11,12 +10,12 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import BotonCarrito from '../components/Botones/BotonCarrito';
 import LoginButton from '../components/Botones/LoginButton';
 import { useAuth0 } from "@auth0/auth0-react";
+//importo el AuthContext para poder usar la imagen por ejemplo
 
 
 
@@ -44,7 +43,7 @@ const settings = [
 function ResponsiveAppBar() {
 
 
-  const { isAuthenticated } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -67,6 +66,11 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+
+  if(isAuthenticated){
+    console.log(user);
+    debugger;
+  }
   return (
     <Container maxWidth="xl">
       <Toolbar disableGutters>
@@ -195,7 +199,7 @@ function ResponsiveAppBar() {
                 <Tooltip title="Abrir opciones">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml:3 }}>
                     {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, despues va a ser la imagen del usuario logueado */}
-                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
+                    <Avatar alt="Remy Sharp" src={user.picture} />
                   </IconButton>
                 </Tooltip>
               )

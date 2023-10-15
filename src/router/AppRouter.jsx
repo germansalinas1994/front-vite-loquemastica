@@ -13,7 +13,7 @@ import ProtectedRoute from './ProtectedRoute';
 import LoadingModal from "../components/LoadingModal";
 import { AuthContext } from '../components/User/AuthContext';
 import { useContext, useEffect } from 'react';
-
+import AccesoDenegado from '../pages/AccesoDenegado';
 
 
 
@@ -58,9 +58,11 @@ const AppRouter = () => {
                         <Prueba />
                     </ProtectedRoute>
                 } />
+                <Route path="/acceso_denegado" element={<AccesoDenegado />} />
+                {/* esto es para si no existe la ruta que se quiere acceder que redirija a acceso denegado */}
+                <Route path="*" element={<AccesoDenegado />} />
 
                 
-                {/* <Route path="*" element={ <Navigate to={"/home"}/> } /> */}
             </Routes>
         </div>
     )

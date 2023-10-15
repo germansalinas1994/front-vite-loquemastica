@@ -7,6 +7,8 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(null);
   const [userRole, setUserRole] = useState(null);
+  const [userImage, setUserImage] = useState(null); // Nuevo estado para almacenar la imagen del usuario
+
 
   //ESTE ESTADO PERMITE SABER SI SE OBTUVO EL TOKEN Y EL ROL, INICIALMENTE ESTA EN FALSE, 
   // porque fallaba el ruteo sino, primero renderizaba el ruteo y luego obtenia el token y el rol,deberia ser al reves
@@ -19,8 +21,10 @@ export const AuthProvider = ({ children }) => {
       try {
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
         const tokenClaims = await getIdTokenClaims();
+        debugger;
         setUserToken(tokenClaims.__raw);
         setUserRole(tokenClaims.rol_usuario);
+        setUserImage(tokenClaims.picture); // Nuevo estado para almacenar la imagen del usuario
       } catch (error) {
         console.error("Error al obtener el token y el rol:", error);
       } finally {
