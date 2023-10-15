@@ -15,6 +15,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import { Link } from 'react-router-dom';
 import PinterestIcon from '@mui/icons-material/Pinterest';
 import BotonCarrito from '../components/Botones/BotonCarrito';
+import LoginButton from '../components/Botones/LoginButton';
+import { useAuth0 } from "@auth0/auth0-react";
 
 
 
@@ -40,6 +42,9 @@ const settings = [
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
+
+
+  const { isAuthenticated } = useAuth0();
 
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -178,17 +183,28 @@ function ResponsiveAppBar() {
 
         <Box sx={{ flexGrow: 0 }}>
           <Link to={'/cart'} style={{ color: 'inherit', textDecoration: 'none' }}>
-            <IconButton sx={{ mr: 3 }}>
+            <IconButton >
               <BotonCarrito />
             </IconButton>
           </Link>
 
-          <Tooltip title="Abrir opciones">
-            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-              {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, despues va a ser la imagen del usuario logueado */}
-              <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
-            </IconButton>
-          </Tooltip>
+
+
+            {isAuthenticated ?
+              (
+                <Tooltip title="Abrir opciones">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml:3 }}>
+                    {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, despues va a ser la imagen del usuario logueado */}
+                    <Avatar alt="Remy Sharp" src="https://mui.com/static/images/avatar/2.jpg" />
+                  </IconButton>
+                </Tooltip>
+              )
+              :
+              (
+                  <LoginButton/>
+              )
+            }
+
 
 
           <Menu

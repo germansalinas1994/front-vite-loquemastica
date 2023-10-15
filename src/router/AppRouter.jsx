@@ -7,6 +7,7 @@ import ListadoPublicacion from '../pages/Publicacion/ListadoPublicacion';
 import NuevaCategoria from '../pages/Categoria/NuevaCategoria';
 import Publicacion from '../pages/Publicacion/Publicacion';
 import Carrito from '../pages/Carrito/ListadoCarrito';
+import Logout from '../components/Logout';
 
 
 const AppRouter = () => {
@@ -22,6 +23,8 @@ const AppRouter = () => {
                 <Route path="/publicacion/:id" element={<Publicacion/>} />
                 <Route path="/about" element={<About />} />
                 <Route path="/cart" element={<Carrito/>} />
+                <Route path="/logout" element={<Logout/>} />
+
                 {/* <Route path="*" element={ <Navigate to={"/home"}/> } /> */}
             </Routes>
         </div>

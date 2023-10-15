@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port 3001",
     "build": "vite build",
     "lint": "eslint . --ext .js,.jsx",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-react": "^2.2.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/roboto": "^5.0.8",
@@ -20,6 +21,7 @@
     "@mui/x-data-grid": "^6.16.0",
     "@mui/x-data-grid-generator": "^6.16.0",
     "animate.css": "^4.1.1",
+    "auth0": "^4.0.1",
     "axios": "^1.5.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
