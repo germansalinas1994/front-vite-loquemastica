@@ -25,6 +25,9 @@ export const AuthProvider = ({ children }) => {
         setUserToken(tokenClaims.__raw);
         setUserRole(tokenClaims.rol_usuario);
         setUserImage(tokenClaims.picture); // Nuevo estado para almacenar la imagen del usuario
+        if (tokenClaims.rol_usuario.length == 0) {
+          window.location.reload();
+        }
       } catch (error) {
         console.error("Error al obtener el token y el rol:", error);
       } finally {
