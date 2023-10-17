@@ -9,24 +9,40 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
+import { useCarrito } from '../../components/Cart/CarritoProvider'; // importo el hook que me permite acceder al estado global del carrito
 
 // implementacion api mercado pago 
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { useState } from 'react';
+import axios from 'axios';
 
 
 const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) => {
+    const apiLocalKey = import.meta.env.VITE_APP_API_KEY
 
     // implementacion api mercado pago 
     const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
+
     initMercadoPago(publicKey);
 
     const [preferenceId, setpreferenceId] = useState(null);
     const [prefetenceStatus, setpreferenceStatus] = useState(null);
     const [wallet, setWallet] = useState(null);
+    const carrito = useCarrito().carrito;  //uso el hook para obtener solo las publicaciones(id) y cantidades del carrito
+
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price);
+    }
+
+
+    const handleMercadopago = async () => {
+        debugger;
+        let responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', carrito);
+        debugger;
+        setpreferenceId(responseapi.data.result.data);
+
+
     }
 
     let total = 0;
@@ -105,6 +121,7 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                     <Button
                         variant="contained"
                         color="primary"
+                        onClick={() => { handleMercadopago() }}
                         sx={{
                             marginTop: '20px',
                             textTransform: 'none', // Elimina las mayúsculas
@@ -116,9 +133,16 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                         Continuar compra
                     </Button>
 
-                    <Wallet initialization={{
-                        preferenceId: "178444398-7c738640-eaac-4512-b2fe-0f240dcd94eb"
-                    }} />
+                    {/* si el preferenceId tiene datos entonces renderizo el componente de mercado pago */}
+
+                    {
+                        preferenceId && <Wallet initialization={{ preferenceId: preferenceId, redirectMode: 'blank'  }} />
+                    }
+
+
+
+
+                    {/* <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} /> */}
 
 
                 </Card>
