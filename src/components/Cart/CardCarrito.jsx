@@ -10,8 +10,20 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 
+// implementacion api mercado pago 
+import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
+import { useState } from 'react';
+
+
 const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) => {
 
+    // implementacion api mercado pago 
+    const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
+    initMercadoPago(publicKey);
+
+    const [preferenceId, setpreferenceId] = useState(null);
+    const [prefetenceStatus, setpreferenceStatus] = useState(null);
+    const [wallet, setWallet] = useState(null);
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price);
@@ -102,7 +114,14 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                         }}
                     >
                         Continuar compra
-                    </Button>                </Card>
+                    </Button>
+
+                    <Wallet initialization={{
+                        preferenceId: "178444398-7c738640-eaac-4512-b2fe-0f240dcd94eb"
+                    }} />
+
+
+                </Card>
             </Box>
         </Box>
     );
