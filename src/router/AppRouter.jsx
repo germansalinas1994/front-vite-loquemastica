@@ -14,6 +14,7 @@ import LoadingModal from "../components/LoadingModal";
 import { AuthContext } from '../components/User/AuthContext';
 import { useContext, useEffect } from 'react';
 import AccesoDenegado from '../pages/AccesoDenegado';
+import CheckoutPage from '../pages/Pedido/CheckoutPage';
 
 
 
@@ -51,6 +52,7 @@ const AppRouter = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/cart" element={<Carrito />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/checkout" element={<CheckoutPage />} />
 
 
                 <Route path="/prueba" element={

@@ -15,11 +15,13 @@ import InputLabel from '@mui/material/InputLabel';
 import { useCarrito } from "../../components/Cart/CarritoProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
 
 
 const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
 
 const Publicacion = () => {
+    const navigate = useNavigate();
     const { isAuthenticated } = useAuth0();
     //import la funcion agregal al carrito del carrito provider
     const { agregarAlCarrito } = useCarrito();
@@ -57,6 +59,26 @@ const Publicacion = () => {
             })
         }
     }
+
+    //esta funcion me lleva a la page checkout, con la informacion de la publicacion, si es que estoy logueado
+    const handleCheckout = () => {
+        if (isAuthenticated) {
+            //aca agarro el objeto publicacion, y le agrego la cantidad seleccionada, los dos puntos es para hacer una copia del objeto
+            const productoConCantidad = {
+                ...publicacion,
+                cantidad: selectedQuantity
+            };
+            navigate('/checkout', { state: { productoSeleccionado: productoConCantidad } });
+        } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Necesitas estar logueado para realizar el checkout',
+            })
+        }
+    }
+
+
 
 
 
@@ -128,7 +150,8 @@ const Publicacion = () => {
                                         </Typography>
                                     </FormControl>
                                     <Box mt={2} display="flex" flexDirection="column" gap={1} sx={{ maxWidth: '60%' }} mb={10}>
-                                        <Button variant="contained" color="primary" fullWidth sx={{ fontSize: '1.2rem', textTransform: 'none', height: '65px', marginBottom: 1 }}>
+                                        {/* El boton de comprar me lleva a la funcion de checkout, me redirige a la page checkout con la informacion de la publicacion */}
+                                        <Button onClick={handleCheckout} variant="contained" color="primary" fullWidth sx={{ fontSize: '1.2rem', textTransform: 'none', height: '65px', marginBottom: 1 }}>
                                             Comprar ahora
                                         </Button>
                                         <Button onClick={handleAgregarAlCarrito} variant="outlined" color="primary" fullWidth sx={{ fontSize: '1.2rem', textTransform: 'none', height: '65px' }}>

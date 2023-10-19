@@ -7,10 +7,10 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
-import { useCarrito } from '../../components/Cart/CarritoProvider'; // importo el hook que me permite acceder al estado global del carrito
 
+import { useNavigate } from 'react-router-dom';
+import { useCarrito } from '../../components/Cart/CarritoProvider'; // importo el hook que me permite acceder al estado global del carrito
+import DetallePedido from '../DetallePedido';
 // implementacion api mercado pago 
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { useState } from 'react';
@@ -20,6 +20,7 @@ import axios from 'axios';
 const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
 
+    const navigate = useNavigate();
     // implementacion api mercado pago 
     const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
 
@@ -35,6 +36,12 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
         return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price);
     }
 
+
+
+    const handleCheckout = async () => {
+        debugger;
+        navigate('/checkout', { state: { carrito: publicacionesCarrito } });
+    }
 
     const handleMercadopago = async () => {
         debugger;
@@ -101,8 +108,38 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                 ))}
             </Box>
 
+            {/* aca separe la logica de la parte derecha en un componente nuevo, esto es para que pueda ser consumido desde el carrito y el comprar ahora */}
+            <DetallePedido items={publicacionesCarrito} checkout={handleCheckout} />
+
+            
+        </Box>
+    );
+}
+
+export default CardCarrito;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             {/* Mitad derecha con detalles del producto agregado */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', width: '40%', mr: '10%' }}>
+            {/* <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', width: '40%', mr: '10%' }}>
                 <Card sx={{ display: 'flex', flexDirection: 'column', marginBottom: '15px', padding: 3, borderRadius: 3 }}>
                     <Typography variant="h5" sx={{ marginBottom: '20px', fontWeight: 'bold' }}>Detalles del Pedido</Typography>
                     <Divider sx={{ marginBottom: '20px', mt: 1 }} />
@@ -121,7 +158,8 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                     <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => { handleMercadopago() }}
+                        // onClick={() => { handleMercadopago() }}
+                        onClick={handleCheckout}
                         sx={{
                             marginTop: '20px',
                             textTransform: 'none', // Elimina las mayúsculas
@@ -133,22 +171,16 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                         Continuar compra
                     </Button>
 
-                    {/* si el preferenceId tiene datos entonces renderizo el componente de mercado pago */}
 
                     {
-                        preferenceId && <Wallet initialization={{ preferenceId: preferenceId, redirectMode: 'blank'  }} />
+                        preferenceId && <Wallet initialization={{ preferenceId: preferenceId  }} />
                     }
 
 
 
 
-                    {/* <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} /> */}
+                    { <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} /> }
 
 
                 </Card>
-            </Box>
-        </Box>
-    );
-}
-
-export default CardCarrito;
+            </Box> */}
