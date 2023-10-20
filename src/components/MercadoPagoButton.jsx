@@ -11,7 +11,7 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
 
     const customization = {
         visual: {
-            buttonBackground: 'black',
+         
             borderRadius: '6px',
             horizontalpadding: '200px',
         },
@@ -33,11 +33,13 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
 
             debugger;
             let responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend);
-            setpreferenceId(responseapi.data.result.data);
+            if (!preferenceId) {
+                setpreferenceId(responseapi.data.result.data);
+            }
         };
 
         fetchPreferenceId();
-    }, [carrito, productoIndividual, apiLocalKey]);
+    }, [carrito, productoIndividual, apiLocalKey, preferenceId]);
 
     return (
         <>
@@ -45,7 +47,7 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
                 margin: '0 auto', // Esto centrará horizontalmente el Box
                 textAlign: 'center', // Esto centrará el contenido dentro del Box
             }} >
-                {preferenceId && <Wallet initialization={{ preferenceId: preferenceId }} customization={customization} />}
+                {preferenceId && <Wallet initialization={{preferenceId: preferenceId }} customization={customization} />}
 
             </Box>
 
