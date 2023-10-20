@@ -16,6 +16,7 @@ import { useCarrito } from "../../components/Cart/CarritoProvider";
 import { useAuth0 } from "@auth0/auth0-react";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
+import PositionedSnackbar from "../../components/PositionedSnackbar";
 
 
 const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
@@ -49,37 +50,43 @@ const Publicacion = () => {
 
     const handleAgregarAlCarrito = () => {
         debugger;
-        if (isAuthenticated) {
+
+        if (!isAuthenticated) {
+            showSnackbar('Necesitas estar logueado para agregar al carrito');
+        }
+
+        else {
             agregarAlCarrito({ id: publicacion.idPublicacion, cantidad: selectedQuantity });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Necesitas estar logueado para agregar al carrito',
-            })
         }
     }
 
     //esta funcion me lleva a la page checkout, con la informacion de la publicacion, si es que estoy logueado
     const handleCheckout = () => {
-        if (isAuthenticated) {
+        if (!isAuthenticated) {
+            showSnackbar('Necesitas estar logueado para realizar el checkout');
+        } else {
             //aca agarro el objeto publicacion, y le agrego la cantidad seleccionada, los dos puntos es para hacer una copia del objeto
             const productoConCantidad = {
                 ...publicacion,
                 cantidad: selectedQuantity
             };
             navigate('/checkout', { state: { productoSeleccionado: productoConCantidad } });
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Necesitas estar logueado para realizar el checkout',
-            })
         }
     }
 
 
+    const [snackbarState, setSnackbarState] = useState({
+        open: false,
+        message: ""
+    });
 
+    const handleSnackbarClose = () => {
+        setSnackbarState(prev => ({ ...prev, open: false }));
+    };
+
+    const showSnackbar = (message) => {
+        setSnackbarState({ open: true, message });
+    };
 
 
 
@@ -169,6 +176,11 @@ const Publicacion = () => {
                             </Typography>
                         </CardContent>
                     </Card>
+                    <PositionedSnackbar
+                        open={snackbarState.open}
+                        handleClose={handleSnackbarClose}
+                        message={snackbarState.message}
+                    />
                 </Grid>
             )}
         </Grid>

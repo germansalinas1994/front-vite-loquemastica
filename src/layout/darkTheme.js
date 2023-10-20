@@ -5,8 +5,8 @@ const darkTheme = createTheme({
     mode: 'dark',
     background: {
       
-      default: '#1A1A1A',
-      paper: '#121212',
+      default: '#000000',
+      paper: '#252525',
     },
     text: {
       primary: '#FFFFFF',

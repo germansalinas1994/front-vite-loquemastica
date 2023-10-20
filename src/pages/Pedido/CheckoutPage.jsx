@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import DetallePedido from '../../components/DetallePedido';
 import { useCarrito } from '../../components/Cart/CarritoProvider';
 import { MercadoPagoButton } from '../../components/MercadoPagoButton';
-import { Grid, Card, CardContent, Radio, RadioGroup, FormControlLabel, FormControl, Typography } from '@mui/material';
+import { Grid, Card, CardContent, Radio, RadioGroup, FormControlLabel, FormControl, Typography, Button } from '@mui/material';
 
 
 const CheckoutPage = () => {

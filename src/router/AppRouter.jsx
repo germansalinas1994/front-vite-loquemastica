@@ -29,13 +29,13 @@ const AppRouter = () => {
     const rol_sucursal = import.meta.env.VITE_APP_ROLE_SUCURSAL;
     const rol_client = import.meta.env.VITE_APP_ROLE_CLIENT;
 
-    useEffect(() => {
-        if (loading) {
-            showLoadingModal();
-        } else {
-            hideLoadingModal();
-        }
-    }, [loading]);
+    // useEffect(() => {
+    //     if (loading) {
+    //         showLoadingModal();
+    //     } else {
+    //         hideLoadingModal();
+    //     }
+    // }, [loading]);
 
 
 

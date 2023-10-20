@@ -2,22 +2,20 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { Box } from '@mui/material';
+import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
+
 
 export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
     const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
+    const [loading, setLoading] = useState(false);
+
 
     initMercadoPago(publicKey, { locale: 'es-AR' });
 
-    const customization = {
-        visual: {
-         
-            borderRadius: '6px',
-            horizontalpadding: '200px',
-        },
-    }
 
-    const [preferenceId, setpreferenceId] = useState(null);
+
 
 
     const transformarProducto = producto => ({
@@ -26,20 +24,20 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
     });
 
 
-    useEffect(() => {
-        const fetchPreferenceId = async () => {
-            debugger;
-            const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto); // Si es un carrito, transforma cada producto
 
-            debugger;
-            let responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend);
-            if (!preferenceId) {
-                setpreferenceId(responseapi.data.result.data);
-            }
-        };
 
-        fetchPreferenceId();
-    }, [carrito, productoIndividual, apiLocalKey, preferenceId]);
+    const handleCheckOutMercadoPago = async () => {
+        setLoading(true);
+        const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto); // Si es un carrito, transforma cada producto
+
+        let responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend);
+
+        // Abre el pago de MercadoPago en la misma ventana
+        window.location.href = responseapi.data.result.data;
+        setLoading(false);
+
+    }
+
 
     return (
         <>
@@ -47,9 +45,14 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
                 margin: '0 auto', // Esto centrará horizontalmente el Box
                 textAlign: 'center', // Esto centrará el contenido dentro del Box
             }} >
-                {preferenceId && <Wallet initialization={{preferenceId: preferenceId }} customization={customization} />}
-
+                <LoadingButton
+                    loading={loading}
+                    onClick={() => handleCheckOutMercadoPago()} variant="contained" sx={{
+                        marginTop: '35px', borderRadius: '10px', fontSize: '16px', fontWeight: 'bold', backgroundColor: 'primary', color: '#ffffff', width: '80%', height: '60px', textTransform: 'none'
+                    }}>IR AL PAGO</LoadingButton>
             </Box>
+
+
 
         </>
     );
