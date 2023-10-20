@@ -46,6 +46,8 @@ const ListadoCategoria = () => {
         };
 
         fetchCategorias();
+
+        //el reload es para que se ejecute el useEffect cada vez que cambia el valor de reload
     }, [reload]);
 
 

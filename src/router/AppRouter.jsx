@@ -37,7 +37,7 @@ const AppRouter = () => {
         }
     }, [loading]);
 
-    
+
 
     return (
         <div>
@@ -52,11 +52,21 @@ const AppRouter = () => {
                 <Route path="/about" element={<About />} />
                 <Route path="/cart" element={<Carrito />} />
                 <Route path="/logout" element={<Logout />} />
-                <Route path="/checkout" element={<CheckoutPage />} />
+                <Route path="/checkout" element={
+                    <CheckoutPage />
+                } />
+
+
+
+                {/* <Route path="/checkout" element={
+                    <ProtectedRoute roleRequired={rol_client}>
+                        <CheckoutPage />
+                    </ProtectedRoute>
+                } /> */}
 
 
                 <Route path="/prueba" element={
-                    <ProtectedRoute roleRequired= {rol_admin}>
+                    <ProtectedRoute roleRequired={rol_admin}>
                         <Prueba />
                     </ProtectedRoute>
                 } />
@@ -64,7 +74,7 @@ const AppRouter = () => {
                 {/* esto es para si no existe la ruta que se quiere acceder que redirija a acceso denegado */}
                 <Route path="*" element={<AccesoDenegado />} />
 
-                
+
             </Routes>
         </div>
     )

@@ -7,18 +7,13 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Box from '@mui/material/Box';
-
 import { useNavigate } from 'react-router-dom';
-import { useCarrito } from '../../components/Cart/CarritoProvider'; // importo el hook que me permite acceder al estado global del carrito
 import DetallePedido from '../DetallePedido';
 // implementacion api mercado pago 
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
-import { useState } from 'react';
-import axios from 'axios';
+import { Button } from '@mui/material';
 
-
-const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) => {
-    const apiLocalKey = import.meta.env.VITE_APP_API_KEY
+const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar,vaciar }) => {
 
     const navigate = useNavigate();
     // implementacion api mercado pago 
@@ -26,10 +21,8 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
 
     initMercadoPago(publicKey);
 
-    const [preferenceId, setpreferenceId] = useState(null);
-    const [prefetenceStatus, setpreferenceStatus] = useState(null);
-    const [wallet, setWallet] = useState(null);
-    const carrito = useCarrito().carrito;  //uso el hook para obtener solo las publicaciones(id) y cantidades del carrito
+
+
 
 
     const formatPrice = (price) => {
@@ -43,14 +36,7 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
         navigate('/checkout', { state: { carrito: publicacionesCarrito } });
     }
 
-    const handleMercadopago = async () => {
-        debugger;
-        let responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', carrito);
-        debugger;
-        setpreferenceId(responseapi.data.result.data);
 
-
-    }
 
     let total = 0;
     publicacionesCarrito.forEach(publicacion => {
@@ -104,14 +90,29 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar }) =>
                                 </IconButton>
                             </Box>
                         </CardContent>
+
                     </Card>
+
                 ))}
+                <Button
+                    sx={{
+                        margin: '20px auto 0',
+                        display: 'block'
+                    }}
+                    variant="outlined"
+                    color="primary"
+                    onClick={vaciar}
+                >
+                    Vaciar Carrito
+                </Button>
+
+
             </Box>
 
             {/* aca separe la logica de la parte derecha en un componente nuevo, esto es para que pueda ser consumido desde el carrito y el comprar ahora */}
             <DetallePedido items={publicacionesCarrito} checkout={handleCheckout} />
 
-            
+
         </Box>
     );
 }
@@ -138,49 +139,3 @@ export default CardCarrito;
 
 
 
-            {/* Mitad derecha con detalles del producto agregado */}
-            {/* <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', width: '40%', mr: '10%' }}>
-                <Card sx={{ display: 'flex', flexDirection: 'column', marginBottom: '15px', padding: 3, borderRadius: 3 }}>
-                    <Typography variant="h5" sx={{ marginBottom: '20px', fontWeight: 'bold' }}>Detalles del Pedido</Typography>
-                    <Divider sx={{ marginBottom: '20px', mt: 1 }} />
-                    {publicacionesCarrito.map((publicacion) => (
-                        <Box key={publicacion.idPublicacion} sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', marginTop: '10px' }}>
-                            <Typography variant="body1" sx={{ fontSize: '1.1em' }}>{publicacion.idProductoNavigation.nombre} ({publicacion.cantidad})</Typography>
-                            <Typography variant="body1" sx={{ fontSize: '1.1em' }}> {formatPrice(publicacion.precio * publicacion.cantidad)}</Typography>
-                        </Box>
-                    ))}
-                    <Divider sx={{ mt: 5 }} />
-
-                    <Box sx={{ display: 'flex', justifyContent: 'space-between', marginTop: '50px' }}>
-                        <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Total</Typography>
-                        <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{formatPrice(total)}</Typography>
-                    </Box>
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        // onClick={() => { handleMercadopago() }}
-                        onClick={handleCheckout}
-                        sx={{
-                            marginTop: '20px',
-                            textTransform: 'none', // Elimina las mayúsculas
-                            alignSelf: 'center',
-                            padding: '12px 50px', // Agrega más padding
-                            fontSize: '1.2em'     // Aumenta el tamaño de la fuente
-                        }}
-                    >
-                        Continuar compra
-                    </Button>
-
-
-                    {
-                        preferenceId && <Wallet initialization={{ preferenceId: preferenceId  }} />
-                    }
-
-
-
-
-                    { <Wallet initialization={{ preferenceId: '<PREFERENCE_ID>' }} /> }
-
-
-                </Card>
-            </Box> */}

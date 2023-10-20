@@ -13,7 +13,7 @@ const ListadoCarrito = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
     const carrito = useCarrito().carrito;  //uso el hook para obtener solo las publicaciones(id) y cantidades del carrito
 
-    const { aumentarCantidad, disminuirCantidad, eliminarDelCarrito } = useCarrito();
+    const { aumentarCantidad, disminuirCantidad, eliminarDelCarrito,vaciarCarrito } = useCarrito();
 
     const [publicacionesCarrito, setPublicacionesCarrito] = useState([]);
     const { showLoadingModal, hideLoadingModal } = LoadingModal();
@@ -133,12 +133,23 @@ const ListadoCarrito = () => {
 
     };
 
+    const limpiarCarrito = async () => {
+        // Lógica para vaciar el carrito
+
+        //vaciar el array de publicacionesCarrito que viene del backend
+        setPublicacionesCarrito([]);
+        //vaciar el carrito
+        vaciarCarrito();
+    }
+
+        
+
 
 
 
     return (
         <>
-            <CardCarrito publicacionesCarrito={publicacionesCarrito} disminuir={handleDisminuirCantidad} aumentar={handleAumentarCantidad} eliminar={handleEliminarPublicacion} />
+            <CardCarrito publicacionesCarrito={publicacionesCarrito} disminuir={handleDisminuirCantidad} aumentar={handleAumentarCantidad} eliminar={handleEliminarPublicacion} vaciar={limpiarCarrito} />
         </>
     );
 }
