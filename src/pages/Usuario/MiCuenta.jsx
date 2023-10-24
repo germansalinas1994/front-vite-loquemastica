@@ -64,6 +64,8 @@ const MiCuenta = () => {
         setValue("apellido", response.data.result.data.apellido);
         setValue("telefono", response.data.result.data.telefono);
         setValue("dni", response.data.result.data.dni);
+        setValue("email", response.data.result.data.email);
+
 
         debugger;
     }
@@ -98,7 +100,7 @@ const MiCuenta = () => {
                         setIsEditing(false);
                     }
                 })
-                
+
             }
             else {
                 Swal.fire({
@@ -140,6 +142,22 @@ const MiCuenta = () => {
                             </Tooltip>
                         </Box>
                     </Grid>
+
+                    <Grid item xs={12} md={12}>
+                        <Box sx={{ p: 3 }}>
+                            <TextField
+                                InputLabelProps={{ shrink: true }}
+                                fullWidth
+                                label="Email" {
+                                ...register("email",
+                                    {
+                                        disabled: true
+                                    }
+
+                                )} />
+                        </Box>
+                    </Grid>
+
                     <Grid item xs={12} md={6}>
                         <Box sx={{ p: 3 }}>
                             <TextField fullWidth
@@ -228,12 +246,13 @@ const MiCuenta = () => {
                         </Box>
                     </Grid>
 
+
                     <Grid item xs={12}>
 
                         <Box sx={{ p: 3, textAlign: 'center' }}>
                             {
                                 isEditing ?
-                                    <Button variant="contained" color="primary" type="submit">
+                                    <Button variant="contained" color="primary" type="submit" size="large">
                                         Guardar
                                     </Button>
                                     :

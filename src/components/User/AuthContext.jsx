@@ -34,6 +34,8 @@ export const AuthProvider = ({ children }) => {
 
 
         console.log(user);
+
+        debugger;
         //voy a llamar a la api para guardar el usuario en la base de datos
         
        const response = await axios.post(apiLocalKey + '/cargarUsuario', {nombreUsuario:user.name , email:user.email, imagenUsuario:user.picture});       
