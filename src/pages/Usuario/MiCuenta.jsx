@@ -2,8 +2,11 @@ import { Box, Card, Grid, TextField, Button, Typography } from "@mui/material";
 import axios from "axios";
 import LoadingModal from "../../components/LoadingModal";
 import { get, useForm } from "react-hook-form"
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuth0 } from '@auth0/auth0-react';
+import EditIcon from '@mui/icons-material/Edit';
+import Tooltip from "@mui/material/Tooltip";
+
 import Swal from "sweetalert2";
 
 
@@ -17,7 +20,29 @@ const MiCuenta = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm();
+    const [isEditing, setIsEditing] = useState(false);
 
+    const handleEditClick = () => {
+
+
+        //esto tambien lo puedo hacer con un if
+
+        // if (isEditing) {
+        //     setIsEditing(false);
+        // } else {
+        //     setIsEditing(true);
+        // }
+
+        //tambien lo puedo hacer con un if ternario
+
+        // setIsEditing(isEditing ? false : true);
+
+        //seteo el estado de isEditing con el valor contrario al que tiene actualmente
+        setIsEditing(!isEditing);
+
+
+
+    };
     //llamo al useEffect para que se ejecute cuando se renderiza el componente, para traer los datos del usuario
 
     useEffect(() => {
@@ -50,29 +75,28 @@ const MiCuenta = () => {
             //envio los datos del usuario a la api para que los guarde en la base de datos
             //tengo que enviar los datos del formulario
             data.email = user.email;
-            debugger;
 
             showLoadingModal();
 
-            debugger;
             const response = await axios.post(apiLocalKey + '/actualizarUsuario', data);
             hideLoadingModal();
             //pongo un swal para avisar que se guardaron los datos
             //si le da click en aceptar, lo redirijo escondo el modal de carga
-            Swal.fire({
-                icon: 'success',
-                title: 'Datos actualizados correctamente',
-                showConfirmButton: false,
-                allowOutsideClick: false,
-                showConfirmButton: true,
+            if (response.data.result.data != null) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Datos actualizados correctamente',
+                    allowOutsideClick: false,
+                    showConfirmButton: true,
 
 
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    debugger;
-                }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        setIsEditing(false);
+                    }
+                })
+                
             }
-            )
 
 
 
@@ -87,19 +111,22 @@ const MiCuenta = () => {
             console.error("Error al modificar el usuario:", error);
 
         }
-     
+
     }
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
 
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 15 }}>
-
                 <Grid container spacing={3} component={Card} sx={{ width: '80%', maxWidth: '1200px', height: 1, maxHeight: '1000px', borderRadius: 4 }}>
                     <Grid item xs={12}>
-                        <Box sx={{ p: 3 }}>
+                        <Box sx={{ p: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="h5" gutterBottom>
                                 Datos de la cuenta
                             </Typography>
+                            <Tooltip title="Editar datos">
+
+                                {<EditIcon onClick={handleEditClick} />} {/* Muestra el ícono de lápiz solo si no está en modo edición */}
+                            </Tooltip>
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -112,6 +139,7 @@ const MiCuenta = () => {
                                 {...register("nombre",
                                     {
                                         required: "El nombre es obligatorio",
+                                        disabled: !isEditing,
                                         pattern: {
                                             value: /^[a-zA-Z\s]*$/,
                                             message: "El nombre debe contener solo letras"
@@ -130,8 +158,14 @@ const MiCuenta = () => {
                             <TextField
                                 placeholder="Ingrese su apellido"
                                 InputLabelProps={{ shrink: true }}
-                                fullWidth 
-                                label="Apellido" {...register("apellido")} />
+                                fullWidth
+                                label="Apellido" {
+                                ...register("apellido",
+                                    {
+                                        disabled: !isEditing
+                                    }
+
+                                )} />
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -140,20 +174,22 @@ const MiCuenta = () => {
                                 label="Teléfono"
                                 placeholder="Ingrese su telefóno"
                                 InputLabelProps={{ shrink: true }}
-                                {...register("telefono",{
-                                    maxLength: {
-                                        value: 15,
-                                        message: "El telefóno debe ser un valor numérico de hasta 15 dígitos",
-                                    },
-                                    pattern: {
-                                        value: /^[0-9]{1,15}$/,
-                                        message: "El telefóno no debe tener puntos ni comas",
-                                    },
+                                {...register("telefono",
+                                    {
+                                        disabled: !isEditing,
+                                        maxLength: {
+                                            value: 15,
+                                            message: "El telefóno debe ser un valor numérico de hasta 15 dígitos",
+                                        },
+                                        pattern: {
+                                            value: /^[0-9]{1,15}$/,
+                                            message: "El telefóno no debe tener puntos ni comas",
+                                        },
 
-                                })}
+                                    })}
                                 error={Boolean(errors.telefono)}
                                 helperText={errors.telefono && errors.telefono.message}
-                                 />
+                            />
                         </Box>
                     </Grid>
                     <Grid item xs={12} md={6}>
@@ -165,6 +201,7 @@ const MiCuenta = () => {
                                 InputLabelProps={{ shrink: true }}
                                 {...register("dni", {
                                     // required: "El DNI es obligatorio",
+                                    disabled: !isEditing,
                                     maxLength: {
                                         value: 8,
                                         message: "El DNI debe ser un valor numérico de 8 dígitos",
@@ -179,11 +216,20 @@ const MiCuenta = () => {
                             />
                         </Box>
                     </Grid>
+
                     <Grid item xs={12}>
+
                         <Box sx={{ p: 3, textAlign: 'center' }}>
-                            <Button variant="contained" color="primary" type="submit">
-                                Guardar
-                            </Button>
+                            {
+                                isEditing ?
+                                    <Button variant="contained" color="primary" type="submit">
+                                        Guardar
+                                    </Button>
+                                    :
+                                    <></>
+
+                            }
+
                         </Box>
                     </Grid>
                 </Grid>
