@@ -3,7 +3,7 @@ import { AuthContext } from '../components/User/AuthContext';
 import { Navigate } from 'react-router-dom';
 import { useAuth0 } from "@auth0/auth0-react";
 
-const ProtectedRoute = ({ roleRequired, children }) => {
+const ProtectedRoute = ({ rolesRequired, children }) => {
   const { role, loading, initializationDone } = useContext(AuthContext);
 
   // Si la inicialización no ha terminado, no hagas nada.
@@ -11,8 +11,8 @@ const ProtectedRoute = ({ roleRequired, children }) => {
 
   if (loading) return null;
 
-  if (role && role.includes(roleRequired)) {
-      return children;
+  if (role && rolesRequired.some(requiredRole => role.includes(requiredRole))) {
+    return children;
   } else {
       return <Navigate to="/acceso_denegado" />;
   }

@@ -1,8 +1,6 @@
 // ModalFormCategoria.jsx
 
 import { Box, Typography, TextField, Button, Modal } from "@mui/material";
-import { useState } from "react";
-import theme from "../../layout/theme"
 
 const ModalFormCategoria = ({ open, handleClose, formData, handleChange, handleSubmit, errorNombre, errorDescripcion }) => {
     return (

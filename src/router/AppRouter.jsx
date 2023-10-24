@@ -15,6 +15,7 @@ import { AuthContext } from '../components/User/AuthContext';
 import { useContext, useEffect } from 'react';
 import AccesoDenegado from '../pages/AccesoDenegado';
 import CheckoutPage from '../pages/Pedido/CheckoutPage';
+import MiCuenta from '../pages/Usuario/MiCuenta';
 
 
 
@@ -53,10 +54,17 @@ const AppRouter = () => {
                 <Route path="/cart" element={<Carrito />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/checkout" element={
-                    <CheckoutPage />
+                    <ProtectedRoute rolesRequired={[rol_admin, rol_client]}>
+
+                        <CheckoutPage />
+                    </ProtectedRoute>
                 } />
 
-
+                <Route path="/cuenta" element={
+                    <ProtectedRoute rolesRequired={[rol_admin, rol_client]}>
+                        <MiCuenta />
+                    </ProtectedRoute>
+                } />
 
                 {/* <Route path="/checkout" element={
                     <ProtectedRoute roleRequired={rol_client}>
@@ -65,8 +73,8 @@ const AppRouter = () => {
                 } /> */}
 
 
-                <Route path="/prueba" element={
-                    <ProtectedRoute roleRequired={rol_admin}>
+                 <Route path="/prueba" element={
+                    <ProtectedRoute rolesRequired={[rol_admin, rol_client]}>
                         <Prueba />
                     </ProtectedRoute>
                 } />
