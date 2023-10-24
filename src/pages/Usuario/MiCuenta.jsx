@@ -75,14 +75,17 @@ const MiCuenta = () => {
             //envio los datos del usuario a la api para que los guarde en la base de datos
             //tengo que enviar los datos del formulario
             data.email = user.email;
-
+            //convierto el dni a un valor numerico para que no me lo tome como un string
+            data.dni = parseInt(data.dni);
+            debugger;
             showLoadingModal();
 
             const response = await axios.post(apiLocalKey + '/actualizarUsuario', data);
+            debugger;
             hideLoadingModal();
             //pongo un swal para avisar que se guardaron los datos
             //si le da click en aceptar, lo redirijo escondo el modal de carga
-            if (response.data.result.data != null) {
+            if (response.data.isError != true) {
                 Swal.fire({
                     icon: 'success',
                     title: 'Datos actualizados correctamente',
@@ -96,6 +99,14 @@ const MiCuenta = () => {
                     }
                 })
                 
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: response.data.message,
+                    footer: 'Intente nuevamente'
+                })
             }
 
 
