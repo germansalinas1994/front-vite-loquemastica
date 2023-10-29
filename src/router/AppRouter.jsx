@@ -16,6 +16,7 @@ import { useContext, useEffect } from 'react';
 import AccesoDenegado from '../pages/AccesoDenegado';
 import CheckoutPage from '../pages/Pedido/CheckoutPage';
 import MiCuenta from '../pages/Usuario/MiCuenta';
+import Domicilio from '../pages/Usuario/Domicilio';
 
 
 
@@ -30,13 +31,7 @@ const AppRouter = () => {
     const rol_sucursal = import.meta.env.VITE_APP_ROLE_SUCURSAL;
     const rol_client = import.meta.env.VITE_APP_ROLE_CLIENT;
 
-    // useEffect(() => {
-    //     if (loading) {
-    //         showLoadingModal();
-    //     } else {
-    //         hideLoadingModal();
-    //     }
-    // }, [loading]);
+
 
 
 
@@ -60,24 +55,28 @@ const AppRouter = () => {
                     </ProtectedRoute>
                 } />
 
+                <Route path="/direcciones" element={
+                    <ProtectedRoute rolesRequired={[rol_client]}>
+                        <Domicilio />
+                    </ProtectedRoute>
+                } />
+
+
+
                 <Route path="/cuenta" element={
-                    <ProtectedRoute rolesRequired={[rol_admin, rol_client]}>
+                    <ProtectedRoute rolesRequired={[rol_admin, rol_client, rol_sucursal]}>
                         <MiCuenta />
                     </ProtectedRoute>
                 } />
 
-                {/* <Route path="/checkout" element={
-                    <ProtectedRoute roleRequired={rol_client}>
-                        <CheckoutPage />
-                    </ProtectedRoute>
-                } /> */}
 
 
-                 <Route path="/prueba" element={
+
+                {/* <Route path="/prueba" element={
                     <ProtectedRoute rolesRequired={[rol_admin, rol_client]}>
                         <Prueba />
                     </ProtectedRoute>
-                } />
+                } /> */}
                 <Route path="/acceso_denegado" element={<AccesoDenegado />} />
                 {/* esto es para si no existe la ruta que se quiere acceder que redirija a acceso denegado */}
                 <Route path="*" element={<AccesoDenegado />} />

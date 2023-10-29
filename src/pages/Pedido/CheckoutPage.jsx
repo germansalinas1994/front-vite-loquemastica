@@ -17,7 +17,7 @@ const CheckoutPage = () => {
 
 
     return (
-        <Grid container spacing={0}>
+        <Grid container spacing={2}>
             {/* Card a la izquierda */}
             <Grid item xs={12} md={6}>
                 <Card sx={{ borderRadius: 2 }}>

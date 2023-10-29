@@ -12,8 +12,8 @@ import DetallePedido from '../DetallePedido';
 // implementacion api mercado pago 
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { Button } from '@mui/material';
-
-const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar,vaciar }) => {
+import Grid from '@mui/material/Grid';
+const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar, vaciar }) => {
 
     const navigate = useNavigate();
     // implementacion api mercado pago 
@@ -52,68 +52,73 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar,vacia
     }
 
     return (
-        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            {/* Mitad izquierda con productos agregados */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'left', justifyContent: 'left', width: '40%', ml: '5%' }}>
-                {publicacionesCarrito.map((publicacion) => (
-                    <Card key={publicacion.idPublicacion} sx={{ display: 'flex', marginBottom: '20px', borderRadius: 3, height: ' 190px' }}>
-                        <CardMedia
-                            component="img"
+        <Grid container spacing={2}>
+            {/* Card a la izquierda */}
+            <Grid item xs={12} md={6}>
+               
+
+                        {publicacionesCarrito.map((publicacion) => (
+                            <Card key={publicacion.idPublicacion} sx={{ display: 'flex', marginBottom: '20px', borderRadius: 3, height: ' 190px' }}>
+                                <CardMedia
+                                    component="img"
+                                    sx={{
+                                        width: '100px',
+                                        height: '100px',
+                                        objectFit: 'contain',
+                                        margin: 'auto 10px auto 20px'
+                                    }}
+                                    image={publicacion.idProductoNavigation.urlImagen}
+                                    alt={publicacion.idProductoNavigation.nombre}
+                                />
+                                <CardContent sx={{ flex: 1 }}>
+                                    <Typography variant="h5">{publicacion.idProductoNavigation.nombre}</Typography>
+                                    <Typography variant="body1" sx={{ marginTop: '5px', fontWeight: 'bold' }}>
+                                        {formatPrice(publicacion.precio)}
+                                    </Typography>
+                                    <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
+                                        <IconButton onClick={() => disminuir(publicacion.idPublicacion)}>
+                                            <RemoveIcon />
+                                        </IconButton>
+                                        <Typography>{publicacion.cantidad}</Typography>
+                                        <IconButton onClick={() => aumentar(publicacion.idPublicacion)}>
+                                            <AddIcon />
+                                        </IconButton>
+                                        <IconButton
+                                            edge="end"
+                                            sx={{ marginLeft: 'auto', color: 'red' }}
+                                            onClick={() => eliminar(publicacion.idPublicacion)}
+                                        >
+                                            <DeleteIcon />
+                                        </IconButton>
+                                    </Box>
+                                </CardContent>
+
+                            </Card>
+
+                        ))}
+                        <Button
                             sx={{
-                                width: '100px',
-                                height: '100px',
-                                objectFit: 'contain',
-                                margin: 'auto 10px auto 20px'
+                                margin: '20px auto 0',
+                                display: 'block'
                             }}
-                            image={publicacion.idProductoNavigation.urlImagen}
-                            alt={publicacion.idProductoNavigation.nombre}
-                        />
-                        <CardContent sx={{ flex: 1 }}>
-                            <Typography variant="h5">{publicacion.idProductoNavigation.nombre}</Typography>
-                            <Typography variant="body1" sx={{ marginTop: '5px', fontWeight: 'bold' }}>
-                                {formatPrice(publicacion.precio)}
-                            </Typography>
-                            <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
-                                <IconButton onClick={() => disminuir(publicacion.idPublicacion)}>
-                                    <RemoveIcon />
-                                </IconButton>
-                                <Typography>{publicacion.cantidad}</Typography>
-                                <IconButton onClick={() => aumentar(publicacion.idPublicacion)}>
-                                    <AddIcon />
-                                </IconButton>
-                                <IconButton
-                                    edge="end"
-                                    sx={{ marginLeft: 'auto', color: 'red' }}
-                                    onClick={() => eliminar(publicacion.idPublicacion)}
-                                >
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Box>
-                        </CardContent>
-
-                    </Card>
-
-                ))}
-                <Button
-                    sx={{
-                        margin: '20px auto 0',
-                        display: 'block'
-                    }}
-                    variant="outlined"
-                    color="primary"
-                    onClick={vaciar}
-                >
-                    Vaciar Carrito
-                </Button>
-
-
-            </Box>
-
+                            variant="outlined"
+                            color="primary"
+                            onClick={vaciar}
+                        >
+                            Vaciar Carrito
+                        </Button>
+   
+            </Grid>
             {/* aca separe la logica de la parte derecha en un componente nuevo, esto es para que pueda ser consumido desde el carrito y el comprar ahora */}
+
             <DetallePedido items={publicacionesCarrito} checkout={handleCheckout} />
 
+        </Grid>
 
-        </Box>
+
+
+
+
     );
 }
 
