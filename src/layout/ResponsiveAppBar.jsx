@@ -15,6 +15,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import BotonCarrito from '../components/Botones/BotonCarrito';
 import LoginButton from '../components/Botones/LoginButton';
 import { useAuth0 } from "@auth0/auth0-react";
+import Titulo from '../../public/Titulo.png';
 //importo el AuthContext para poder usar la imagen por ejemplo
 
 
@@ -75,33 +76,18 @@ function ResponsiveAppBar() {
     <Container maxWidth="xl">
       <Toolbar disableGutters>
 
-
-
-        {/* Aca esta el logo */}
-        <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
-          <PinterestIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-        </Link>
-
         {/* esto es el texto del logo */}
         {/* el boton me tiene que llevar a la pagina de inicio */}
         <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
-
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
+          <img
+            src={Titulo}
+            alt="Logo"
+            style={{
+              height: '50px',
+              width: 'auto',
+              display: 'block' // <-- Establece tamaños máximos para garantizar uniformidad
             }}
-          >
-            ECommerce
-          </Typography>
+          />
         </Link>
 
 
@@ -157,7 +143,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 component={Link}
                 to={page.route.toLowerCase()}
-                style={{ color: 'inherit', textDecoration: 'none' }}
+                style={{ color: 'primary', textDecoration: 'none' }}
               >
                 <Typography textAlign="center">{page.name}</Typography>
               </MenuItem>

@@ -8,14 +8,14 @@ const theme = createTheme({
       paper: '#F5F5F5',
     },
     text: {
-      primary: '#121214',
+      primary: '#29241C',
       secondary: '#696969',
       disabled: '#868686',
     },
 
     primary: {
      // Cambia estos valores según tus preferencias
-      main: '#4A7292',
+      main: '#FACA05',
       light: '#6E8EA7',
       dark: '#334F66',
       contrastText: '#FFFFFF',
