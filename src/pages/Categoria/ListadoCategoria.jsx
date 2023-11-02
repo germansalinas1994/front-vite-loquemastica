@@ -227,7 +227,7 @@ const ListadoCategoria = () => {
                         position: 'center',
                         icon: 'success',
                         allowOutsideClick: false,
-                        title: 'Usuario actualizado correctamente',
+                        title: 'Categoria creada correctamente',
                         showConfirmButton: true,
 
                     }).then((result) => {
@@ -236,6 +236,7 @@ const ListadoCategoria = () => {
                             //Revierte el valor de reload para que se vuelva a ejecutar el useEffect
                             //Cada vez que se cambia el valor de reload, se ejecuta el useEffect
                             hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+                            setReload(prev => !prev);
 
                         }
                     })
