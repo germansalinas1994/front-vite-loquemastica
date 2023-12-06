@@ -11,7 +11,7 @@ const LoginButton = () => {
 
   const { loginWithRedirect } = useAuth0();
 
-  return <Button size="large" variant='text' sx={{color:'white', ml:2 }} onClick={() => loginWithRedirect()}>Ingresar</Button>;
+  return <Button size="large" variant='text' sx={{color:'black', ml:2 }} onClick={() => loginWithRedirect()}>Ingresar</Button>;
 };
 
 export default LoginButton;
