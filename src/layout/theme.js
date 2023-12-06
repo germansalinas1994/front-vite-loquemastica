@@ -8,9 +8,11 @@ const theme = createTheme({
       paper: '#F5F5F5',
     },
     text: {
-      primary: '#29241C',
+      primary: '#1f0f0f',
       secondary: '#696969',
       disabled: '#868686',
+      hint: '#BDBDBD',
+      
     },
 
     primary: {
@@ -18,7 +20,8 @@ const theme = createTheme({
       main: '#FACA05',
       light: '#6E8EA7',
       dark: '#334F66',
-      contrastText: '#FFFFFF',
+      contrastText: '#1f0f0f',
+
     },
     secondary: {
       main: '#9C67AD',

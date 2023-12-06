@@ -143,7 +143,7 @@ function ResponsiveAppBar() {
                 onClick={handleCloseNavMenu}
                 component={Link}
                 to={page.route.toLowerCase()}
-                style={{ color: 'primary', textDecoration: 'none' }}
+                sx={{ color: '#1f0f0f', textDecoration: 'none' }}
               >
                 <Typography textAlign="center">{page.name}</Typography>
               </MenuItem>
@@ -158,7 +158,7 @@ function ResponsiveAppBar() {
           {pagesNav.map((page) => (
             <Link key={page.id} to={page.route.toLowerCase()} style={{ color: 'inherit', textDecoration: 'none' }}>
               <Button
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: 'black', display: 'block' }}
               >
                 {page.name}
               </Button>
