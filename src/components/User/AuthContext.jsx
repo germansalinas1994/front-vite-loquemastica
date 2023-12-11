@@ -2,6 +2,8 @@ import { createContext, useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import LoadingModal from '../../components/LoadingModal';
 import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 export const AuthContext = createContext();
 
@@ -25,8 +27,11 @@ export const AuthProvider = ({ children }) => {
       try {
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
         const tokenClaims = await getIdTokenClaims();
+        //guardo el token en una cookie
         debugger;
         setUserToken(tokenClaims.__raw);
+        //guardo el token en el local storage
+        localStorage.setItem('token', tokenClaims.__raw);
         setUserRole(tokenClaims.rol_usuario);
         setUserImage(tokenClaims.picture); // Nuevo estado para almacenar la imagen del usuario
 
@@ -53,6 +58,10 @@ export const AuthProvider = ({ children }) => {
       }
     } else if (!isLoading && !isAuthenticated) {
       //si no se logro la autenticacion y no esta cargando, se setea el estado en true para que pueda ir a la ruta invalida
+      //elimino el token del local storage
+      localStorage.removeItem('token');
+      //borro el carrito del local storage
+      localStorage.removeItem('carrito');
       setInitializationDone(true); // Establecer si no está autenticado
     }
   };

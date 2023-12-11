@@ -4,7 +4,7 @@ import { initMercadoPago, Wallet } from '@mercadopago/sdk-react';
 import { Box } from '@mui/material';
 import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
-
+import Cookies from 'js-cookie';
 
 export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
@@ -27,16 +27,28 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
 
 
     const handleCheckOutMercadoPago = async () => {
+        const token = localStorage.getItem('token');
+        debugger;
         setLoading(true);
-        const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto); // Si es un carrito, transforma cada producto
-
-        let responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend);
-
-        // Abre el pago de MercadoPago en la misma ventana
-        window.location.href = responseapi.data.result.data;
-        setLoading(false);
-
+    
+        try {
+            const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto);
+            const responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+    
+            // Abre el pago de MercadoPago en la misma ventana
+            window.location.href = responseapi.data.result.data;
+        } catch (error) {
+            console.error("Error al realizar el checkout:", error);
+            // Manejar el error (mostrar mensaje al usuario, etc.)
+        } finally {
+            setLoading(false);
+        }
     }
+    
 
 
     return (
@@ -48,7 +60,7 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
                 <LoadingButton
                     loading={loading}
                     onClick={() => handleCheckOutMercadoPago()} variant="contained" sx={{
-                        marginTop: '35px', borderRadius: '10px', fontSize: '16px', fontWeight: 'bold', backgroundColor: 'primary', color: '#ffffff', width: '80%', height: '60px', textTransform: 'none'
+                        marginTop: '35px', borderRadius: '10px', fontSize: '16px', fontWeight: 'bold', backgroundColor: 'primary', width: '80%', height: '60px', textTransform: 'none'
                     }}>IR AL PAGO</LoadingButton>
             </Box>
 

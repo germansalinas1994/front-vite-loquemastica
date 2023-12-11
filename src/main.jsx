@@ -16,32 +16,32 @@ import { CssBaseline } from '@mui/material';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-          <Auth0Provider
-          domain={import.meta.env.VITE_APP_AUTH0_DOMAIN}
-          clientId={import.meta.env.VITE_APP_AUTH0_CLIENT_ID}
-          redirectUri={window.location.origin}
-        >
-                <AuthProvider>
+    <Auth0Provider
+      domain={import.meta.env.VITE_APP_AUTH0_DOMAIN}
+      clientId={import.meta.env.VITE_APP_AUTH0_CLIENT_ID}
+      redirectUri={window.location.origin}
+    >
+      <AuthProvider>
 
-    {/* Para usar el ruteo de React, debemos envolver nuestra aplicación con el componente BrowserRouter, que es el que nos permite usar el hook useHistory */}
-    <BrowserRouter>
-      {/* para usar el carrito en toda la app, envuelvo la app con el provider del carrito */}
-      {/* con esto ya puedo usar el carrito en toda la app */}
+        {/* Para usar el ruteo de React, debemos envolver nuestra aplicación con el componente BrowserRouter, que es el que nos permite usar el hook useHistory */}
+        <BrowserRouter>
+          {/* para usar el carrito en toda la app, envuelvo la app con el provider del carrito */}
+          {/* con esto ya puedo usar el carrito en toda la app */}
 
-      <CarritoProvider>
-        {/* para usar el layout en toda la app, envuelvo la app con el layout */}
-     
+          <CarritoProvider>
+            {/* para usar el layout en toda la app, envuelvo la app con el layout */}
+
 
             <Layout>
               {/* esta es la app que se renderiza en el layout y usa el carrito */}
               <App />
 
             </Layout>
-      </CarritoProvider>
+          </CarritoProvider>
 
 
-    </BrowserRouter>
-    </AuthProvider>
+        </BrowserRouter>
+      </AuthProvider>
     </Auth0Provider>
 
   </React.StrictMode>
