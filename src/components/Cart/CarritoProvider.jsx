@@ -37,11 +37,9 @@ export const CarritoProvider = ({ children }) => {
         setCarrito(prevCarrito => {
             // Buscamos si el producto ya está en el carrito por el id del producto que recibimos
             const productoExistente = prevCarrito.find(p => p.id === producto.id);
-            debugger;
             // Si el producto existe, retornamos el estado anterior con la cantidad modificada, los tres puntos en react se llaman spread operator, y lo que hacen es copiar el objeto o array que le sigue
             // En este caso, estamos copiando el producto existente, y modificando la cantidad
             if (productoExistente) {
-                debugger;
                 return prevCarrito.map(p =>
                     p.id === producto.id
                         ? { ...p, cantidad: p.cantidad + producto.cantidad }
@@ -72,7 +70,6 @@ export const CarritoProvider = ({ children }) => {
     const disminuirCantidad = (idPublicacion) => {
         setCarrito(prevCarrito => {
             const producto = prevCarrito.find(p => p.id === idPublicacion);
-            debugger;
             if (producto) {
                 // Si la cantidad es mayor que 1, disminuye la cantidad
                 if (producto.cantidad > 1) {

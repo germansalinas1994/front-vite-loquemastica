@@ -6,16 +6,16 @@ import CardPublicacion from '../../components/Publicacion/CardPublicacion';
 import { Card } from '@mui/material';
 import ThemeContext from '../../layout/ThemeContext';
 import LoadingModal from '../../components/LoadingModal';
-import { useAuth0 } from "@auth0/auth0-react";
-import Cookies from 'js-cookie';
+import { SucursalContext } from '../../components/User/SucursalContext';
+
 
 
 const ListadoPublicacion = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
     const { isDarkTheme } = useContext(ThemeContext);
     const { showLoadingModal, hideLoadingModal } = LoadingModal();
-    const { getIdTokenClaims } = useAuth0();
 
+    const { sucursalSeleccionada } = useContext(SucursalContext);
 
 
 
@@ -23,7 +23,6 @@ const ListadoPublicacion = () => {
 
 
     useEffect(() => {
-        debugger;
         // Lógica para obtener las Publicaciones
         const fetchPublicaciones = async () => {
             // showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
@@ -31,15 +30,8 @@ const ListadoPublicacion = () => {
 
             try {
                 
-                const token = Cookies.get('token');
-                debugger;
    
-                const response = await axios.get(apiLocalKey + '/publicaciones', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                debugger;
+                const response = await axios.get(apiLocalKey + '/publicaciones', {params: {sucursal: sucursalSeleccionada}});
                 setPublicaciones(response.data.result.data)
                 hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
                 // hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
@@ -52,7 +44,7 @@ const ListadoPublicacion = () => {
         };
 
         fetchPublicaciones();
-    }, []);
+    }, [sucursalSeleccionada]);
 
 
     return (

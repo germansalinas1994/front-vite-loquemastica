@@ -31,7 +31,6 @@ const ListadoCarrito = () => {
         try {
             const response = await axios.post(apiLocalKey + '/publicacionesCarrito', carrito); // le paso el array de publicaciones del carrito
             setPublicacionesCarrito(response.data.result.data)
-            debugger;
             hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
 
         } catch (error) {
@@ -47,7 +46,6 @@ const ListadoCarrito = () => {
 
 
     const handleDisminuirCantidad = async (idPublicacion) => {
-        debugger;
         // Lógica para disminuir la cantidad
 
         //tengo que actulizar publicacionesCarrito que son las que vienen del back, la cantidad
@@ -60,7 +58,6 @@ const ListadoCarrito = () => {
 
         //primero busco la publicacion en el array de publicacionesCarrito
         const publicacion = publicacionesCarrito.find(p => p.idPublicacion === idPublicacion);
-        debugger;
         //si la encuentro, la modifico
         if (publicacion) {
             // Si la cantidad es mayor que 1, disminuye la cantidad

@@ -22,7 +22,6 @@ export default function BasicTable() {
 
 
   const GetCategorias = async () => {
-    debugger;
     try {
       const res = await axios.get(apiLocalKey + '/categorias')
       setCategorias(res.data.result.data)

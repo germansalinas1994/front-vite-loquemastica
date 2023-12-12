@@ -41,7 +41,6 @@ export default function NuevaCategoria() {
     };
 
     const handleInputChange = (key) => (e) => {
-        debugger;
         setFormData(prev => ({ ...prev, [key]: e.target.value }));
 
         // Check if the new value is valid (will also update error styles immediately)

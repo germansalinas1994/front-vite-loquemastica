@@ -89,7 +89,6 @@ const ListadoCategoria = () => {
         try {
             showLoadingModal();
             //Voy a buscar la categoria por id
-            debugger;
 
             const response = await axios.get(apiLocalKey + '/categoria/' + id);
             //Seteo el estado con los datos de la categoria
@@ -184,13 +183,11 @@ const ListadoCategoria = () => {
 
 
     const handleSubmit = async () => {
-        debugger;
 
         if (validaFormulario()) {
             // Función para cargar categoría
 
             try {
-                debugger;
                 handleCloseModal();
                 showLoadingModal();
 
@@ -243,7 +240,6 @@ const ListadoCategoria = () => {
 
                 }
 
-                debugger;
 
                 console.log(resp.data);  // Puedes ver la respuesta del servidor
 

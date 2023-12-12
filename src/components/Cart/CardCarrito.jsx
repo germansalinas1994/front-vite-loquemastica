@@ -32,7 +32,6 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar, vaci
 
 
     const handleCheckout = async () => {
-        debugger;
         navigate('/checkout', { state: { carrito: publicacionesCarrito } });
     }
 

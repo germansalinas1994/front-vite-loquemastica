@@ -38,6 +38,8 @@ const AppRouter = () => {
     return (
         <div>
             <Routes>
+    
+
                 <Route path="/" element={<ListadoPublicacion />} />
                 <Route path="/home" element={<ListadoPublicacion />} />
                 {/* <Route path="/productos" element={<ListadoProducto/>}/> */}

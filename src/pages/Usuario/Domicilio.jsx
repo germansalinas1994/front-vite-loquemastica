@@ -16,12 +16,10 @@ const Domicilios = () => {
 
     const getDomicilios = async () => {
         try {
-            debugger;
 
 
 
             const response = await axios.get(apiLocalKey + "/getDomicilios", { params: { email: user.email } });
-            debugger;
 
             if(response.data.result != null){
                 setDomicilios(response.data.result);

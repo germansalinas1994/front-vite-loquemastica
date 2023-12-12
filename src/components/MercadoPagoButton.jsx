@@ -28,7 +28,6 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
 
     const handleCheckOutMercadoPago = async () => {
         const token = localStorage.getItem('token');
-        debugger;
         setLoading(true);
     
         try {

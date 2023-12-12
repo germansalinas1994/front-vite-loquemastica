@@ -28,7 +28,6 @@ export const AuthProvider = ({ children }) => {
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
         const tokenClaims = await getIdTokenClaims();
         //guardo el token en una cookie
-        debugger;
         setUserToken(tokenClaims.__raw);
         //guardo el token en el local storage
         localStorage.setItem('token', tokenClaims.__raw);
@@ -40,7 +39,6 @@ export const AuthProvider = ({ children }) => {
 
         console.log(user);
 
-        debugger;
         //voy a llamar a la api para guardar el usuario en la base de datos
         
        const response = await axios.post(apiLocalKey + '/cargarUsuario', {nombreUsuario:user.name , email:user.email, imagenUsuario:user.picture});       

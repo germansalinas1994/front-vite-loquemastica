@@ -17,15 +17,20 @@ import { useAuth0 } from "@auth0/auth0-react";
 import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import PositionedSnackbar from "../../components/PositionedSnackbar";
+import { useContext } from "react";
+import { SucursalContext } from '../../components/User/SucursalContext';
 
 
 const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
+const sucursalGlobal = import.meta.env.VITE_APP_SUCURSAL_GENERICA;
 
 const Publicacion = () => {
     const navigate = useNavigate();
     const { isAuthenticated } = useAuth0();
     //import la funcion agregal al carrito del carrito provider
     const { agregarAlCarrito } = useCarrito();
+    const { sucursalSeleccionada } = useContext(SucursalContext);
+
 
     const { id } = useParams();
     const [publicacion, setPublicacion] = useState(null);
@@ -54,8 +59,11 @@ const Publicacion = () => {
         if (!isAuthenticated) {
             showSnackbar('Necesitas estar logueado para agregar al carrito');
         }
+        if (isAuthenticated && sucursalSeleccionada == sucursalGlobal) {
+            showSnackbar('Necesitas seleccionar una sucursal para agregar al carrito');
+        }
 
-        else {
+        if(isAuthenticated && sucursalSeleccionada != sucursalGlobal) {
             agregarAlCarrito({ id: publicacion.idPublicacion, cantidad: selectedQuantity });
         }
     }
@@ -63,8 +71,13 @@ const Publicacion = () => {
     //esta funcion me lleva a la page checkout, con la informacion de la publicacion, si es que estoy logueado
     const handleCheckout = () => {
         if (!isAuthenticated) {
-            showSnackbar('Necesitas estar logueado para realizar el checkout');
-        } else {
+            showSnackbar('Necesitas estar logueado para realizar la compra');
+        } 
+        if (isAuthenticated && sucursalSeleccionada == sucursalGlobal) {
+            showSnackbar('Necesitas seleccionar una sucursal para realizar la compra');
+        }
+                  
+        if(isAuthenticated && sucursalSeleccionada != sucursalGlobal) {
             //aca agarro el objeto publicacion, y le agrego la cantidad seleccionada, los dos puntos es para hacer una copia del objeto
             const productoConCantidad = {
                 ...publicacion,

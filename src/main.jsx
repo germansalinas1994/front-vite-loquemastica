@@ -11,6 +11,7 @@ import Layout from './layout/Layout.jsx';
 import { CarritoProvider } from './components/Cart/CarritoProvider.jsx';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { AuthProvider } from './components/User/AuthContext';
+import { SucursalProvider } from './components/User/SucursalContext';
 
 import { CssBaseline } from '@mui/material';
 
@@ -29,14 +30,16 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           {/* con esto ya puedo usar el carrito en toda la app */}
 
           <CarritoProvider>
-            {/* para usar el layout en toda la app, envuelvo la app con el layout */}
+            <SucursalProvider>
+              {/* para usar el layout en toda la app, envuelvo la app con el layout */}
 
 
-            <Layout>
-              {/* esta es la app que se renderiza en el layout y usa el carrito */}
-              <App />
+              <Layout>
+                {/* esta es la app que se renderiza en el layout y usa el carrito */}
+                <App />
 
-            </Layout>
+              </Layout>
+            </SucursalProvider>
           </CarritoProvider>
 
 
