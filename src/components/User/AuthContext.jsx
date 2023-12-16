@@ -22,10 +22,12 @@ export const AuthProvider = ({ children }) => {
   const { showLoadingModal, hideLoadingModal } = LoadingModal();
 
   const fetchTokenAndRole = async () => {
+    debugger;
 
     if (!isLoading && isAuthenticated) { 
       try {
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
+        debugger;
         const tokenClaims = await getIdTokenClaims();
         //guardo el token en una cookie
         setUserToken(tokenClaims.__raw);
@@ -58,6 +60,7 @@ export const AuthProvider = ({ children }) => {
       //si no se logro la autenticacion y no esta cargando, se setea el estado en true para que pueda ir a la ruta invalida
       //elimino el token del local storage
       localStorage.removeItem('token');
+      localStorage.setItem('sucursalSeleccionada',1)
       //borro el carrito del local storage
       localStorage.removeItem('carrito');
       setInitializationDone(true); // Establecer si no está autenticado

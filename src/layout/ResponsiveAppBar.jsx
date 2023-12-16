@@ -54,7 +54,7 @@ function ResponsiveAppBar() {
   const { user, isAuthenticated } = useAuth0();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const { sucursales, sucursalSeleccionada, setSucursalSeleccionada } = useContext(SucursalContext);
+  const { sucursales, sucursalSeleccionada, setSucursalSeleccionada,handleChangeSucursal } = useContext(SucursalContext);
 
 
 
@@ -184,7 +184,7 @@ function ResponsiveAppBar() {
 
             <Select
               value={sucursalSeleccionada}
-              onChange={(e) => setSucursalSeleccionada(e.target.value)}
+              onChange={(e) => handleChangeSucursal(e.target.value)}
               sx={{
                 '.MuiSelect-select': {
                   color: 'black', // Color del texto

@@ -8,6 +8,7 @@ function Logout() {
     //borro la cookie del token
     // Cookies.remove('token');
     localStorage.removeItem('token');
+    localStorage.setItem('sucursalSeleccionada',1)
 
 
     const { logout } = useAuth0()

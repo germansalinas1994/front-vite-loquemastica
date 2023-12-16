@@ -5,6 +5,7 @@ import axios from "axios";
 import { useCarrito } from '../../components/Cart/CarritoProvider'; // importo el hook que me permite acceder al estado global del carrito
 
 import CardCarrito from '../../components/Cart/CardCarrito';
+import Swal from 'sweetalert2';
 
 
 
@@ -13,7 +14,7 @@ const ListadoCarrito = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
     const carrito = useCarrito().carrito;  //uso el hook para obtener solo las publicaciones(id) y cantidades del carrito
 
-    const { aumentarCantidad, disminuirCantidad, eliminarDelCarrito,vaciarCarrito } = useCarrito();
+    const { aumentarCantidad, disminuirCantidad, eliminarDelCarrito, vaciarCarrito } = useCarrito();
 
     const [publicacionesCarrito, setPublicacionesCarrito] = useState([]);
     const { showLoadingModal, hideLoadingModal } = LoadingModal();
@@ -104,7 +105,7 @@ const ListadoCarrito = () => {
                     ? { ...p, cantidad: p.cantidad + 1 }
                     : p
             ));
-            
+
             //la aumento en el carrito
             aumentarCantidad(idPublicacion);
 
@@ -133,16 +134,51 @@ const ListadoCarrito = () => {
     const limpiarCarrito = async () => {
         // Lógica para vaciar el carrito
 
-        //vaciar el array de publicacionesCarrito que viene del backend
-        setPublicacionesCarrito([]);
-        //vaciar el carrito
-        vaciarCarrito();
+        try {
+            Swal.fire({
+                title: "¿Estás seguro que desea vaciar el carrito?",
+                text: "Se eliminarán todos los productos del carrito!",
+                icon: "warning",
+                showConfirmButton: true,
+
+                showCancelButton: true,
+                allowOutsideClick: false,
+                reverseButtons: true, //invierte la ubicacion de los botones confirmar y cancelar
+
+                // confirmButtonColor: theme.palette.primary.main,
+                // cancelButtonColor: theme.palette.primary.main,
+
+                confirmButtonText: 'Confirmar',
+                cancelButtonText: 'Cancelar'
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    //vaciar el array de publicacionesCarrito que viene del backend
+                    setPublicacionesCarrito([]);
+                    //vaciar el carrito
+                    vaciarCarrito();
+
+                    //muestro el msj de exito
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'success',
+                        allowOutsideClick: false,
+                        title: 'Se vació el carrito con éxito',
+                        showConfirmButton: true,
+                        confirmButtonText: 'Aceptar'
+                    })
+                }
+            })
+        } catch (error) {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                allowOutsideClick: false,
+                title: 'Hubo un error al vaciar el carrito',
+                showConfirmButton: true,
+            });
+        }
+
     }
-
-        
-
-
-
 
     return (
         <>

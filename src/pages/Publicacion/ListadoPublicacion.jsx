@@ -29,9 +29,17 @@ const ListadoPublicacion = () => {
             showLoadingModal();
 
             try {
+                // const token = localStorage.getItem('token');
+                // const headers = {
+                //     Authorization: `Bearer ${token}`
+                // };
+                // debugger;
                 
-   
-                const response = await axios.get(apiLocalKey + '/publicaciones', {params: {sucursal: sucursalSeleccionada}});
+                const response = await axios.get(apiLocalKey + '/publicaciones', {
+                    // headers: headers,
+                    params: { sucursal: sucursalSeleccionada }
+                });
+                // const response = await axios.get(apiLocalKey + '/publicaciones', {params: {sucursal: sucursalSeleccionada}},);
                 setPublicaciones(response.data.result.data)
                 hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
                 // hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
