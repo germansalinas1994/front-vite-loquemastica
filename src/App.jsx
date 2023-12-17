@@ -1,24 +1,9 @@
-
 import 'animate.css'
-import AppRouter from './router/AppRouter';
-
-
-
-
-// import './css/App.css'
+import AppRouter from './router/AppRouter'
 
 function App() {
-
-
-
-
-
-
-
-
   return (
     <AppRouter />
-
   )
 }
 

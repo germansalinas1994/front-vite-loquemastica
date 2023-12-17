@@ -3,19 +3,15 @@
 // import axios from "axios";
 // import LoadingModal from "../../components/LoadingModal";
 
-
 // import {
 //     Typography, Button, TextField, Box, Modal
 // } from "@mui/material";
 
-
 // const ListadoProducto = () => {
 //     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
 
-
 //     const [productos, setProductos] = useState([]);
 //     const { showLoadingModal, hideLoadingModal } = LoadingModal();
-
 
 //     useEffect(() => {
 //         // Lógica para obtener las categorías
@@ -23,7 +19,7 @@
 //             showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
 
 //             try {
-//                 debugger;
+//                  ;
 
 //                 const response = await axios.get(apiLocalKey + '/categorias');
 //                 setProductos(response.data.result.data)
@@ -37,15 +33,6 @@
 
 //         fetchProductos();
 //     }, []);
-
-
-
-
-
-
-
-
-
 
 //     return (
 //         <>
@@ -74,6 +61,5 @@
 
 //     )
 // }
-
 
 // export default ListadoProducto

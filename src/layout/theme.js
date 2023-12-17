@@ -1,22 +1,23 @@
-import { createTheme } from '@mui/material';
+import { createTheme } from '@mui/material'
 
 const theme = createTheme({
   palette: {
     background: {
-      
+
       default: '#EEEEEE',
       paper: '#F5F5F5',
+      secondary: '#FFFFFF',
     },
     text: {
-      primary: '#1f0f0f',
+      primary: '#411d1d',
       secondary: '#696969',
       disabled: '#868686',
       hint: '#BDBDBD',
-      
+
     },
 
     primary: {
-     // Cambia estos valores según tus preferencias
+      // Cambia estos valores según tus preferencias
       main: '#FACA05',
       light: '#6E8EA7',
       dark: '#334F66',
@@ -24,10 +25,10 @@ const theme = createTheme({
 
     },
     secondary: {
-      main: '#9C67AD',
+      main: '#4A6C6F',
       light: '#AF85BD',
-      dark: '#6D4879',
-      contrastText: '#FFFFFF',
+      dark: '#2f4c4f',
+      contrastText: '#fdfdfd',
     },
     error: {
       main: '#D32F2F',
@@ -55,13 +56,9 @@ const theme = createTheme({
     },
     // divider: '#141313',
 
-    
-    
     // ... otros colores y opciones
   },
   // ... otras opciones del tema
-});
+})
 
-
-
-export default theme;
+export default theme

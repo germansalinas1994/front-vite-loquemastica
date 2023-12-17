@@ -1,62 +1,77 @@
-import * as React from 'react';
-import Grid from '@mui/material/Grid';
-import { useState, useEffect,useContext} from 'react';
-import axios from 'axios';
-import CardPublicacion from '../../components/Publicacion/CardPublicacion';
-import { Card } from '@mui/material';
-import ThemeContext from '../../layout/ThemeContext';
-import LoadingModal from '../../components/LoadingModal';
+import * as React from 'react'
+import Grid from '@mui/material/Grid'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import { Box, Typography } from '@mui/material'
+import CardPublicacion from '../../components/Publicacion/CardPublicacion'
+import LoadingModal from '../../components/LoadingModal'
+import GenericCard from '../../layout/GenericCard'
+import ResultOfSearch from './ResultOfSearch'
+import FilterComponent from './FilterComponent'
+import SearchBar from './SearchBar'
 
+function ListadoPublicacion() {
+  const apiLocalKey = import.meta.env.VITE_APP_API_KEY
+  const { showLoadingModal, hideLoadingModal } = LoadingModal()
+  const [publicaciones, setPublicaciones] = useState([])
+  const [filterValue, setFilterValue] = useState('')
 
-const ListadoPublicacion = () => {
-    const apiLocalKey = import.meta.env.VITE_APP_API_KEY
-    const { isDarkTheme } = useContext(ThemeContext);
-    const { showLoadingModal, hideLoadingModal } = LoadingModal();
+  useEffect(() => {
+    // Lógica para obtener las Publicaciones
+    const fetchPublicaciones = async () => {
+      showLoadingModal()
 
+      try {
+        const response = await axios.get(`${apiLocalKey}/publicaciones`)
+        console.log(response)
 
+        setPublicaciones(response.data.result.data)
+        hideLoadingModal() // <-- Ocultar el modal cuando la operación ha concluido
+        // hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+      } catch (error) {
+        hideLoadingModal() // <-- Ocultar el modal cuando la operación ha concluido
+        console.log(error)
+      }
+    }
 
-    const [publicaciones, setPublicaciones] = useState([]);
+    fetchPublicaciones()
+  }, [])
 
+  console.log(publicaciones)
 
-    useEffect(() => {
-        debugger;
-        // Lógica para obtener las Publicaciones
-        const fetchPublicaciones = async () => {
-            // showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
-            showLoadingModal();
-
-            try {
-                debugger;
-                const response = await axios.get(apiLocalKey + '/publicaciones');
-                debugger;
-                setPublicaciones(response.data.result.data)
-                hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
-                // hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
-
-            } catch (error) {
-
-                hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
-                console.log(error);
-            }
-        };
-
-        fetchPublicaciones();
-    }, []);
-
-
+  if (publicaciones.length === 0) {
     return (
+      <Box sx={{
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh',
+      }}
+      >
+        <Typography variant='h5' sx={{ marginBottom: '20px' }}>No se han agregado publicaciones</Typography>
+      </Box>
+    )
+  }
+  if (publicaciones && publicaciones.length > 0) {
+    return (
+      <GenericCard>
 
-        <Card container sx={{      
-        backgroundColor: isDarkTheme ? '#000000' : '#F5F5F5', 
-        borderRadius:2,
-        padding: '20px 10px', display:'flex'}}>
-    {/* //el flexgrow es para que se estire y ocupe todo el espacio disponible */}
-            <Grid container spacing={2} justifyContent="center" sx={{display:'flex', maxWidth:1, backgroundColor:'primary', mb:15}}>
-                <CardPublicacion publicaciones={publicaciones} />
-            </Grid>
-        </Card>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <SearchBar />
+          <ResultOfSearch searchResults={publicaciones} />
+          <FilterComponent filterValue={filterValue} setFilterValue={setFilterValue} />
+        </div>
+        <Grid
+          container
+          spacing={2}
+          justifyContent='center'
+          sx={{
+            display: 'flex', maxWidth: 1, backgroundColor: 'primary', mb: 15,
+          }}
+        >
+          <CardPublicacion publicaciones={publicaciones} />
+        </Grid>
+      </GenericCard>
 
     )
+  }
 }
 
 export default ListadoPublicacion

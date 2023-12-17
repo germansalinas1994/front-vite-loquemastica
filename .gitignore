@@ -27,9 +27,15 @@ dist/
 /.eslintrc
 /.eslintrc.js
 /.eslintrc.json
+/.eslintrc.cjs
 
 # Dependencias generadas por Jest
 /jest.config.js
 
 # Dependencias generadas por webpack
 /webpack.config.js
+
+# Dependencias generadas por 
+./package.json
+./package-lock.json
+./yarn.lock
