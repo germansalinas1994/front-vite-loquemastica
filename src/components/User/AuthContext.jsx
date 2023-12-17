@@ -1,7 +1,9 @@
-import { createContext, useState, useEffect } from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
-import axios from 'axios'
-import LoadingModal from '../LoadingModal'
+import { createContext, useState, useEffect } from 'react';
+import { useAuth0 } from '@auth0/auth0-react';
+import LoadingModal from '../../components/LoadingModal';
+import axios from 'axios';
+import Cookies from 'js-cookie';
+
 
 export const AuthContext = createContext()
 
@@ -24,17 +26,25 @@ export function AuthProvider({ children }) {
     if (!isLoading && isAuthenticated) {
       try {
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
-        const tokenClaims = await getIdTokenClaims()
+        debugger;
+        const tokenClaims = await getIdTokenClaims();
+        //guardo el token en una cookie
+        setUserToken(tokenClaims.__raw);
+        //guardo el token en el local storage
+        localStorage.setItem('token', tokenClaims.__raw);
+        setUserRole(tokenClaims.rol_usuario);
+        setUserImage(tokenClaims.picture); // Nuevo estado para almacenar la imagen del usuario
 
-        setUserToken(tokenClaims.__raw)
-        setUserRole(tokenClaims.rol_usuario)
-        setUserImage(tokenClaims.picture) // Nuevo estado para almacenar la imagen del usuario
 
-        console.log(user)
 
-        // voy a llamar a la api para guardar el usuario en la base de datos
 
-        const response = await axios.post(`${apiLocalKey}/cargarUsuario`, { nombreUsuario: user.name, email: user.email, imagenUsuario: user.picture })
+        console.log(user);
+
+        //voy a llamar a la api para guardar el usuario en la base de datos
+        
+       const response = await axios.post(apiLocalKey + '/cargarUsuario', {nombreUsuario:user.name , email:user.email, imagenUsuario:user.picture});       
+
+
 
         if (tokenClaims.rol_usuario.length == 0) {
           window.location.reload()
@@ -46,8 +56,13 @@ export function AuthProvider({ children }) {
         setInitializationDone(true) // Establecer cuando todo esté listo
       }
     } else if (!isLoading && !isAuthenticated) {
-      // si no se logro la autenticacion y no esta cargando, se setea el estado en true para que pueda ir a la ruta invalida
-      setInitializationDone(true) // Establecer si no está autenticado
+      //si no se logro la autenticacion y no esta cargando, se setea el estado en true para que pueda ir a la ruta invalida
+      //elimino el token del local storage
+      localStorage.removeItem('token');
+      localStorage.setItem('sucursalSeleccionada',1)
+      //borro el carrito del local storage
+      localStorage.removeItem('carrito');
+      setInitializationDone(true); // Establecer si no está autenticado
     }
   }
 

@@ -17,7 +17,6 @@ const theme = createTheme({
     },
 
     primary: {
-      // Cambia estos valores según tus preferencias
       main: '#FACA05',
       light: '#6E8EA7',
       dark: '#334F66',

@@ -19,7 +19,7 @@
 //             showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
 
 //             try {
-//                  ;
+//                 debugger;
 
 //                 const response = await axios.get(apiLocalKey + '/categorias');
 //                 setProductos(response.data.result.data)

@@ -1,35 +1,43 @@
-import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import Box from '@mui/material/Box'
-import Card from '@mui/material/Card'
-import CardMedia from '@mui/material/CardMedia'
-import CardContent from '@mui/material/CardContent'
-import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
-import Select from '@mui/material/Select'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import { useAuth0 } from '@auth0/auth0-react'
-import { useCarrito } from '../../components/Cart/CarritoProvider'
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import axios from 'axios';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import { useCarrito } from "../../components/Cart/CarritoProvider";
+import { useAuth0 } from "@auth0/auth0-react";
+import Swal from 'sweetalert2'
+import { useNavigate } from "react-router-dom";
+import PositionedSnackbar from "../../components/PositionedSnackbar";
+import { useContext } from "react";
+import { SucursalContext } from '../../components/User/SucursalContext';
 
-import PositionedSnackbar from '../../components/PositionedSnackbar'
 
-const apiLocalKey = import.meta.env.VITE_APP_API_KEY
+const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
+const sucursalGlobal = import.meta.env.VITE_APP_SUCURSAL_GENERICA;
 
-function Publicacion() {
-  const navigate = useNavigate()
-  const { isAuthenticated } = useAuth0()
-  // import la funcion agregal al carrito del carrito provider
-  const { agregarAlCarrito } = useCarrito()
+const Publicacion = () => {
+    const navigate = useNavigate();
+    const { isAuthenticated } = useAuth0();
+    //import la funcion agregal al carrito del carrito provider
+    const { agregarAlCarrito } = useCarrito();
+    const { sucursalSeleccionada } = useContext(SucursalContext);
 
-  const { id } = useParams()
-  const [publicacion, setPublicacion] = useState(null)
-  const [selectedQuantity, setSelectedQuantity] = useState(1)
 
-  const arrayQuantity = [1, 2, 3, 4, 5, 6]
+    const { id } = useParams();
+    const [publicacion, setPublicacion] = useState(null);
+    const [selectedQuantity, setSelectedQuantity] = useState(1);
+
+    const arrayQuantity = [1, 2, 3, 4, 5, 6];
+
 
   useEffect(() => {
     fetchPublicacion()
@@ -45,27 +53,38 @@ function Publicacion() {
     }
   }
 
-  const handleAgregarAlCarrito = () => {
-    if (!isAuthenticated) {
-      showSnackbar('Necesitas estar logueado para agregar al carrito')
-    } else {
-      agregarAlCarrito({ id: publicacion.idPublicacion, cantidad: selectedQuantity })
-    }
-  }
+    const handleAgregarAlCarrito = () => {
+        debugger;
 
-  // esta funcion me lleva a la page checkout, con la informacion de la publicacion,
-  //  si es que estoy logueado
-  const handleCheckout = () => {
-    if (!isAuthenticated) {
-      showSnackbar('Necesitas estar logueado para realizar el checkout')
-    } else {
-      // aca agarro el objeto publicacion, y le agrego la cantidad seleccionada,
-      //  los dos puntos es para hacer una copia del objeto
-      const productoConCantidad = {
-        ...publicacion,
-        cantidad: selectedQuantity,
-      }
-      navigate('/checkout', { state: { productoSeleccionado: productoConCantidad } })
+        if (!isAuthenticated) {
+            showSnackbar('Necesitas estar logueado para agregar al carrito');
+        }
+        if (isAuthenticated && sucursalSeleccionada == sucursalGlobal) {
+            showSnackbar('Necesitas seleccionar una sucursal para agregar al carrito');
+        }
+
+        if(isAuthenticated && sucursalSeleccionada != sucursalGlobal) {
+            agregarAlCarrito({ id: publicacion.idPublicacion, cantidad: selectedQuantity });
+        }
+    }
+
+    //esta funcion me lleva a la page checkout, con la informacion de la publicacion, si es que estoy logueado
+    const handleCheckout = () => {
+        if (!isAuthenticated) {
+            showSnackbar('Necesitas estar logueado para realizar la compra');
+        } 
+        if (isAuthenticated && sucursalSeleccionada == sucursalGlobal) {
+            showSnackbar('Necesitas seleccionar una sucursal para realizar la compra');
+        }
+                  
+        if(isAuthenticated && sucursalSeleccionada != sucursalGlobal) {
+            //aca agarro el objeto publicacion, y le agrego la cantidad seleccionada, los dos puntos es para hacer una copia del objeto
+            const productoConCantidad = {
+                ...publicacion,
+                cantidad: selectedQuantity
+            };
+            navigate('/checkout', { state: { productoSeleccionado: productoConCantidad } });
+        }
     }
   }
 

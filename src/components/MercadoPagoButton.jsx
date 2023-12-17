@@ -3,7 +3,7 @@ import axios from 'axios'
 import { initMercadoPago, Wallet } from '@mercadopago/sdk-react'
 import { Box } from '@mui/material'
 import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
+import LoadingButton from '@mui/lab/LoadingButton'import Cookies from 'js-cookie';
 
 export function MercadoPagoButton({ carrito, productoIndividual }) {
   const apiLocalKey = import.meta.env.VITE_APP_API_KEY
@@ -17,16 +17,30 @@ export function MercadoPagoButton({ carrito, productoIndividual }) {
     cantidad: producto.cantidad,
   })
 
-  const handleCheckOutMercadoPago = async () => {
-    setLoading(true)
-    const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto) // Si es un carrito, transforma cada producto
+    const handleCheckOutMercadoPago = async () => {
+        const token = localStorage.getItem('token');
+        debugger;
+        setLoading(true);
+    
+        try {
+            const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto);
+            const responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+    
+            // Abre el pago de MercadoPago en la misma ventana
+            window.location.href = responseapi.data.result.data;
+        } catch (error) {
+            console.error("Error al realizar el checkout:", error);
+            // Manejar el error (mostrar mensaje al usuario, etc.)
+        } finally {
+            setLoading(false);
+        }
+    }
+    
 
-    const responseapi = await axios.post(`${apiLocalKey}/publicacionesCarritoMP`, dataToSend)
-
-    // Abre el pago de MercadoPago en la misma ventana
-    window.location.href = responseapi.data.result.data
-    setLoading(false)
-  }
 
   return (
     <Box

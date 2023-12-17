@@ -205,18 +205,21 @@ function ListadoCategoria() {
             position: 'center',
             icon: 'success',
             allowOutsideClick: false,
-            title: 'Usuario actualizado correctamente',
+            title: 'Categoria creada correctamente',
             showConfirmButton: true,
 
-          }).then((result) => {
-            if (result.isConfirmed) {
-              // aca deberia recargar el componente para que se vea la nueva categoria
-              // Revierte el valor de reload para que se vuelva a ejecutar el useEffect
-              // Cada vez que se cambia el valor de reload, se ejecuta el useEffect
-              hideLoadingModal() // <-- Ocultar el modal cuando la operación ha concluido
-            }
-          })
-        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            //aca deberia recargar el componente para que se vea la nueva categoria
+                            //Revierte el valor de reload para que se vuelva a ejecutar el useEffect
+                            //Cada vez que se cambia el valor de reload, se ejecuta el useEffect
+                            hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+                            setReload(prev => !prev);
+
+                        }
+                    })
+
+                }
 
         console.log(resp.data) // Puedes ver la respuesta del servidor
 

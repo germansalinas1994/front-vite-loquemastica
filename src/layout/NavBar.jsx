@@ -62,8 +62,8 @@ function NavBar({ children }) {
   const navigate = useNavigate()
 
   const handleNavigation = (route) => {
-    navigate(route)
-    // este metodo es para cerrar el menu cuando se hace click en un item
+    navigate(route);
+    //este metodo es para cerrar el menu cuando se hace click en un item
     // handleDrawerClose();
   }
 
