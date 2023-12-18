@@ -59,7 +59,15 @@ const MiCuenta = () => {
     }, []);
 
     const getUserData = async () => {
-        const response = await axios.get(apiLocalKey + '/getUsuario', { params: { email: user.email } });
+        const token = localStorage.getItem('token');
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
+
+        const response = await axios.get(apiLocalKey + '/getUsuario',
+            {
+                headers: headers,
+            });
         setValue("nombre", response.data.result.data.nombre);
         setValue("apellido", response.data.result.data.apellido);
         setValue("telefono", response.data.result.data.telefono);
