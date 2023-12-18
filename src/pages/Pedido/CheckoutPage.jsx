@@ -2,49 +2,190 @@
 import { useLocation } from 'react-router-dom';
 import DetallePedido from '../../components/DetallePedido';
 import { useCarrito } from '../../components/Cart/CarritoProvider';
-import { MercadoPagoButton } from '../../components/MercadoPagoButton';
-import { Grid, Card, CardContent, Radio, RadioGroup, FormControlLabel, FormControl, Typography, Button } from '@mui/material';
+// import { MercadoPagoButton } from '../../components/MercadoPagoButton';
+import { Grid } from '@mui/material';
+import DetalleEnvio from '../../components/DetalleEnvio';
+import { useState,useEffect } from 'react';
+import { useForm } from "react-hook-form"
+import axios from 'axios';
+import LoadingModal from '../../components/LoadingModal';
+import ModalFormDomicilio from '../../components/User/ModalFormDomicilio';
+import Swal from 'sweetalert2';
 
 
 const CheckoutPage = () => {
+    const apiLocalKey = import.meta.env.VITE_APP_API_KEY
+    const { showLoadingModal, hideLoadingModal } = LoadingModal();
+    const [openModal, setOpenModal] = useState(false);
+    const [reload, setReload] = useState(false);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+        reset,
+        setValue,
+    } = useForm();
     const carrito = useCarrito().carrito;
+
 
     const location = useLocation();
     const productoSeleccionado = location.state?.productoSeleccionado;
     const carritoDesdeNavegacion = location.state?.carrito;
 
+    //Logica para el manejo del envío
 
+    const [envioSeleccionado, setEnvioSeleccionado] = useState("sucursal");
+    const [domicilios, setDomicilios] = useState([]); // Suponiendo que cargas los domicilios desde algún lugar
+    const [domicilioSeleccionado, setDomicilioSeleccionado] = useState("0");
+    const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+
+
+    //el domicilio debe tener un idDomicilio y un nombre
+
+    useEffect(() => {
+        // Lógica para obtener las Publicaciones
+        const fetchDomilicios = async () => {
+            // showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
+            showLoadingModal();
+
+            try {
+                const token = localStorage.getItem('token');
+                const headers = {
+                    Authorization: `Bearer ${token}`
+                };
+                // debugger;
+                
+                const response = await axios.get(apiLocalKey + '/domicilios', {
+                    headers: headers,
+                });
+
+                setDomicilios(response.data.result)
+                hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+                // hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+
+            } catch (error) {
+
+                hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+                console.log(error);
+            }
+        };
+
+        fetchDomilicios();
+    }, [reload]);
+
+     // Actualiza el estado del botón cada vez que cambian envioSeleccionado o domicilioSeleccionado
+     useEffect(() => {
+        if(envioSeleccionado === "sucursal"){
+            setIsButtonDisabled(false);
+            return;
+        }
+        if(envioSeleccionado === "domicilio" && domicilioSeleccionado !== "0"){
+            setIsButtonDisabled(false);
+            return;
+        }
+        setIsButtonDisabled(true);
+    }, [envioSeleccionado, domicilioSeleccionado]);
+
+
+
+    const handleEnvioChange = (event) => {
+        debugger;
+        setEnvioSeleccionado(event.target.value);
+        if (event.target.value == "sucursal") {
+            setValue("domicilio", "0", { shouldValidate: true });
+            setDomicilioSeleccionado("0");
+        }
+
+    };
+
+    const handleDomicilioChange = (event) => {
+        debugger;
+        setValue("domicilio", event.target.value, { shouldValidate: true });
+        setDomicilioSeleccionado(event.target.value);
+    }
+
+
+    //logica del modal 
+
+    const handleAgregarDomicilio = () => {
+        //se muestra el modal
+        setOpenModal(true);
+
+    };
+
+    const handleCloseModal = async (event, reason) => {
+        if (reason == 'backdropClick') {
+            return;
+        }
+
+        // Si se hace click en el botón de cancelar o en la X, se cierra el modal y se resetea el formulario
+
+        reset();
+        await setOpenModal(false);
+    };
+
+
+    const onSubmit = async (data) => {
+        handleCloseModal();
+        try {
+            showLoadingModal();
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+            //si esta seguro, elimino la categoria
+            const response = await axios.post(apiLocalKey + "/domicilio", data,{
+                headers: headers,
+            }
+            
+            );
+            //muestro el msj de exito
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                allowOutsideClick: false,
+                title: "Domicilio agregado correctamente",
+                showConfirmButton: true,
+                confirmButtonText: "Aceptar",
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    //aca deberia recargar el componente para que se vea la nueva categoria
+                    //Revierte el valor de reload para que se vuelva a ejecutar el useEffect
+                    //Cada vez que se cambia el valor de reload, se ejecuta el useEffect
+                    setReload((prev) => !prev);
+                    hideLoadingModal();
+                }
+            });
+        } catch (error) {
+            hideLoadingModal();
+            Swal.fire({
+                position: "center",
+                icon: "error",
+                allowOutsideClick: false,
+                title: "Hubo un error al agregar el domicilio",
+                showConfirmButton: true,
+                confirmButtonText: "Aceptar",
+            });
+        }
+    };
 
 
     return (
         <Grid container spacing={2}>
             {/* Card a la izquierda */}
-            <Grid item xs={12} md={6}>
-                <Card sx={{ borderRadius: 2 }}>
-                    <CardContent>
-                        <Typography variant="h6">¿Cómo querés recibir o retirar tu compra?</Typography>
-                        <Typography variant="body1" sx={{ marginBottom: '20px' }}>Domicilio</Typography>
-                        <Typography variant="body2" sx={{ marginBottom: '20px' }}>Calle 40 735</Typography>
-                        <Typography variant="body2" sx={{ marginBottom: '20px' }}>C.P. 1900 - La Plata, Buenos Aires</Typography>
-                        <Typography variant="body2" sx={{ marginBottom: '20px' }}>German Salinas - 2214202798</Typography>
-
-                        {/* Radio buttons para elección de envío */}
-                        <FormControl component="fieldset" sx={{ marginTop: '20px', textAlign: 'center' }}>
-                            <RadioGroup name="shippingOption" defaultValue="domicilio">
-                                <FormControlLabel value="domicilio" control={<Radio />} label="Llega el sábado a tu domicilio - Gratis" />
-                                <FormControlLabel value="sucursal" control={<Radio />} label="Llega el lunes a tu domicilio - Gratis" />
-                            </RadioGroup>
-                        </FormControl>
-
-                        {/* Botón de MercadoPago */}
-                        <MercadoPagoButton carrito={carritoDesdeNavegacion} productoIndividual={productoSeleccionado} />
-                    </CardContent>
-                </Card>
-            </Grid>
-
+            <DetalleEnvio domicilios={domicilios} envioSeleccionado={envioSeleccionado} handleEnvioChange={handleEnvioChange} onDomicilioChange={handleDomicilioChange} handleAgregarDomicilio={handleAgregarDomicilio} register= {register} errors = {errors} />
+            <ModalFormDomicilio
+                    open={openModal}
+                    handleClose={handleCloseModal}
+                    onSubmit={handleSubmit(onSubmit)}
+                    register={register}
+                    errors={errors}
+                    reset={reset}
+                />
 
             {/* Card a la derecha */}
-            <DetallePedido items={carritoDesdeNavegacion || [productoSeleccionado]} mostrarControles={false} />
+            <DetallePedido items={carritoDesdeNavegacion || [productoSeleccionado]} mostrarControles={false} habilitaPago = {isButtonDisabled} />
         </Grid>
 
     );

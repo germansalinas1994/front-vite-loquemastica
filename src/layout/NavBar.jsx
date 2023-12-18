@@ -92,7 +92,6 @@ const NavBar = ({ children }) => {
   const clientOptions = [
     { name: 'Pedidos', route: '/orders', icon: <ShoppingBasket /> },
     { name: 'Carrito', route: '/cart', icon: <BotonCarrito/> },
-    { name: 'Favoritos', route: '/wishlist', icon: <Favorite /> },
     { name: 'Historial de Pedidos', route: '/order-history', icon: <History /> },
     { name: 'Mi Cuenta', route: '/account', icon: <AccountCircle /> },
     { name: 'Ayuda y Soporte', route: '/help', icon: <Help /> },

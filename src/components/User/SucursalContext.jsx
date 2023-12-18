@@ -22,76 +22,7 @@ export const SucursalProvider = ({ children }) => {
     return sucursalGuardada ? JSON.parse(sucursalGuardada) : 1;
   });
 
-  // useEffect(() => {
 
-
-  //   try {
-  //     Swal.fire({
-  //       title: "¿Estás seguro de cambiar de sucursal?",
-  //       text: "Se eliminarán todos los productos del carrito!",
-  //       icon: "warning",
-  //       showConfirmButton: true,
-
-  //       showCancelButton: true,
-  //       allowOutsideClick: false,
-  //       reverseButtons: true, //invierte la ubicacion de los botones confirmar y cancelar
-
-  //       // confirmButtonColor: theme.palette.primary.main,
-  //       // cancelButtonColor: theme.palette.primary.main,
-
-  //       confirmButtonText: 'Confirmar',
-  //       cancelButtonText: 'Cancelar'
-  //     }).then(async (result) => {
-  //       if (result.isConfirmed) {
-  //         if (!isLoading && isAuthenticated) {
-  //           if (sucursalSeleccionada != parseInt(localStorage.getItem('sucursalSeleccionada'))) {
-  //             vaciarCarrito();
-  //             localStorage.setItem('sucursalSeleccionada', JSON.stringify(sucursalSeleccionada));
-  //           }
-
-  //           localStorage.setItem('carrito', JSON.stringify(carrito));
-  //           // navigate('/');
-
-  //         }
-  //         //muestro el msj de exito
-  //         Swal.fire({
-  //           position: 'center',
-  //           icon: 'success',
-  //           allowOutsideClick: false,
-  //           title: 'Sucursal modificada con éxito',
-  //           showConfirmButton: true,
-  //         }).then((result) => {
-  //           if (result.isConfirmed) {
-  //             navigate('/');
-  //           }
-  //         })
-  //       }
-  //     })
-  //   } catch (error) {
-  //     Swal.fire({
-  //       position: 'center',
-  //       icon: 'error',
-  //       allowOutsideClick: false,
-  //       title: 'Hubo un error al modificar la sucursal',
-  //       showConfirmButton: true,
-  //     });
-  //   }
-
-
-
-  //   // if (!isLoading && isAuthenticated) {
-  //   //   if (sucursalSeleccionada != parseInt(localStorage.getItem('sucursalSeleccionada'))) {
-  //   //     vaciarCarrito();
-  //   //     localStorage.setItem('sucursalSeleccionada', JSON.stringify(sucursalSeleccionada));
-  //   //   }
-
-  //   //   localStorage.setItem('carrito', JSON.stringify(carrito));
-  //   //   navigate('/');
-
-  //   // }
-
-
-  // }, [sucursalSeleccionada]);
 
   useEffect(() => {
     const fetchSucursales = async () => {

@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Cookies from 'js-cookie';
 
-export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
+export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago }) => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
     const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
     const [loading, setLoading] = useState(false);
@@ -30,7 +30,7 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
         const token = localStorage.getItem('token');
         debugger;
         setLoading(true);
-    
+
         try {
             const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto);
             const responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend, {
@@ -38,7 +38,7 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
                     Authorization: `Bearer ${token}`
                 }
             });
-    
+
             // Abre el pago de MercadoPago en la misma ventana
             window.location.href = responseapi.data.result.data;
         } catch (error) {
@@ -48,20 +48,26 @@ export const MercadoPagoButton = ({ carrito, productoIndividual }) => {
             setLoading(false);
         }
     }
-    
+
+
 
 
     return (
         <>
-            <Box maxWidth={0.35} sx={{
-                margin: '0 auto', // Esto centrará horizontalmente el Box
-                textAlign: 'center', // Esto centrará el contenido dentro del Box
-            }} >
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+
                 <LoadingButton
                     loading={loading}
-                    onClick={() => handleCheckOutMercadoPago()} variant="contained" sx={{
-                        marginTop: '35px', borderRadius: '10px', fontSize: '16px', fontWeight: 'bold', backgroundColor: 'primary', width: '80%', height: '60px', textTransform: 'none'
-                    }}>IR AL PAGO</LoadingButton>
+                    onClick={() => handleCheckOutMercadoPago()} variant="contained"
+                    disabled={habilitaPago} // Habilita o deshabilita el botón
+                    sx={{
+                        marginTop: '20px',
+                        textTransform: 'none', // Elimina las mayúsculas
+                        padding: '12px 50px', // Agrega más padding
+                        fontSize: '1.2em'     // Aumenta el tamaño de la fuente
+                    }}>
+                    Pagar con MercadoPago
+                </LoadingButton>
             </Box>
 
 

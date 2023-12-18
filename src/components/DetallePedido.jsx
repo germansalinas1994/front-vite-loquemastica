@@ -1,12 +1,20 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { useLocation } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
+import { MercadoPagoButton } from '../components/MercadoPagoButton';
 
-const DetallePedido = ({ items, checkout, mostrarControles = true }) => {
+const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago }) => {
+
+    const location = useLocation();
+    const productoSeleccionado = location.state?.productoSeleccionado;
+    const carritoDesdeNavegacion = location.state?.carrito;
+
 
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price);
@@ -53,6 +61,11 @@ const DetallePedido = ({ items, checkout, mostrarControles = true }) => {
                                 Continuar compra
                             </Button>
                         </Box>
+                    )}
+                    {!mostrarControles && (
+                        <MercadoPagoButton carrito={carritoDesdeNavegacion} productoIndividual={productoSeleccionado} habilitaPago={habilitaPago} />
+
+
                     )}
                 </CardContent>
             </Card>
