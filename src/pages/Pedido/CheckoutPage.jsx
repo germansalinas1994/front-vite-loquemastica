@@ -100,9 +100,9 @@ const CheckoutPage = () => {
     };
 
     const handleDomicilioChange = (event) => {
-        debugger;
         setValue("domicilio", event.target.value, { shouldValidate: true });
         setDomicilioSeleccionado(event.target.value);
+
     }
 
 
@@ -185,7 +185,7 @@ const CheckoutPage = () => {
                 />
 
             {/* Card a la derecha */}
-            <DetallePedido items={carritoDesdeNavegacion || [productoSeleccionado]} mostrarControles={false} habilitaPago = {isButtonDisabled} />
+            <DetallePedido items={carritoDesdeNavegacion || [productoSeleccionado]} mostrarControles={false} habilitaPago = {isButtonDisabled} domicilioSeleccionado={domicilioSeleccionado} />
         </Grid>
 
     );

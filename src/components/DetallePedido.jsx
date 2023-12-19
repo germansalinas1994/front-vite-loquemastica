@@ -9,7 +9,7 @@ import Divider from '@mui/material/Divider';
 import Grid from '@mui/material/Grid';
 import { MercadoPagoButton } from '../components/MercadoPagoButton';
 
-const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago }) => {
+const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago, domicilioSeleccionado }) => {
 
     const location = useLocation();
     const productoSeleccionado = location.state?.productoSeleccionado;
@@ -63,7 +63,7 @@ const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago 
                         </Box>
                     )}
                     {!mostrarControles && (
-                        <MercadoPagoButton carrito={carritoDesdeNavegacion} productoIndividual={productoSeleccionado} habilitaPago={habilitaPago} />
+                        <MercadoPagoButton carrito={carritoDesdeNavegacion} productoIndividual={productoSeleccionado} habilitaPago={habilitaPago} domicilioSeleccionado={domicilioSeleccionado} />
 
 
                     )}

@@ -6,7 +6,7 @@ import Button from '@mui/material/Button';
 import LoadingButton from '@mui/lab/LoadingButton';
 import Cookies from 'js-cookie';
 
-export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago }) => {
+export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago, domicilioSeleccionado }) => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
     const publicKey = import.meta.env.VITE_APP_PUBLIC_KEY;
     const [loading, setLoading] = useState(false);
@@ -28,12 +28,19 @@ export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago })
 
     const handleCheckOutMercadoPago = async () => {
         const token = localStorage.getItem('token');
-        debugger;
         setLoading(true);
+
+        debugger;
 
         try {
             const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto);
-            const responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', dataToSend, {
+            const data = {
+                idDomicilio: domicilioSeleccionado,
+                publicaciones: dataToSend
+            };
+
+            debugger;
+            const responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', data, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
