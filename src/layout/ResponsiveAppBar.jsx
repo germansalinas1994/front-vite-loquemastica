@@ -1,34 +1,25 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
-import BotonCarrito from '../components/Botones/BotonCarrito';
-import LoginButton from '../components/Botones/LoginButton';
-import { useAuth0 } from "@auth0/auth0-react";
-import Titulo from '../../public/Titulo.png';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
-import Select from '@mui/material/Select';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useContext } from 'react';
-import { SucursalContext } from '../components/User/SucursalContext';
+import * as React from 'react'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import Menu from '@mui/material/Menu'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import Button from '@mui/material/Button'
+import Tooltip from '@mui/material/Tooltip'
+import MenuItem from '@mui/material/MenuItem'
+import { Link } from 'react-router-dom'
+import { useAuth0 } from '@auth0/auth0-react'
+import LocationOnIcon from '@mui/icons-material/LocationOn'
+import Select from '@mui/material/Select'
+import { useState, useEffect, useContext } from 'react'
+import LoginButton from '../components/Botones/LoginButton'
+import BotonCarrito from '../components/Botones/BotonCarrito'
+import Titulo from '../../public/Titulo.png'
+import { SucursalContext } from '../components/User/SucursalContext'
 
-//importo el AuthContext para poder usar la imagen por ejemplo
-
-
-
-// Declaro un array de objetos con las propiedades id, name y route.
-// Luego, en el componente ResponsiveAppBar, itero sobre ese array y muestro los elementos en el menú de navegación.
-//  El componente ResponsiveAppBar es el siguiente:
 const pagesNav = [
   { id: 1, name: 'Productos', route: '/productos' },
   { id: 2, name: 'Categorias', route: '/categorias' },
@@ -44,20 +35,17 @@ const settings = [
 ]
 
 function ResponsiveAppBar() {
-  //por defecto la sucursal es la 1
   const { user, isAuthenticated } = useAuth0()
   const [anchorElNav, setAnchorElNav] = useState(null)
   const [anchorElUser, setAnchorElUser] = useState(null)
-  const { sucursales, sucursalSeleccionada, setSucursalSeleccionada,handleChangeSucursal } = useContext(SucursalContext);
-
-
-
-
-
+  const {
+    sucursales, sucursalSeleccionada, setSucursalSeleccionada, handleChangeSucursal,
+  } = useContext(SucursalContext)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget)
   }
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget)
   }
@@ -70,16 +58,9 @@ function ResponsiveAppBar() {
     setAnchorElUser(null)
   }
 
-  if (isAuthenticated) {
-    console.log(user)
-  }
   return (
     <Container maxWidth='xl'>
       <Toolbar disableGutters>
-
-
-        {/* esto es el texto del logo */}
-        {/* el boton me tiene que llevar a la pagina de inicio */}
         <Link to='/' style={{ color: 'inherit', textDecoration: 'none' }}>
           <img
             src={Titulo}
@@ -87,20 +68,16 @@ function ResponsiveAppBar() {
             style={{
               height: '50px',
               width: 'auto',
-              display: 'block', // <-- Establece tamaños máximos para garantizar uniformidad
+              display: 'block',
             }}
           />
         </Link>
 
-        {/* este box es para el menu de navegacion si esta la pantalla contraida */}
-
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            size='large'
-            color='inherit'
-          >
+          <IconButton size='large' color='inherit'>
             <Link to='/home' style={{ color: 'inherit', textDecoration: 'none' }}>
-
+              <MenuIcon />
+            </Link>
           </IconButton>
           <IconButton
             size='large'
@@ -110,7 +87,6 @@ function ResponsiveAppBar() {
             onClick={handleOpenNavMenu}
             color='inherit'
           >
-
             <Typography sx={{ flexGrow: 1, display: { xs: 'flex' }, mr: 1 }}>
               Menu
             </Typography>
@@ -144,59 +120,51 @@ function ResponsiveAppBar() {
               >
                 <Typography textAlign='center'>{page.name}</Typography>
               </MenuItem>
-
             ))}
           </Menu>
-
         </Box>
 
-
-
-        {/* este box es para el menu de navegacion si esta la pantalla expandida */}
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-
-
           {pagesNav.map((page) => (
             <Link key={page.id} to={page.route.toLowerCase()} style={{ color: 'inherit', textDecoration: 'none' }}>
               <Button
-                sx={{ my: 2, color: 'black', display: 'block', ml: 2 }}
+                sx={{
+                  my: 2, color: 'black', display: 'block', ml: 2,
+                }}
               >
                 {page.name}
               </Button>
             </Link>
           ))}
-
-
           <IconButton>
             <LocationOnIcon />
-
             <Select
               value={sucursalSeleccionada}
               onChange={(e) => handleChangeSucursal(e.target.value)}
               sx={{
                 '.MuiSelect-select': {
-                  color: 'black', // Color del texto
-                  background: 'transparent', // Fondo transparente
-                  border: 'none', // Sin bordes
-                  boxShadow: 'none', // Sin sombra
+                  color: 'black',
+                  background: 'transparent',
+                  border: 'none',
+                  boxShadow: 'none',
                   '&:focus': {
-                    background: 'transparent', // Fondo transparente en foco
+                    background: 'transparent',
                   },
                   '&:hover': {
-                    background: 'transparent', // Fondo transparente en hover
+                    background: 'transparent',
                   },
                 },
                 '.MuiSvgIcon-root': {
-                  color: 'primary.main', // Color de los íconos
+                  color: 'primary.main',
                 },
                 '& .MuiOutlinedInput-notchedOutline': {
-                  border: 'none', // Elimina el borde del Outline
+                  border: 'none',
                 },
                 '&:hover .MuiOutlinedInput-notchedOutline': {
-                  border: 'none', // Elimina el borde del Outline en hover
+                  border: 'none',
                 },
                 '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  border: 'none', // Elimina el borde del Outline en foco
+                  border: 'none',
                 },
               }}
             >
@@ -207,10 +175,7 @@ function ResponsiveAppBar() {
               ))}
             </Select>
           </IconButton>
-
         </Box>
-
-        {/* Este box es para el boton de login o para info del usuario */}
 
         <Box sx={{ flexGrow: 0 }}>
           <Link to='/cart' style={{ color: 'inherit', textDecoration: 'none' }}>
@@ -218,20 +183,15 @@ function ResponsiveAppBar() {
               <BotonCarrito />
             </IconButton>
           </Link>
-
-          {isAuthenticated
-            ? (
-              <Tooltip title='Abrir opciones'>
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 3 }}>
-                  {/* en el src del avatar va la imagen del usuario, por ahora es una imagen de prueba, despues va a ser la imagen del usuario logueado */}
-                  <Avatar alt='Remy Sharp' src={user.picture} />
-                </IconButton>
-              </Tooltip>
-            )
-            : (
-              <LoginButton />
-            )}
-
+          {isAuthenticated ? (
+            <Tooltip title='Abrir opciones'>
+              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, ml: 3 }}>
+                <Avatar alt='Remy Sharp' src={user.picture} />
+              </IconButton>
+            </Tooltip>
+          ) : (
+            <LoginButton />
+          )}
           <Menu
             sx={{ mt: '45px', width: '200px' }}
             id='menu-appbar'
@@ -257,9 +217,7 @@ function ResponsiveAppBar() {
               </>
             </Typography>
             <Typography textAlign='center' sx={{ fontWeight: 'light' }}>
-
               {user?.email}
-
             </Typography>
             {settings.map((setting) => (
               <MenuItem
@@ -271,7 +229,6 @@ function ResponsiveAppBar() {
               >
                 <Typography textAlign='center'>{setting.name}</Typography>
               </MenuItem>
-
             ))}
           </Menu>
         </Box>
@@ -279,4 +236,5 @@ function ResponsiveAppBar() {
     </Container>
   )
 }
+
 export default ResponsiveAppBar
