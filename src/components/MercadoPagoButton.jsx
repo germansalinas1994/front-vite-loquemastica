@@ -30,7 +30,6 @@ export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago, d
         const token = localStorage.getItem('token');
         setLoading(true);
 
-        debugger;
 
         try {
             const dataToSend = productoIndividual ? [transformarProducto(productoIndividual)] : carrito.map(transformarProducto);
@@ -39,7 +38,6 @@ export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago, d
                 publicaciones: dataToSend
             };
 
-            debugger;
             const responseapi = await axios.post(apiLocalKey + '/publicacionesCarritoMP', data, {
                 headers: {
                     Authorization: `Bearer ${token}`

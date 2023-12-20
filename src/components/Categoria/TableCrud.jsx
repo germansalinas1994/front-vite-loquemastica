@@ -27,7 +27,6 @@ function EditToolbar(props) {
 
 
   const handleClick = () => {
-    debugger;
 
     var id = Math.floor(Math.random() * 1000) + 1;
     setCategorias((oldCategorias) => [
@@ -67,7 +66,6 @@ export default function TableCrud() {
 
 
   const GetCategorias = async () => {
-    debugger;
     try {
       const res = await axios.get(apiLocalKey + '/categorias')
       setCategorias(res.data.result.data)

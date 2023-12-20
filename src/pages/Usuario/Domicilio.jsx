@@ -190,7 +190,6 @@ const Domicilios = () => {
               );
 
             setDomicilio(response.data.result);
-            debugger;
             setValue("CodigoPostal", response.data.result.codigoPostal);
             setValue("Aclaracion", response.data.result.aclaracion);
             setValue("IdDomicilio", response.data.result.idDomicilio);
@@ -248,7 +247,6 @@ const Domicilios = () => {
 
     //funcion para guardar el domicilio editado
     const onSubmitEdit = async (data) => {
-        debugger;
         handleCloseModalDetalle();
         try {
             showLoadingModal();
@@ -315,7 +313,6 @@ const Domicilios = () => {
                 cancelButtonText: 'Cancelar'
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    debugger;
                     showLoadingModal();
                     const token = localStorage.getItem('token');
                     const headers = {
@@ -338,7 +335,6 @@ const Domicilios = () => {
                         title: 'Domicilio eliminado correctamente',
                         showConfirmButton: true,
                         confirmButtonText: 'Aceptar',
-                        confirmButtonColor: theme.palette.error.main,
 
                     }).then((result) => {
                         if (result.isConfirmed) {
@@ -361,7 +357,6 @@ const Domicilios = () => {
                 title: 'Hubo un error al eliminar el domicilio',
                 showConfirmButton: true,
                 confirmButtonText: 'Aceptar',
-                confirmButtonColor: theme.palette.error.main,
 
             });
         }

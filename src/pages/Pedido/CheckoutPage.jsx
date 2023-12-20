@@ -54,7 +54,6 @@ const CheckoutPage = () => {
                 const headers = {
                     Authorization: `Bearer ${token}`
                 };
-                // debugger;
                 
                 const response = await axios.get(apiLocalKey + '/domicilios', {
                     headers: headers,
@@ -90,7 +89,6 @@ const CheckoutPage = () => {
 
 
     const handleEnvioChange = (event) => {
-        debugger;
         setEnvioSeleccionado(event.target.value);
         if (event.target.value == "sucursal") {
             setValue("domicilio", "0", { shouldValidate: true });

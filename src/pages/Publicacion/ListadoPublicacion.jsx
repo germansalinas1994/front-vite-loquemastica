@@ -33,7 +33,6 @@ const ListadoPublicacion = () => {
                 // const headers = {
                 //     Authorization: `Bearer ${token}`
                 // };
-                // debugger;
                 
                 const response = await axios.get(apiLocalKey + '/publicaciones', {
                     // headers: headers,

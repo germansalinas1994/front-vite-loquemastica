@@ -169,7 +169,7 @@ const ModalFormDomicilio = ({ open, handleClose, onSubmit, register, errors}) =>
                         <Button
                             size="large"
                             sx={{
-                                mt: 1, width: '120px', color: 'white', textTransform: 'none',
+                                mt: 1, width: '120px', color: 'black', textTransform: 'none',
                             }}
                             variant="contained"
                             color="primary"

@@ -54,7 +54,6 @@ const Publicacion = () => {
     }
 
     const handleAgregarAlCarrito = () => {
-        debugger;
 
         if (!isAuthenticated) {
             showSnackbar('Necesitas estar logueado para agregar al carrito');

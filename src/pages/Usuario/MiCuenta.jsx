@@ -46,7 +46,6 @@ const MiCuenta = () => {
     //llamo al useEffect para que se ejecute cuando se renderiza el componente, para traer los datos del usuario
 
     useEffect(() => {
-        debugger;
         showLoadingModal();
         try {
             getUserData();
@@ -75,7 +74,6 @@ const MiCuenta = () => {
         setValue("email", response.data.result.data.email);
 
 
-        debugger;
     }
 
 
@@ -87,11 +85,9 @@ const MiCuenta = () => {
             data.email = user.email;
             //convierto el dni a un valor numerico para que no me lo tome como un string
             data.dni = parseInt(data.dni);
-            debugger;
             showLoadingModal();
 
             const response = await axios.post(apiLocalKey + '/actualizarUsuario', data);
-            debugger;
             hideLoadingModal();
             //pongo un swal para avisar que se guardaron los datos
             //si le da click en aceptar, lo redirijo escondo el modal de carga

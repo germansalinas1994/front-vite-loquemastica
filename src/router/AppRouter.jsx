@@ -17,8 +17,9 @@ import AccesoDenegado from '../pages/AccesoDenegado';
 import CheckoutPage from '../pages/Pedido/CheckoutPage';
 import MiCuenta from '../pages/Usuario/MiCuenta';
 import Domicilio from '../pages/Usuario/Domicilio';
-
-
+import PedidoAprobado from '../pages/Pedido/PedidoAprobado';
+import PedidoRechazado from '../pages/Pedido/PedidoRechazado';
+import Pedidos from '../pages/Pedido/Pedidos';
 
 const AppRouter = () => {
 
@@ -38,7 +39,7 @@ const AppRouter = () => {
     return (
         <div>
             <Routes>
-    
+
 
                 <Route path="/" element={<ListadoPublicacion />} />
                 <Route path="/home" element={<ListadoPublicacion />} />
@@ -51,15 +52,35 @@ const AppRouter = () => {
                 <Route path="/cart" element={<Carrito />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/checkout" element={
-                    <ProtectedRoute rolesRequired={[rol_admin, rol_client]}>
+                    <ProtectedRoute rolesRequired={[rol_client]}>
 
                         <CheckoutPage />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/pedidoaprobado" element={
+                    <ProtectedRoute rolesRequired={[rol_client]}>
+
+                        <PedidoAprobado />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/pedidofallido" element={
+                    <ProtectedRoute rolesRequired={[rol_client]}>
+
+                        <PedidoRechazado />
                     </ProtectedRoute>
                 } />
 
                 <Route path="/direcciones" element={
                     <ProtectedRoute rolesRequired={[rol_client]}>
                         <Domicilio />
+                    </ProtectedRoute>
+                } />
+
+                <Route path="/pedidos" element={
+                    <ProtectedRoute rolesRequired={[rol_client]}>
+                        <Pedidos />
                     </ProtectedRoute>
                 } />
 

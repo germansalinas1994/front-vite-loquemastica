@@ -17,7 +17,6 @@ export const SucursalProvider = ({ children }) => {
 
   const [sucursales, setSucursales] = useState([]);
   const [sucursalSeleccionada, setSucursalSeleccionada] = useState(() => {
-    debugger;
     const sucursalGuardada = localStorage.getItem('sucursalSeleccionada');
     return sucursalGuardada ? JSON.parse(sucursalGuardada) : 1;
   });
@@ -40,7 +39,6 @@ export const SucursalProvider = ({ children }) => {
 
   const handleChangeSucursal = (event) => {
 
-    debugger;
     let sucursalGuardada = parseInt(localStorage.getItem('sucursalSeleccionada'));
     let carrito = JSON.parse(localStorage.getItem('carrito'));
     if (sucursalGuardada == 1) {

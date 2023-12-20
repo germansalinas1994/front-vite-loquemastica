@@ -22,12 +22,10 @@ export const AuthProvider = ({ children }) => {
   const { showLoadingModal, hideLoadingModal } = LoadingModal();
 
   const fetchTokenAndRole = async () => {
-    debugger;
 
     if (!isLoading && isAuthenticated) { 
       try {
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
-        debugger;
         const tokenClaims = await getIdTokenClaims();
         //guardo el token en una cookie
         setUserToken(tokenClaims.__raw);
