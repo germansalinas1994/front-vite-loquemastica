@@ -139,14 +139,14 @@ const Publicacion = () => {
                                         Categoria: {publicacion.idProductoNavigation.idCategoriaNavigation.nombre}
                                     </Typography>
                                     <Typography variant="h3" color="primary" sx={{ marginTop: 1 }}>
-                                        {formatPrice(publicacion.precio)}
+                                        {formatPrice(publicacion.idProductoNavigation.precio)}
                                     </Typography>
                                     <Box display="flex" alignItems="center" flexWrap="wrap" width="100%">
                                         <Typography align="left" color="textSecondary" sx={{ fontSize: '1.2rem' }}>
                                             Hasta <span style={{ fontWeight: 'bold' }}>12 cuotas</span> sin interés de&nbsp;
                                         </Typography>
                                         <Typography align="left" color="primary" sx={{ fontSize: '1.4rem', fontWeight: 'bold', marginLeft: '0.5rem' }}>
-                                            {calculateInstallment(publicacion.precio)}
+                                            {calculateInstallment(publicacion.idProductoNavigation.precio)}
                                         </Typography>
                                     </Box>
 

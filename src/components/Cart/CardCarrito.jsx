@@ -39,7 +39,8 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar, vaci
 
     let total = 0;
     publicacionesCarrito.forEach(publicacion => {
-        total += publicacion.precio * publicacion.cantidad;
+        debugger;
+        total += publicacion.idProductoNavigation.precio * publicacion.cantidad;
     });
 
     if (publicacionesCarrito.length === 0) {
@@ -72,7 +73,7 @@ const CardCarrito = ({ publicacionesCarrito, disminuir, aumentar, eliminar, vaci
                                 <CardContent sx={{ flex: 1 }}>
                                     <Typography variant="h5">{publicacion.idProductoNavigation.nombre}</Typography>
                                     <Typography variant="body1" sx={{ marginTop: '5px', fontWeight: 'bold' }}>
-                                        {formatPrice(publicacion.precio)}
+                                        {formatPrice(publicacion.idProductoNavigation.precio)}
                                     </Typography>
                                     <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                                         <IconButton onClick={() => disminuir(publicacion.idPublicacion)}>

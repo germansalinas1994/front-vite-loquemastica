@@ -22,7 +22,8 @@ const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago,
 
     let total = 0;
     items.forEach(item => {
-        total += item.precio * item.cantidad;
+        debugger;
+        total += item.idProductoNavigation.precio * item.cantidad;
     });
 
 
@@ -36,7 +37,7 @@ const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago,
                     {items.map((publicacion) => (
                         <Box key={publicacion.idPublicacion} sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px', marginTop: '10px' }}>
                             <Typography variant="body1" sx={{ fontSize: '1.1em' }}>{publicacion.idProductoNavigation.nombre} ({publicacion.cantidad})</Typography>
-                            <Typography variant="body1" sx={{ fontSize: '1.1em' }}> {formatPrice(publicacion.precio * publicacion.cantidad)}</Typography>
+                            <Typography variant="body1" sx={{ fontSize: '1.1em' }}> {formatPrice(publicacion.idProductoNavigation.precio * publicacion.cantidad)}</Typography>
                         </Box>
                     ))}
                     <Divider sx={{ mt: 5 }} />

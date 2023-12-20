@@ -65,10 +65,10 @@ const CardPublicacion = ({ publicaciones }) => {
                                 <CardContent>
 
                                     <Typography align="center" color="primary" sx={{ fontWeight: 'bold', fontSize: '1.4rem' }}>
-                                        {formatPrice(p.precio)}
+                                        {formatPrice(p.idProductoNavigation.precio)}
                                     </Typography>
                                     <Typography align="center" color="textSecondary" sx={{ fontSize: '1.0rem' }}>
-                                        Hasta 12 cuotas sin interés de <b>{calculateInstallment(p.precio)}</b>
+                                        Hasta 12 cuotas sin interés de <b>{calculateInstallment(p.idProductoNavigation.precio)}</b>
                                     </Typography>
                                 </CardContent>
                             </Link>
