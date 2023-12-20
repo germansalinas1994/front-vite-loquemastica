@@ -37,7 +37,9 @@ const OrderStatusPage = () => {
                 const token = localStorage.getItem('token');
                 const headers = {
                     Authorization: `Bearer ${token}`
-                };        
+                };       
+                
+                debugger;
                 
                 const response = await axios.get(apiLocalKey + "/getOrderMercadoPago",
                 {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, CardContent, Typography, Button, Box, Grid, useTheme } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Link } from 'react-router-dom';
+
 
 const OrderCard = ({ merchantOrderId, paymentId, status, amount }) => {
     const theme = useTheme();
@@ -48,9 +50,11 @@ const OrderCard = ({ merchantOrderId, paymentId, status, amount }) => {
                                 Pago {status}
                             </Typography>
 
-                            <Button variant="contained" color="success" sx={{ mt: 3,fontSize:'15px'  }}>
-                                Ver Detalle
+                            <Link to={`/pedidos`} style={{ textDecoration: 'none' }}>
+                            <Button variant="contained" color="success" sx={{ mt: 3,fontSize:'18px', textTransform:'none'  }}>
+                                Ir a mis pedidos
                             </Button>
+                            </Link>
                             {/* Aquí se pueden agregar más detalles del pedido si es necesario */}
                         </CardContent>
                     </Card>

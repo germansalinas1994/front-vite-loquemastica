@@ -37,8 +37,20 @@ const CardPedido = ({ pedidos, detallePedido }) => {
 
                     <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 3 }}>
                         <CardContent sx={{ flex: 3, ml: 6 }}>
-                            <Typography variant="h5" gutterBottom>Pedido # {pedido.orden_MercadoPago}</Typography>
+                            <Typography variant="h5" gutterBottom> 
+                              
+                             </Typography>
 
+
+                            <Typography variant="h6" gutterBottom>   Pedido #{pedido.orden_MercadoPago}  -  {pedido.envio ?
+                                ` ${pedido.envio.descripcionEnvio}` :
+                                `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`} </Typography>
+
+                            {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                                            {pedido.envio ?
+                                                `Estado del envío: ${pedido.envio.descripcionEnvio}` :
+                                                `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`}
+                                        </Typography> */}
                             {pedido.publicacionPedido.map((item) => (
                                 <Box key={item.publicacion.idPublicacion} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
                                     <Box sx={{ width: 100, height: 100, overflow: 'hidden', marginRight: 2 }}>
@@ -58,15 +70,13 @@ const CardPedido = ({ pedidos, detallePedido }) => {
                                         <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                                             Subtotal: ${item.subTotal.toFixed(2)}
                                         </Typography>
-                                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                                            {pedido.envio ?
-                                                `Estado del envío: ${pedido.envio.descripcionEnvio}` :
-                                                `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`}
-                                        </Typography>
+
                                     </Box>
 
                                 </Box>
                             ))}
+
+
                             <Typography variant="h6" sx={{ mt: 2, textAlign: 'left' }}>
                                 Total:   {formatPrice(pedido.total)}
                             </Typography>
