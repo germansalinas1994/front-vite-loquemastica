@@ -60,13 +60,13 @@ export default function MercadoPagoButton({ carrito, productoIndividual }) {
         loading={loading}
         onClick={() => handleCheckOutMercadoPago()}
         variant='contained'
+        color='secondary'
         sx={{
           marginTop: '35px',
           borderRadius: '10px',
           fontSize: '16px',
           fontWeight: 'bold',
           backgroundColor: 'primary',
-          color: '#ffffff',
           width: '80%',
           height: '60px',
           textTransform: 'none',
