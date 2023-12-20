@@ -12,6 +12,8 @@ function GenericCard({ children }) {
         borderRadius: 2,
         padding: '20px 10px',
         display: 'flex',
+        justifyContent: 'center', // Center the child components horizontally
+        alignItems: 'center', // Center the child components vertically
       }}
     >
       {children}
