@@ -37,7 +37,7 @@ const pagesNav = [
 
 const settings = [
   { id: 1, name: 'Pedidos', route: '/pedidos' },
-  { id: 2, name: 'Direcciones', route: '/direcciones' },
+  { id: 2, name: 'Domicilios', route: '/direcciones' },
   { id: 4, name: 'Cuenta', route: '/cuenta' },
   { id: 5, name: 'Salir', route: '/logout' }
 ]

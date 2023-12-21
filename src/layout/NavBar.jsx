@@ -24,6 +24,10 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ThemeContext from './ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import { Card, Grid } from '@mui/material';
+import { useAuth0 } from "@auth0/auth0-react";
+import LoadingModal from '../components/LoadingModal';
+
+
 import {
   ShoppingBasket,
   ShoppingCart,
@@ -37,6 +41,7 @@ import {
   RateReview,
   Settings,
 } from '@mui/icons-material';
+
 import BotonCarrito from '../components/Botones/BotonCarrito';
 
 
@@ -47,6 +52,7 @@ import BotonCarrito from '../components/Botones/BotonCarrito';
 
 
 const AppBar = styled(MuiAppBar, {
+
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   zIndex: theme.zIndex.drawer + 1,
@@ -73,6 +79,7 @@ const AppBar = styled(MuiAppBar, {
 
 const NavBar = ({ children }) => {
 
+  const { isLoading } = useAuth0();
 
   const navigate = useNavigate();
 
@@ -149,18 +156,22 @@ const NavBar = ({ children }) => {
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Card sx={{
-          backgroundColor: isDarkTheme ? '#000000' : '#F5F5F5',
-          borderRadius: 2,
-          padding: '20px 10px',
-          display: 'flex',
-          flexDirection: 'column', // Asegura que los hijos se apilen verticalmente
-          flexGrow: 1 // Permite que la Card se expanda
-        }}>
-          <Grid spacing={2} justifyContent="center" sx={{ flexGrow: 1, maxWidth: 1, mb: 10 }}>
-            {children}
-          </Grid>
-        </Card>
+        {!isLoading && (
+          <Card sx={{
+            backgroundColor: isDarkTheme ? '#000000' : '#F5F5F5',
+            borderRadius: 2,
+            padding: '20px 10px',
+            display: 'flex',
+            flexDirection: 'column', // Asegura que los hijos se apilen verticalmente
+            flexGrow: 1 // Permite que la Card se expanda
+          }}>
+            <Grid spacing={2} justifyContent="center" sx={{ flexGrow: 1, maxWidth: 1, mb: 10 }}>
+              {children}
+            </Grid>
+          </Card>
+
+        )}
+
       </Box>
     </Box>
 

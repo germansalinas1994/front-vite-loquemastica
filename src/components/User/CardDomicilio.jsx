@@ -8,6 +8,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import HouseIcon from '@mui/icons-material/House';
 
 const CardDomicilio = ({ domicilios, editarDomicilio, eliminarDomicilio }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -25,15 +26,18 @@ const CardDomicilio = ({ domicilios, editarDomicilio, eliminarDomicilio }) => {
     };
 
     return (
-        <Grid container spacing={2} justifyContent={'center'}>
+        <Grid container spacing={2} justifyContent={'center'} mt={1}>
             {domicilios.map((domicilio) => (
                 <Grid item xs={12} md={8} key={domicilio.idDomicilio}>
-                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow:5 , height: '150px' }}>
+                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow: 5, height: '160px' }}>
+                        <HouseIcon sx={{ flex: 1, fontSize: 80, color: '#6E8EA7', ml: 1, mt:1 }} />
+
                         <CardContent sx={{ flex: 2 }}>
                             <Typography variant="h5">{domicilio.descripcionCompleta}</Typography>
                             <Typography sx={{ mt: 1 }} variant='body1' color='text.secondary'>{domicilio.codigoPostal}</Typography>
                             <Typography sx={{ mt: 1 }} variant='body1' color='text.secondary'>{domicilio.aclaracion}</Typography>
                         </CardContent>
+
                         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mr: 2 }}>
                             <IconButton
                                 aria-label="more"

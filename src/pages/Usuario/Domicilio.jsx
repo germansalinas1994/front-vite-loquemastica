@@ -187,7 +187,7 @@ const Domicilios = () => {
                     }
 
                 },
-              );
+            );
 
             setDomicilio(response.data.result);
             setValue("CodigoPostal", response.data.result.codigoPostal);
@@ -364,15 +364,13 @@ const Domicilios = () => {
 
 
     return (
-        <Box sx={{ position: 'relative'}}>
+        <Box sx={{ position: 'relative' }}>
             {domicilios.length === 0 ? (
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '80vh' }}>
                     <Typography variant="h5" sx={{ marginBottom: '20px' }}>No se encontraron domicilios</Typography>
                 </Box>
             ) : (
-                <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                    <CardDomicilio domicilios={domicilios} editarDomicilio={handleDetalleDomicilio} eliminarDomicilio={eliminarDomicilio} />
-                </Box>
+                <CardDomicilio domicilios={domicilios} editarDomicilio={handleDetalleDomicilio} eliminarDomicilio={eliminarDomicilio} />
             )}
 
             <Tooltip title="Agregar domicilio" placement="left">
