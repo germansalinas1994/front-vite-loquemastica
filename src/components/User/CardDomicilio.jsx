@@ -27,8 +27,8 @@ const CardDomicilio = ({ domicilios, editarDomicilio, eliminarDomicilio }) => {
     return (
         <Grid container spacing={2} justifyContent={'center'}>
             {domicilios.map((domicilio) => (
-                <Grid item xs={12} md={7} key={domicilio.idDomicilio}>
-                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 3, height: '150px' }}>
+                <Grid item xs={12} md={8} key={domicilio.idDomicilio}>
+                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow:5 , height: '150px' }}>
                         <CardContent sx={{ flex: 2 }}>
                             <Typography variant="h5">{domicilio.descripcionCompleta}</Typography>
                             <Typography sx={{ mt: 1 }} variant='body1' color='text.secondary'>{domicilio.codigoPostal}</Typography>

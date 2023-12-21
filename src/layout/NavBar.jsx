@@ -23,6 +23,7 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import ThemeContext from './ThemeContext';
 import { useNavigate } from 'react-router-dom';
+import { Card, Grid } from '@mui/material';
 import {
   ShoppingBasket,
   ShoppingCart,
@@ -91,7 +92,7 @@ const NavBar = ({ children }) => {
   // opciones de menu del cliente, armo un arreglo con el Nombre que muestra, la url a la que redirecciona y el icono que muestra
   const clientOptions = [
     { name: 'Pedidos', route: '/orders', icon: <ShoppingBasket /> },
-    { name: 'Carrito', route: '/cart', icon: <BotonCarrito/> },
+    { name: 'Carrito', route: '/cart', icon: <BotonCarrito /> },
     { name: 'Historial de Pedidos', route: '/order-history', icon: <History /> },
     { name: 'Mi Cuenta', route: '/account', icon: <AccountCircle /> },
     { name: 'Ayuda y Soporte', route: '/help', icon: <Help /> },
@@ -143,15 +144,24 @@ const NavBar = ({ children }) => {
                 checkedIcon={<Brightness4Icon />}
               />
             }
-            // label={isDarkTheme}
+          // label={isDarkTheme}
           />
         </Toolbar>
       </AppBar>
-      <Box component="main" sx={{ flexGrow: 1, p:3}}>
-        {children}
-
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Card sx={{
+          backgroundColor: isDarkTheme ? '#000000' : '#F5F5F5',
+          borderRadius: 2,
+          padding: '20px 10px',
+          display: 'flex',
+          flexDirection: 'column', // Asegura que los hijos se apilen verticalmente
+          flexGrow: 1 // Permite que la Card se expanda
+        }}>
+          <Grid spacing={2} justifyContent="center" sx={{ flexGrow: 1, maxWidth: 1, mb: 10 }}>
+            {children}
+          </Grid>
+        </Card>
       </Box>
-
     </Box>
 
 

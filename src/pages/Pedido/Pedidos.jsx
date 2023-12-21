@@ -42,13 +42,7 @@ const Pedidos = () => {
                         <Typography variant="h5" sx={{ marginBottom: '20px' }}>No se han realizado pedidos</Typography>
                     </Box>
                 ) : (
-                    <>
-
-                        <Box sx={{ '& > :not(style)': { m: 1 } }}>
-                            
-                            <CardPedido pedidos={pedidos} detallePedido={handleDetallePedido} />
-                        </Box>
-                    </> 
+                     <CardPedido pedidos={pedidos} detallePedido={handleDetallePedido} />
                 )}
             </Box>
         </div>

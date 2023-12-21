@@ -114,8 +114,8 @@ const Publicacion = () => {
     return (
         <Grid container spacing={3} justifyContent="center">
             {publicacion && (
-                <Grid item xs={12} sm={10} md={8} lg={8}>
-                    <Card elevation={10} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', marginBottom: 50, borderRadius: '15px' }}>
+                <Grid item xs={12} sm={7} md={7} lg={7}>
+                    <Card elevation={10} sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', mt:4, borderRadius: '15px' }}>
 
                         <Grid container spacing={2} >
                             <Grid item xs={12} sm={10} md={8} lg={6}>

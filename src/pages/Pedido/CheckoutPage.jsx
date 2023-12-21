@@ -170,9 +170,10 @@ const CheckoutPage = () => {
 
 
     return (
-        <Grid container spacing={2}>
-            {/* Card a la izquierda */}
+        <Grid container spacing={2} sx={{ width: '100%', margin: 0 }}>
+        <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', height: 'auto' }}>
             <DetalleEnvio domicilios={domicilios} envioSeleccionado={envioSeleccionado} handleEnvioChange={handleEnvioChange} onDomicilioChange={handleDomicilioChange} handleAgregarDomicilio={handleAgregarDomicilio} register= {register} errors = {errors} />
+           </Grid>
             <ModalFormDomicilio
                     open={openModal}
                     handleClose={handleCloseModal}
@@ -183,7 +184,10 @@ const CheckoutPage = () => {
                 />
 
             {/* Card a la derecha */}
+            <Grid item xs={12} md={6} sx={{ display: 'flex', flexDirection: 'column', height: 'auto' }}>
+
             <DetallePedido items={carritoDesdeNavegacion || [productoSeleccionado]} mostrarControles={false} habilitaPago = {isButtonDisabled} domicilioSeleccionado={domicilioSeleccionado} />
+            </Grid>
         </Grid>
 
     );

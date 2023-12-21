@@ -11,8 +11,7 @@ const DetalleEnvio = ({ domicilios, envioSeleccionado, handleEnvioChange, onDomi
     // };
 
     return (
-        <Grid item xs={12} md={6}>
-            <Card sx={{ borderRadius: 2 }}>
+            <Card sx={{ borderRadius: 2, minHeight:'190px'}}>
                 <CardContent>
                     <Typography variant="h5">¿Cómo querés recibir o retirar tu compra?</Typography>
 
@@ -83,7 +82,6 @@ const DetalleEnvio = ({ domicilios, envioSeleccionado, handleEnvioChange, onDomi
                     )}
                 </CardContent>
             </Card>
-        </Grid>
     );
 };
 

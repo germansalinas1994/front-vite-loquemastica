@@ -133,8 +133,8 @@ const MiCuenta = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 15 }}>
-                <Grid container spacing={3} component={Card} sx={{ width: '80%', maxWidth: '1200px', height: 1, maxHeight: '1000px', borderRadius: 4 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt:5  }}>
+                <Grid container spacing={3} component={Card} sx={{ width: '80%', maxWidth: '1200px', height: 1, maxHeight: '1000px', borderRadius: 4,borderRadius: 5, boxShadow:5 }}>
                     <Grid item xs={12}>
                         <Box sx={{ p: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="h5" gutterBottom>

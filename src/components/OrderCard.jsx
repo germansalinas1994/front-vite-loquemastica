@@ -10,7 +10,8 @@ const OrderCard = ({ merchantOrderId, paymentId, status, amount }) => {
     // Ajustes de estilo para la tarjeta
     const cardStyle = {
         height: '100%', // <-- Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.
-        boxShadow: 'none',
+        borderRadius: 5, 
+        boxShadow:5, 
         background: 'rgba(255, 255, 255, 0.85)',
         backdropFilter: 'blur(10px)',
         border: '1px solid #E0F2F1', // Un tono más claro de verde para el borde

@@ -30,19 +30,19 @@ const CardPedido = ({ pedidos, detallePedido }) => {
 
     return (
 
-        <Grid container spacing={2} justifyContent={'center'}>
+        <Grid container spacing={2} justifyContent={'center'} mt={1}>
 
             {pedidos.map((pedido) => (
-                <Grid item xs={12} md={7} key={pedido.id}>
+                <Grid item xs={12} md={8} lg={8} key={pedido.id}>
 
-                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 3 }}>
+                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow:5 }}>
                         <CardContent sx={{ flex: 3, ml: 6 }}>
                             <Typography variant="h5" gutterBottom> 
                               
                              </Typography>
 
 
-                            <Typography variant="h6" gutterBottom>   Pedido #{pedido.orden_MercadoPago}  -  {pedido.envio ?
+                            <Typography variant="h6" gutterBottom>   Pedido #{pedido.orden_MercadoPago}  - {pedido.envio ?
                                 ` ${pedido.envio.descripcionEnvio}` :
                                 `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`} </Typography>
 

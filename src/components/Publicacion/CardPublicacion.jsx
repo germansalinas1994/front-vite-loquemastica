@@ -31,13 +31,14 @@ const CardPublicacion = ({ publicaciones }) => {
     return (
         <>
             {publicaciones.map((p) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} key={p.idPublicacion} mb={5}>
+                <Grid item xs={12} sm={6} md={6} lg={3} xl={3} key={p.idPublicacion} mb={5} mt={3}>
                     <Card
                         sx={{
                             height: '100%', // <-- Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.
                             margin: '20px',
                             cursor: 'pointer',
                             borderRadius: 5,
+                            boxShadow: 5,
                             display: 'flex',
                             flexDirection: 'column',
                             '&:hover': { boxShadow: '0 0 15px rgba(0, 0, 0, 0.3)' }

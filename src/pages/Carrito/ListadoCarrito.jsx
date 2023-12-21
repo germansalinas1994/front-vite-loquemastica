@@ -181,9 +181,7 @@ const ListadoCarrito = () => {
     }
 
     return (
-        <>
             <CardCarrito publicacionesCarrito={publicacionesCarrito} disminuir={handleDisminuirCantidad} aumentar={handleAumentarCantidad} eliminar={handleEliminarPublicacion} vaciar={limpiarCarrito} />
-        </>
     );
 }
 

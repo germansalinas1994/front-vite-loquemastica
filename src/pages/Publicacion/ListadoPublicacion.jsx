@@ -33,7 +33,7 @@ const ListadoPublicacion = () => {
                 // const headers = {
                 //     Authorization: `Bearer ${token}`
                 // };
-                
+
                 const response = await axios.get(apiLocalKey + '/publicaciones', {
                     // headers: headers,
                     params: { sucursal: sucursalSeleccionada }
@@ -55,17 +55,10 @@ const ListadoPublicacion = () => {
 
 
     return (
-
-        <Card container sx={{
-            backgroundColor: isDarkTheme ? '#000000' : '#F5F5F5',
-            borderRadius: 2,
-            padding: '20px 10px', display: 'flex'
-        }}>
-            {/* //el flexgrow es para que se estire y ocupe todo el espacio disponible */}
             <Grid container spacing={2} justifyContent="center" sx={{ display: 'flex', maxWidth: 1, backgroundColor: 'primary', mb: 15 }}>
                 <CardPublicacion publicaciones={publicaciones} />
             </Grid>
-        </Card>
+
 
     )
 }
