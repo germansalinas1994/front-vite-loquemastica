@@ -22,7 +22,6 @@ const DetallePedido = ({ items, checkout, mostrarControles = true, habilitaPago,
 
     let total = 0;
     items.forEach(item => {
-        debugger;
         total += item.idProductoNavigation.precio * item.cantidad;
     });
 
