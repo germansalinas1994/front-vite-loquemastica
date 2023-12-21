@@ -22,6 +22,7 @@ const Pedidos = () => {
             };
 
             const response = await axios.get(apiLocalKey + "/pedidos", { headers });
+            debugger;
             setPedidos(response.data.result);
             hideLoadingModal();
         } catch (error) {

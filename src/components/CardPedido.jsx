@@ -35,17 +35,22 @@ const CardPedido = ({ pedidos, detallePedido }) => {
             {pedidos.map((pedido) => (
                 <Grid item xs={12} md={8} lg={8} key={pedido.id}>
 
-                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow:5 }}>
+                    <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow: 5 }}>
                         <CardContent sx={{ flex: 3, ml: 6 }}>
-                            <Typography variant="h5" gutterBottom> 
-                              
-                             </Typography>
+                            <Typography variant="h5" gutterBottom>
+
+                            </Typography>
 
 
                             <Typography variant="h6" gutterBottom>   Pedido #{pedido.orden_MercadoPago}  - {pedido.envio ?
                                 ` ${pedido.envio.descripcionEnvio}` :
+                                // ` ${pedido.envio.descripcionEnvio} llega a ${pedido.envio.domicilio.descripcionCompleta}` :
                                 `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`} </Typography>
-
+                            <Typography variant="h6" color="text.secondary" sx={{ mt: 1 }} gutterBottom>
+                                {pedido.envio ?
+                                    ` LLega a ${pedido.envio.domicilio.descripcionCompleta}` : null
+                                }
+                            </Typography>
                             {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                                             {pedido.envio ?
                                                 `Estado del envío: ${pedido.envio.descripcionEnvio}` :
@@ -53,7 +58,7 @@ const CardPedido = ({ pedidos, detallePedido }) => {
                                         </Typography> */}
                             {pedido.publicacionPedido.map((item) => (
                                 <Box key={item.publicacion.idPublicacion} sx={{ display: 'flex', alignItems: 'center', mt: 2 }}>
-                                    <Box sx={{ width: 100, height: 100, overflow: 'hidden', marginRight: 2 }}>
+                                    <Box sx={{ width: 130, height: 130, overflow: 'hidden', marginRight: 2 }}>
                                         <img
                                             src={item.publicacion.idProductoNavigation.urlImagen} // Asegúrate de que este es el campo correcto
                                             alt={`Imagen de ${item.publicacion.idProductoNavigation.nombre}`}
@@ -75,7 +80,7 @@ const CardPedido = ({ pedidos, detallePedido }) => {
 
                                 </Box>
                             ))}
-
+                  
 
                             <Typography variant="h6" sx={{ mt: 2, textAlign: 'left' }}>
                                 Total:   {formatPrice(pedido.total)}
