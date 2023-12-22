@@ -85,7 +85,12 @@ const ModalFormDomicilio = ({ open, handleClose, onSubmit, register, errors}) =>
 
                             {...register("Altura",
                                 {
-                                    required: "El número es obligatorio",                                 
+                                    required: "El número es obligatorio",
+                                    pattern: {
+                                        value: /^[0-9]*$/,
+                                        message: "El número debe contener solo números"
+                                    },
+                                                                     
 
                                 })
                             }
@@ -169,7 +174,7 @@ const ModalFormDomicilio = ({ open, handleClose, onSubmit, register, errors}) =>
                         <Button
                             size="large"
                             sx={{
-                                mt: 1, width: '120px', color: 'black', textTransform: 'none',
+                                mt: 1, width: '120px', color: 'white', textTransform: 'none',
                             }}
                             variant="contained"
                             color="primary"

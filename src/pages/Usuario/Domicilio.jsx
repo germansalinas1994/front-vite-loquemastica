@@ -96,9 +96,9 @@ const Domicilios = () => {
             {
                 CodigoPostal: "",
                 Aclaracion: "",
-                IdDomicilio: "",
+                IdDomicilio: 0,
                 Calle: "",
-                Numero: "",
+                Altura: "",
                 Departamento: "",
             }
         );
@@ -114,10 +114,13 @@ const Domicilios = () => {
             const headers = {
                 Authorization: `Bearer ${token}`
             };
+
+            debugger;
             //si esta seguro, elimino la categoria
             const response = await axios.post(apiLocalKey + "/domicilio", data, {
                 headers: headers,
             }
+            
 
             );
             //muestro el msj de exito
@@ -139,6 +142,9 @@ const Domicilios = () => {
                 }
             });
         } catch (error) {
+           
+            hideLoadingModal();
+ 
             Swal.fire({
                 position: "center",
                 icon: "error",
@@ -194,7 +200,7 @@ const Domicilios = () => {
             setValue("Aclaracion", response.data.result.aclaracion);
             setValue("IdDomicilio", response.data.result.idDomicilio);
             setValue("Calle", response.data.result.calle);
-            setValue("Numero", response.data.result.numero);
+            setValue("Altura", response.data.result.altura);
             setValue("Departamento", response.data.result.departamento);
 
             setOpenModalDetalle(true);
@@ -233,9 +239,9 @@ const Domicilios = () => {
             {
                 CodigoPostal: "",
                 Aclaracion: "",
-                IdDomicilio: "",
+                IdDomicilio: 0,
                 Calle: "",
-                Numero: "",
+                Altura: "",
                 Departamento: "",
             }
         );
@@ -374,7 +380,7 @@ const Domicilios = () => {
             )}
 
             <Tooltip title="Agregar domicilio" placement="left">
-                <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 50, right: 70 }} onClick={() => handleFormDomicilio()}>
+                <Fab color="primary" aria-label="add" sx={{ position: 'fixed', color:'white', bottom: 50, right: 70 }} onClick={() => handleFormDomicilio()}>
                     <AddIcon />
                 </Fab>
             </Tooltip>

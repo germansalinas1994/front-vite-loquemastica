@@ -9,7 +9,6 @@ const OrderRejectedCard = ({ merchantOrderId, paymentId, status }) => {
     // Ajustes de estilo para la tarjeta
     const cardStyle = {
         height: '100%', // <-- Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.
-        boxShadow: 'none',
         borderRadius: 5, 
         boxShadow:5, 
         background: 'rgba(255, 255, 255, 0.85)',

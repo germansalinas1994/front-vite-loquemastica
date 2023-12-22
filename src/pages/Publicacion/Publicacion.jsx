@@ -161,13 +161,11 @@ const Publicacion = () => {
                                                 </MenuItem>
                                             ))}
                                         </Select>
-                                        <Typography variant="body1" color="textSecondary">
-                                            Unidades disponibles: {publicacion.stock}
-                                        </Typography>
+                                      
                                     </FormControl>
                                     <Box mt={2} display="flex" flexDirection="column" gap={1} sx={{ maxWidth: '60%' }} mb={10}>
                                         {/* El boton de comprar me lleva a la funcion de checkout, me redirige a la page checkout con la informacion de la publicacion */}
-                                        <Button onClick={handleCheckout} variant="contained" color="primary" fullWidth sx={{ fontSize: '1.2rem', textTransform: 'none', height: '65px', marginBottom: 1 }}>
+                                        <Button onClick={handleCheckout} variant="contained" color="primary" fullWidth sx={{ fontSize: '1.2rem', color:'white',textTransform: 'none', height: '65px', marginBottom: 1 }}>
                                             Comprar ahora
                                         </Button>
                                         <Button onClick={handleAgregarAlCarrito} variant="outlined" color="primary" fullWidth sx={{ fontSize: '1.2rem', textTransform: 'none', height: '65px' }}>

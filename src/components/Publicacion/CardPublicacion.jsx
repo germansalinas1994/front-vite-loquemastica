@@ -31,7 +31,7 @@ const CardPublicacion = ({ publicaciones }) => {
     return (
         <>
             {publicaciones.map((p) => (
-                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={p.idPublicacion} mb={2} mt={2}>
+                <Grid item xs={12} sm={6} md={3} lg={3} xl={3} key={p.idPublicacion} mb={2} mt={2}>
                     <Card
                         sx={{
                             height: '100%', // Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.
@@ -39,6 +39,7 @@ const CardPublicacion = ({ publicaciones }) => {
                             cursor: 'pointer',
                             borderRadius: 5,
                             boxShadow: 5,
+                            mr:3,
                             display: 'flex',
                             flexDirection: 'column',
                             '&:hover': { boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.6)' }
@@ -47,7 +48,7 @@ const CardPublicacion = ({ publicaciones }) => {
 
 
                         <Box sx={{ position: 'relative', width: 1, justifyContent: 'center' }}>
-                            <Typography variant="h5" align="center" sx={{ fontWeight: 'bold', mt: 3, mb: 1 }}>
+                            <Typography variant="h6" align="center" sx={{ fontWeight: 'bold', mt: 3, mb: 1 }}>
                                 {p.idProductoNavigation.nombre}
                             </Typography>
 
@@ -78,7 +79,7 @@ const CardPublicacion = ({ publicaciones }) => {
 
                             <CardContent>
 
-                                <Typography align="center" sx={{ fontWeight: 'bold' }} variant="h5">
+                                <Typography align="center" sx={{ fontWeight: 'bold' }} variant="h6">
                                     {formatPrice(p.idProductoNavigation.precio)}
                                 </Typography>
 

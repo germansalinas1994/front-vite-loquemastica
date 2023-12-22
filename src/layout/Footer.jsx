@@ -23,22 +23,20 @@ const Footer = () => {
                 <Grid container justifyContent="space-between" alignItems="center">
                     <Grid item xs={12} md={6}>
                         <Typography align="left">
-                            © {currentYear} Ecommerce. Todos los derechos reservados.
+                            © {currentYear} Lo Que Mastica Tu Mascota. Todos los derechos reservados.
                         </Typography>
                     </Grid>
                     <Grid item xs={12} md={6} align="right">
-                        <IconButton color="inherit" href="https://www.facebook.com/micomercio" target="_blank" rel="noopener noreferrer">
+                        <IconButton color="inherit" href="https://www.facebook.com/loquemasticatumascota" target="_blank" rel="noopener noreferrer">
                             <FacebookIcon />
                         </IconButton>
-                        <IconButton color="inherit" href="https://www.twitter.com/micomercio" target="_blank" rel="noopener noreferrer">
+                        <IconButton color="inherit" href="https://www.twitter.com/loquemasticatumascota" target="_blank" rel="noopener noreferrer">
                             <TwitterIcon />
                         </IconButton>
-                        <IconButton color="inherit" href="https://www.instagram.com/micomercio" target="_blank" rel="noopener noreferrer">
+                        <IconButton color="inherit" href="https://www.instagram.com/loquemasticatumascota" target="_blank" rel="noopener noreferrer">
                             <InstagramIcon />
                         </IconButton>
-                        <IconButton color="inherit" href="https://www.linkedin.com/in/micomercio" target="_blank" rel="noopener noreferrer">
-                            <LinkedInIcon />
-                        </IconButton>
+                       
                     </Grid>
                 </Grid>
             </Container>

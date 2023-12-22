@@ -69,7 +69,8 @@ export const MercadoPagoButton = ({ carrito, productoIndividual, habilitaPago, d
                         marginTop: '20px',
                         textTransform: 'none', // Elimina las mayúsculas
                         padding: '12px 50px', // Agrega más padding
-                        fontSize: '1.2em'     // Aumenta el tamaño de la fuente
+                        fontSize: '1.2em',     // Aumenta el tamaño de la fuente
+                        color:'white'
                     }}>
                     Pagar con MercadoPago
                 </LoadingButton>

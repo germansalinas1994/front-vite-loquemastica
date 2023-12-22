@@ -80,14 +80,24 @@ const MiCuenta = () => {
 
     const onSubmit = async (data) => {
         try {
+            showLoadingModal();
+
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+
             //envio los datos del usuario a la api para que los guarde en la base de datos
             //tengo que enviar los datos del formulario
             data.email = user.email;
             //convierto el dni a un valor numerico para que no me lo tome como un string
             data.dni = parseInt(data.dni);
-            showLoadingModal();
 
-            const response = await axios.post(apiLocalKey + '/actualizarUsuario', data);
+            const response = await axios.post(apiLocalKey + '/actualizarUsuario', data,
+                {
+                    headers: headers,
+                }
+            );
             hideLoadingModal();
             //pongo un swal para avisar que se guardaron los datos
             //si le da click en aceptar, lo redirijo escondo el modal de carga
@@ -97,6 +107,7 @@ const MiCuenta = () => {
                     title: 'Datos actualizados correctamente',
                     allowOutsideClick: false,
                     showConfirmButton: true,
+                    confirmButtonText: 'Aceptar',
 
 
                 }).then((result) => {
@@ -110,8 +121,11 @@ const MiCuenta = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: response.data.message,
-                    footer: 'Intente nuevamente'
+                    text: 'Ocurrió un error al actualizar los datos',
+                    footer: 'Intente nuevamente',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Aceptar',
+
                 })
             }
 
@@ -122,7 +136,10 @@ const MiCuenta = () => {
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Ocurrió un error al actualizar los datos',
-                footer: 'Intente nuevamente'
+                footer: 'Intente nuevamente',
+                showConfirmButton: true,
+                confirmButtonText: 'Aceptar',
+
             })
 
             console.error("Error al modificar el usuario:", error);
@@ -133,8 +150,8 @@ const MiCuenta = () => {
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt:5  }}>
-                <Grid container spacing={3} component={Card} sx={{ width: '80%', maxWidth: '1200px', height: 1, maxHeight: '1000px',borderRadius: 5, boxShadow:5 }}>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 5 }}>
+                <Grid container spacing={3} component={Card} sx={{ width: '80%', maxWidth: '1200px', height: 1, maxHeight: '1000px', borderRadius: 5, boxShadow: 5 }}>
                     <Grid item xs={12}>
                         <Box sx={{ p: 3, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                             <Typography variant="h5" gutterBottom>
@@ -256,7 +273,7 @@ const MiCuenta = () => {
                         <Box sx={{ p: 3, textAlign: 'center' }}>
                             {
                                 isEditing ?
-                                    <Button variant="contained" color="primary" type="submit" size="large">
+                                    <Button variant="contained" color="primary" type="submit" size="large" sx={{color:'white', textTransform:'none', fontSize:'1.2rem'}}>
                                         Guardar
                                     </Button>
                                     :

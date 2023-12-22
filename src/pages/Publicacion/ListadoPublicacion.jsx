@@ -55,7 +55,7 @@ const ListadoPublicacion = () => {
 
 
     return (
-            <Grid container spacing={4} justifyContent="center" sx={{ display: 'flex', maxWidth: 1, backgroundColor: 'primary', mb: 15 }}>
+            <Grid container spacing={2}  sx={{  ml:1 ,justifyContent:'center', maxWidth: 1, backgroundColor: 'primary', mb: 15 }}>
                 <CardPublicacion publicaciones={publicaciones} />
             </Grid>
 

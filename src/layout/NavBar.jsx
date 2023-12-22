@@ -164,7 +164,8 @@ const NavBar = ({ children }) => {
             padding: '20px 10px',
             display: 'flex',
             flexDirection: 'column', // Asegura que los hijos se apilen verticalmente
-            flexGrow: 1 // Permite que la Card se expanda
+            flexGrow: 1, // Permite que la Card se expanda
+            minHeight: '80vh', // Evita que la Card se colapse
           }}>
             <Grid spacing={2} justifyContent="center" sx={{ flexGrow: 1, maxWidth: 1, mb: 10 }}>
               {children}

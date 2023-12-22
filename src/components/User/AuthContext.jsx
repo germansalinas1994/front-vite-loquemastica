@@ -11,20 +11,21 @@ export const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [userImage, setUserImage] = useState(null); // Nuevo estado para almacenar la imagen del usuario
-  
+
 
   const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
 
   //ESTE ESTADO PERMITE SABER SI SE OBTUVO EL TOKEN Y EL ROL, INICIALMENTE ESTA EN FALSE, 
   // porque fallaba el ruteo sino, primero renderizaba el ruteo y luego obtenia el token y el rol,deberia ser al reves
   const [initializationDone, setInitializationDone] = useState(false); // Nuevo estado
-  const { isAuthenticated, getIdTokenClaims, isLoading,user } = useAuth0(); 
+  const { isAuthenticated, getIdTokenClaims, isLoading, user } = useAuth0();
   const { showLoadingModal, hideLoadingModal } = LoadingModal();
 
   const fetchTokenAndRole = async () => {
 
-    if (!isLoading && isAuthenticated) { 
+    if (!isLoading && isAuthenticated) {
       try {
+        showLoadingModal();
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
         const tokenClaims = await getIdTokenClaims();
         //guardo el token en una cookie
@@ -40,8 +41,17 @@ export const AuthProvider = ({ children }) => {
         console.log(user);
 
         //voy a llamar a la api para guardar el usuario en la base de datos
-        
-       const response = await axios.post(apiLocalKey + '/cargarUsuario', {nombreUsuario:user.name , email:user.email, imagenUsuario:user.picture});       
+
+        const token = localStorage.getItem('token');
+        const headers = {
+          Authorization: `Bearer ${token}`
+        };
+
+        const response = await axios.post(apiLocalKey + '/cargarUsuario', { nombreUsuario: user.name, email: user.email, imagenUsuario: user.picture }, 
+        {
+          headers: headers,
+        });
+        hideLoadingModal();
 
 
 
@@ -51,6 +61,7 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Error al obtener el token y el rol:", error);
       } finally {
+        hideLoadingModal();
         // una vez que se obtiene el token y el rol, se setea el estado en true
         setInitializationDone(true); // Establecer cuando todo esté listo
       }
@@ -58,9 +69,10 @@ export const AuthProvider = ({ children }) => {
       //si no se logro la autenticacion y no esta cargando, se setea el estado en true para que pueda ir a la ruta invalida
       //elimino el token del local storage
       localStorage.removeItem('token');
-      localStorage.setItem('sucursalSeleccionada',1)
+      localStorage.setItem('sucursalSeleccionada', 1)
       //borro el carrito del local storage
       localStorage.removeItem('carrito');
+      hideLoadingModal();
       setInitializationDone(true); // Establecer si no está autenticado
     }
   };

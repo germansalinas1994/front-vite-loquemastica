@@ -105,6 +105,10 @@ const ModalDetalleDomicilio = ({ open, handleClose, domicilio, onSubmit, registe
                             {...register("Altura",
                                 {
                                     required: "El número es obligatorio",
+                                    pattern: {
+                                        value: /^[0-9]*$/,
+                                        message: "El número debe contener solo números"
+                                    }
 
                                 })
                             }
@@ -190,7 +194,7 @@ const ModalDetalleDomicilio = ({ open, handleClose, domicilio, onSubmit, registe
                             <Button
                                 size="large"
                                 sx={{
-                                    mt: 1, width: '120px', color: 'black', textTransform: 'none',
+                                    mt: 1, width: '120px', color: 'white', textTransform: 'none',
                                 }}
                                 variant="contained"
                                 color="primary"
