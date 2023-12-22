@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import PositionedSnackbar from "../../components/PositionedSnackbar";
 import { useContext } from "react";
 import { SucursalContext } from '../../components/User/SucursalContext';
+import LoadingModal from "../../components/LoadingModal";
 
 
 const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
@@ -31,7 +32,7 @@ const Publicacion = () => {
     const { agregarAlCarrito } = useCarrito();
     const { sucursalSeleccionada } = useContext(SucursalContext);
 
-
+    const { showLoadingModal, hideLoadingModal } = LoadingModal();
     const { id } = useParams();
     const [publicacion, setPublicacion] = useState(null);
     const [selectedQuantity, setSelectedQuantity] = useState(1);
@@ -40,6 +41,7 @@ const Publicacion = () => {
 
 
     useEffect(() => {
+        showLoadingModal();
         fetchPublicacion();
     }, []);
 
@@ -48,8 +50,10 @@ const Publicacion = () => {
             let idPublicacion = parseInt(id);
             const response = await axios.get(apiLocalKey + '/publicacion/' + idPublicacion);
             setPublicacion(response.data.result.data);
+            hideLoadingModal();
         } catch (error) {
             console.log(error);
+            hideLoadingModal();
         }
     }
 
@@ -138,17 +142,10 @@ const Publicacion = () => {
                                     <Typography variant="body1" color="textSecondary">
                                         Categoria: {publicacion.idProductoNavigation.idCategoriaNavigation.nombre}
                                     </Typography>
-                                    <Typography variant="h3" color="primary" sx={{ marginTop: 1 }}>
+                                    <Typography variant="h3"  sx={{ marginTop: 1 }}>
                                         {formatPrice(publicacion.idProductoNavigation.precio)}
                                     </Typography>
-                                    <Box display="flex" alignItems="center" flexWrap="wrap" width="100%">
-                                        <Typography align="left" color="textSecondary" sx={{ fontSize: '1.2rem' }}>
-                                            Hasta <span style={{ fontWeight: 'bold' }}>12 cuotas</span> sin interés de&nbsp;
-                                        </Typography>
-                                        <Typography align="left" color="primary" sx={{ fontSize: '1.4rem', fontWeight: 'bold', marginLeft: '0.5rem' }}>
-                                            {calculateInstallment(publicacion.idProductoNavigation.precio)}
-                                        </Typography>
-                                    </Box>
+                                   
 
 
                                     <FormControl fullWidth variant="outlined" sx={{ maxWidth: '60%', marginTop: 3 }}>
@@ -182,7 +179,7 @@ const Publicacion = () => {
                             </Grid>
                         </Grid>
                         <CardContent sx={{ marginTop: 1, marginBottom: 15 }}>
-                            <Typography variant="h6">Especificaciones técnicas:</Typography>
+                            <Typography variant="h6">Especificaciones del producto:</Typography>
                             <Typography variant="body1" color="textSecondary">
                                 {publicacion.idProductoNavigation.descripcion}
                             </Typography>

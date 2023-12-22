@@ -127,7 +127,8 @@ const NavBar = ({ children }) => {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar position="fixed" open={open}>
+      {/* Le agrego el color al header a mano para poder modificar los colores primarios de la aplicacion */}
+      <AppBar position="fixed" open={open} sx={{backgroundColor:'#FACA05'}}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -142,7 +143,7 @@ const NavBar = ({ children }) => {
           </IconButton>
           <ResponsiveAppBar></ResponsiveAppBar>
           {/* {themeSwitch} Agrega esto al final para que se coloque al margen derecho */}
-          <FormControlLabel
+          {/* <FormControlLabel
             control={
               <Switch
                 checked={isDarkTheme}
@@ -152,7 +153,7 @@ const NavBar = ({ children }) => {
               />
             }
           // label={isDarkTheme}
-          />
+          /> */}
         </Toolbar>
       </AppBar>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

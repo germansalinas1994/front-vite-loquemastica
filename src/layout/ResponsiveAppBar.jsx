@@ -83,7 +83,8 @@ function ResponsiveAppBar() {
     console.log(user);
   }
   return (
-    <Container maxWidth="xl">
+    // le agrego el color a mano para poder modificar lo de la aplicacion
+    <Container sx={{backgroundColor:'#FACA05'}} maxWidth="xl">
 
       <Toolbar disableGutters>
 
@@ -105,7 +106,7 @@ function ResponsiveAppBar() {
 
         {/* este box es para el menu de navegacion si esta la pantalla contraida */}
 
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+        {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
           <IconButton
             size="large"
             color="inherit"
@@ -160,7 +161,7 @@ function ResponsiveAppBar() {
             ))}
           </Menu>
 
-        </Box>
+        </Box> */}
 
 
 
@@ -187,6 +188,8 @@ function ResponsiveAppBar() {
               sx={{
                 '.MuiSelect-select': {
                   color: 'black', // Color del texto
+                  fontWeight: 'bold', // Texto en negrita
+
                   background: 'transparent', // Fondo transparente
                   border: 'none', // Sin bordes
                   boxShadow: 'none', // Sin sombra
@@ -229,7 +232,7 @@ function ResponsiveAppBar() {
         {/* Este box es para el boton de login o para info del usuario */}
 
 
-        <Box sx={{ flexGrow: 0 }}>
+        <Box sx={{ flexGrow: 0, position:'absolute', right:0 }}>
           <Link to={'/cart'} style={{ color: 'inherit', textDecoration: 'none' }}>
             <IconButton >
               <BotonCarrito />

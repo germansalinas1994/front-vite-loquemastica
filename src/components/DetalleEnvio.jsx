@@ -41,7 +41,7 @@ const DetalleEnvio = ({ domicilios, envioSeleccionado, handleEnvioChange, onDomi
                         </FormControl>
 
 
-                        <Button variant="contained" onClick={handleAgregarDomicilio} sx={{ marginRight: '10px' }}>
+                        <Button variant="outlined" onClick={handleAgregarDomicilio} sx={{ marginRight: '10px' }}>
                             <AddHomeIcon onClick={handleAgregarDomicilio} sx={{ marginRight: '10px', fontSize: '40px' }} />
                             <Typography sx={{
                                 textTransform: 'none', // Elimina las mayúsculas

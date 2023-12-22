@@ -16,9 +16,9 @@ const theme = createTheme({
     },
 
     primary: {
-      main: '#FACA05',
-      light: '#6E8EA7',
-      dark: '#334F66',
+      main: '#6E8EA7',
+      light: '#8BA4B8',
+      dark: '#4D6374',
       contrastText: '#1f0f0f',
 
     },
@@ -30,8 +30,8 @@ const theme = createTheme({
     },
     error: {
       main: '#D32F2F',
-      light: '#DB5858',
-      dark: '#932020',
+      light: '#EF5350',
+      dark: '#C62828',
       contrastText: '#FFFFFF',
     },
     warning: {

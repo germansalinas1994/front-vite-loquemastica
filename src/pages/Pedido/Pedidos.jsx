@@ -31,9 +31,40 @@ const Pedidos = () => {
         }
     }
 
-    const handleDetallePedido = (idPedido) => {
-        console.log(`Detalle del pedido ${idPedido}`);
-    }
+    const descargarFactura = async (idPedido) => {
+        try {
+            showLoadingModal();
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`,
+                'Content-Type': 'application/json',
+                'Response-Type': 'blob' // Indica que la respuesta es un archivo binario
+            };
+    
+            const response = await axios.get(apiLocalKey + "/generarFactura/" + idPedido, { headers, responseType: 'blob' });
+            debugger;
+            
+            // Crear un enlace URL para el archivo
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            
+            // Crear un enlace temporal en el DOM para descargar el archivo
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'Factura.pdf'); // Nombre del archivo para descargar
+            document.body.appendChild(link);
+            link.click();
+    
+            // Limpiar y remover el enlace del DOM
+            link.parentNode.removeChild(link);
+            window.URL.revokeObjectURL(url);
+    
+            hideLoadingModal();
+        } catch (error) {
+            console.error(error);
+            hideLoadingModal();
+        }
+    };
+    
 
     return (
         <div>
@@ -43,7 +74,7 @@ const Pedidos = () => {
                         <Typography variant="h5" sx={{ marginBottom: '20px' }}>No se han realizado pedidos</Typography>
                     </Box>
                 ) : (
-                     <CardPedido pedidos={pedidos} detallePedido={handleDetallePedido} />
+                     <CardPedido pedidos={pedidos} descargarFactura={descargarFactura} />
                 )}
             </Box>
         </div>

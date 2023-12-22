@@ -9,7 +9,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 
-const CardPedido = ({ pedidos, detallePedido }) => {
+const CardPedido = ({ pedidos, descargarFactura }) => {
     const [anchorEl, setAnchorEl] = useState(null);
     const [selectedId, setSelectedId] = useState(null);
     const open = Boolean(anchorEl);
@@ -98,8 +98,8 @@ const CardPedido = ({ pedidos, detallePedido }) => {
                                 open={open && selectedId === pedido.id}
                                 onClose={handleClose}
                             >
-                                <MenuItem onClick={() => { handleClose(); detallePedido(selectedId); }}>
-                                    Ver detalle
+                                <MenuItem onClick={() => { handleClose(); descargarFactura(selectedId); }}>
+                                    Descargar factura
                                 </MenuItem>
 
                             </Menu>
