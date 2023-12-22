@@ -51,7 +51,6 @@ export const AuthProvider = ({ children }) => {
         {
           headers: headers,
         });
-        hideLoadingModal();
 
 
 
