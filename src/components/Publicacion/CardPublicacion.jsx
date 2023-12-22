@@ -31,12 +31,11 @@ const CardPublicacion = ({ publicaciones }) => {
     return (
         <>
             {publicaciones.map((p) => (
-                <Grid item xs={12} sm={6} md={4} lg={4} xl={4} key={p.idPublicacion} mb={5} mt={3}>
+                <Grid item xs={12} sm={6} md={4} lg={3} xl={2} key={p.idPublicacion} mb={2} mt={2}>
                     <Card
                         sx={{
-                            height: '100%', // <-- Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.
-                            
-                            maxWidth: '60%',
+                            height: '100%', // Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.
+                            maxWidth: 345, // Valor fijo para un tamaño uniforme
                             cursor: 'pointer',
                             borderRadius: 5,
                             boxShadow: 5,
@@ -47,9 +46,8 @@ const CardPublicacion = ({ publicaciones }) => {
                     >
 
 
-
                         <Box sx={{ position: 'relative', width: 1, justifyContent: 'center' }}>
-                            <Typography variant="h5" align="center" sx={{ fontWeight: 'bold', mt: 3, mb:1 }}>
+                            <Typography variant="h5" align="center" sx={{ fontWeight: 'bold', mt: 3, mb: 1 }}>
                                 {p.idProductoNavigation.nombre}
                             </Typography>
 
