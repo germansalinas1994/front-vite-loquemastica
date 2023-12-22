@@ -31,7 +31,7 @@ const CardPublicacion = ({ publicaciones }) => {
     return (
         <>
             {publicaciones.map((p) => (
-                <Grid item xs={12} sm={6} md={3} lg={3} xl={3} key={p.idPublicacion} mb={2} mt={2}>
+                <Grid item xs={12} sm={6} md={6} lg={6} xl={2} key={p.idPublicacion} mb={2} mt={2}>
                     <Card
                         sx={{
                             height: '100%', // Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.

@@ -25,9 +25,15 @@ export const AuthProvider = ({ children }) => {
 
     if (!isLoading && isAuthenticated) {
       try {
-        showLoadingModal();
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
         const tokenClaims = await getIdTokenClaims();
+
+        if (tokenClaims.rol_usuario.length == 0) {
+          window.location.reload();
+        }
+
+        showLoadingModal();
+
         //guardo el token en una cookie
         setUserToken(tokenClaims.__raw);
         //guardo el token en el local storage
@@ -36,7 +42,7 @@ export const AuthProvider = ({ children }) => {
         setUserImage(tokenClaims.picture); // Nuevo estado para almacenar la imagen del usuario
 
 
-
+        debugger;
 
         console.log(user);
 
@@ -52,11 +58,9 @@ export const AuthProvider = ({ children }) => {
           headers: headers,
         });
 
+        debugger;
 
-
-        if (tokenClaims.rol_usuario.length == 0) {
-          window.location.reload();
-        }
+    
       } catch (error) {
         console.error("Error al obtener el token y el rol:", error);
       } finally {
