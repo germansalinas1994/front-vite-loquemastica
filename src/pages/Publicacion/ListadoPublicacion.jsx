@@ -7,6 +7,7 @@ import { Card } from '@mui/material';
 import ThemeContext from '../../layout/ThemeContext';
 import LoadingModal from '../../components/LoadingModal';
 import { SucursalContext } from '../../components/User/SucursalContext';
+import Swal from 'sweetalert2';
 
 
 
@@ -45,7 +46,16 @@ const ListadoPublicacion = () => {
 
             } catch (error) {
 
+
                 hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+
+                Swal.fire({
+                    title: 'Error',
+                    text: 'No se pudo cargar las publicaciones',
+                    icon: 'error',
+                    confirmButtonText: 'Aceptar'
+                })
+
                 console.log(error);
             }
         };

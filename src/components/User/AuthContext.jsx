@@ -25,6 +25,7 @@ export const AuthProvider = ({ children }) => {
 
     if (!isLoading && isAuthenticated) {
       try {
+        showLoadingModal();
         // Obtener el token y el rol del usuario una vez que se autentica y no está cargando
         const tokenClaims = await getIdTokenClaims();
 
@@ -32,7 +33,6 @@ export const AuthProvider = ({ children }) => {
           window.location.reload();
         }
 
-        showLoadingModal();
 
         //guardo el token en una cookie
         setUserToken(tokenClaims.__raw);
@@ -64,7 +64,6 @@ export const AuthProvider = ({ children }) => {
       } catch (error) {
         console.error("Error al obtener el token y el rol:", error);
       } finally {
-        hideLoadingModal();
         // una vez que se obtiene el token y el rol, se setea el estado en true
         setInitializationDone(true); // Establecer cuando todo esté listo
       }
