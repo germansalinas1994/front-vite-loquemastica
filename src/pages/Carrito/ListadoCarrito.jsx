@@ -39,8 +39,9 @@ const ListadoCarrito = () => {
                 { headers: headers } 
             
             ); // le paso el array de publicaciones del carrito
-            setPublicacionesCarrito(response.data.result.data)
             hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+
+            setPublicacionesCarrito(response.data.result.data)
 
         } catch (error) {
             hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
