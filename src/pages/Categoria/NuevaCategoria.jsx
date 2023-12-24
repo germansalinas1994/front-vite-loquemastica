@@ -66,7 +66,6 @@ export default function NuevaCategoria() {
         // Llamar al servidor
         try {
             const resp = await axios.post(apiLocalKey + '/categorias', data);
-            console.log(resp.data);  // Puedes ver la respuesta del servidor
             Swal.fire({
                 position: 'center',
                 icon: 'success',

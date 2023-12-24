@@ -56,7 +56,6 @@ const ListadoPublicacion = () => {
                     confirmButtonText: 'Aceptar'
                 })
 
-                console.log(error);
             }
         };
 

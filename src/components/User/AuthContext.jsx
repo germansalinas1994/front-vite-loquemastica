@@ -42,9 +42,6 @@ export const AuthProvider = ({ children }) => {
         setUserImage(tokenClaims.picture); // Nuevo estado para almacenar la imagen del usuario
 
 
-        debugger;
-
-        console.log(user);
 
         //voy a llamar a la api para guardar el usuario en la base de datos
 
@@ -53,15 +50,15 @@ export const AuthProvider = ({ children }) => {
           Authorization: `Bearer ${token}`
         };
 
-        const response = await axios.post(apiLocalKey + '/cargarUsuario', { nombreUsuario: user.name, email: user.email, imagenUsuario: user.picture }, 
-        {
-          headers: headers,
-        });
+        const response = await axios.post(apiLocalKey + '/cargarUsuario', { nombreUsuario: user.name, email: user.email, imagenUsuario: user.picture },
+          {
+            headers: headers,
+          });
 
-        debugger;
 
-    
-      } catch (error) {
+
+      }
+      catch (error) {
         console.error("Error al obtener el token y el rol:", error);
       } finally {
         // una vez que se obtiene el token y el rol, se setea el estado en true

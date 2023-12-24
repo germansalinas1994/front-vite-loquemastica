@@ -69,9 +69,7 @@ export default function TableCrud() {
     try {
       const res = await axios.get(apiLocalKey + '/categorias')
       setCategorias(res.data.result.data)
-      console.log(res.data.result.data)
     } catch (error) {
-      console.log(error)
     }
   }
 

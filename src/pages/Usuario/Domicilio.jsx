@@ -115,7 +115,6 @@ const Domicilios = () => {
                 Authorization: `Bearer ${token}`
             };
 
-            debugger;
             //si esta seguro, elimino la categoria
             const response = await axios.post(apiLocalKey + "/domicilio", data, {
                 headers: headers,
@@ -330,8 +329,6 @@ const Domicilios = () => {
                             headers: headers
                         },
                     );
-
-                    debugger;
 
 
                     //muestro el msj de exito

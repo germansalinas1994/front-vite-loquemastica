@@ -52,7 +52,6 @@ const Publicacion = () => {
             setPublicacion(response.data.result.data);
             hideLoadingModal();
         } catch (error) {
-            console.log(error);
             hideLoadingModal();
         }
     }

@@ -79,9 +79,9 @@ function ResponsiveAppBar() {
   };
 
 
-  if (isAuthenticated) {
-    console.log(user);
-  }
+  // if (isAuthenticated) {
+  //   console.log(user);
+  // }
   return (
     // le agrego el color a mano para poder modificar lo de la aplicacion
     <Container sx={{backgroundColor:'#FACA05'}} maxWidth="xl">

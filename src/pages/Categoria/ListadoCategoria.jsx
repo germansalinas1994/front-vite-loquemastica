@@ -41,7 +41,6 @@ const ListadoCategoria = () => {
 
             } catch (error) {
                 hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
-                console.log(error);
             }
         };
 
@@ -241,7 +240,6 @@ const ListadoCategoria = () => {
                 }
 
 
-                console.log(resp.data);  // Puedes ver la respuesta del servidor
 
 
 

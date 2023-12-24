@@ -44,7 +44,6 @@ const ListadoCarrito = () => {
 
         } catch (error) {
             hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
-            console.log(error);
         }
     };
 
