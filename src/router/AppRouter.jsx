@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from '../pages/Home';
-import About from '../pages/About';
 import ListadoCategoria from '../pages/Categoria/ListadoCategoria';
 // import ListadoProducto from '../pages/Producto/ListadoProducto';
 import ListadoPublicacion from '../pages/Publicacion/ListadoPublicacion';
@@ -48,7 +47,6 @@ const AppRouter = () => {
                 <Route path="/categorias" element={<ListadoCategoria />} />
                 <Route path="/nuevacategoria" element={<NuevaCategoria />} />
                 <Route path="/publicacion/:id" element={<Publicacion />} />
-                <Route path="/about" element={<About />} />
                 <Route path="/cart" element={<Carrito />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/checkout" element={
