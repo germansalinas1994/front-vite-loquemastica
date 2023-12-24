@@ -331,6 +331,7 @@ const Domicilios = () => {
                         },
                     );
 
+                    debugger;
 
 
                     //muestro el msj de exito
@@ -354,7 +355,8 @@ const Domicilios = () => {
                     })
                 }
             })
-        } catch (error) {
+        } 
+        catch (error) {
             hideLoadingModal();
             Swal.fire({
                 position: 'center',

@@ -30,7 +30,15 @@ const ListadoCarrito = () => {
         showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
 
         try {
-            const response = await axios.post(apiLocalKey + '/publicacionesCarrito', carrito); // le paso el array de publicaciones del carrito
+            const token = localStorage.getItem('token');
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+
+            const response = await axios.post(apiLocalKey + '/publicacionesCarrito', carrito,
+                { headers: headers } 
+            
+            ); // le paso el array de publicaciones del carrito
             setPublicacionesCarrito(response.data.result.data)
             hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
 
