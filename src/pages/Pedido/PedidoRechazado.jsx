@@ -10,6 +10,7 @@ const PedidoRechazado = () => {
     const [orderDetails, setOrderDetails] = useState(null);
 
     useEffect(() => {
+        showLoadingModal();
         const query = new URLSearchParams(location.search);
         const merchantOrderId = query.get('merchant_order_id');
         const paymentId = query.get('payment_id');
@@ -27,6 +28,7 @@ const PedidoRechazado = () => {
         };
 
         setOrderDetails(details);
+        hideLoadingModal();
     }, [location.search]);
 
     return (
