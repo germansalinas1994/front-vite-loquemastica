@@ -44,6 +44,7 @@ const settings = [
 
 
 
+
 // const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 function ResponsiveAppBar() {
@@ -54,8 +55,6 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const { sucursales, sucursalSeleccionada, setSucursalSeleccionada,handleChangeSucursal } = useContext(SucursalContext);
-
-
 
 
 
@@ -104,68 +103,6 @@ function ResponsiveAppBar() {
         </Link>
 
 
-        {/* este box es para el menu de navegacion si esta la pantalla contraida */}
-
-        {/* <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-          <IconButton
-            size="large"
-            color="inherit"
-          >
-
-          </IconButton>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
-            aria-haspopup="true"
-            onClick={handleOpenNavMenu}
-            color="inherit"
-          >
-
-
-
-            <Typography sx={{ flexGrow: 1, display: { xs: 'flex' }, mr: 1 }}>
-              Menu
-            </Typography>
-            <MenuIcon />
-          </IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorElNav}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'left',
-            }}
-            open={Boolean(anchorElNav)}
-            onClose={handleCloseNavMenu}
-            sx={{
-              display: { xs: 'block', md: 'none' },
-            }}
-          >
-            {pagesNav.map((page) => (
-              <MenuItem
-                key={page.id}
-                onClick={handleCloseNavMenu}
-                component={Link}
-                to={page.route.toLowerCase()}
-                sx={{ color: '#1f0f0f', textDecoration: 'none' }}
-              >
-                <Typography textAlign="center">{page.name}</Typography>
-              </MenuItem>
-
-            ))}
-          </Menu>
-
-        </Box> */}
-
-
-
-        {/* este box es para el menu de navegacion si esta la pantalla expandida */}
         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
 
 

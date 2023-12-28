@@ -21,13 +21,21 @@ const AccesoDenegado = () => {
             <Typography variant="h6" marginBottom={3}>
                 No tienes permiso para acceder a esta página.
             </Typography>
-            <Button 
-                variant="contained" 
-                color="primary" 
+
+
+            <Button
+                variant="contained"
+                color="primary"
+
                 onClick={() => navigate('/')}
             >
-                Volver al inicio
+                <Typography color={'white'} gutterBottom>
+
+                    Volver al inicio
+                </Typography>
+
             </Button>
+
         </Box>
     );
 }
