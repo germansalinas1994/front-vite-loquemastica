@@ -10,12 +10,13 @@ export const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [userImage, setUserImage] = useState(null); // Nuevo estado para almacenar la imagen del usuario
-  
+
 
 
   const apiLocalKey = import.meta.env.VITE_APP_API_KEY;
   const rol_admin = import.meta.env.VITE_APP_ROLE_ADMIN;
   const rol_sucursal = import.meta.env.VITE_APP_ROLE_SUCURSAL;
+  const rol_client = import.meta.env.VITE_APP_ROLE_CLIENT;
   const url_app = import.meta.env.VITE_APP_URL_APP;
 
   //ESTE ESTADO PERMITE SABER SI SE OBTUVO EL TOKEN Y EL ROL, INICIALMENTE ESTA EN FALSE, 
@@ -40,13 +41,13 @@ export const AuthProvider = ({ children }) => {
 
         debugger;
 
-        if(tokenClaims.rol_usuario[0] ==  rol_admin || tokenClaims.rol_usuario[0] == rol_sucursal)
-        {
+        if (tokenClaims.rol_usuario.includes(rol_admin) || tokenClaims.rol_usuario.includes(rol_sucursal)) {
+
           //redirecciono a la pagina de sucursal y admin 
           window.location.href = url_app;
         }
 
-        
+
         //guardo el token en una cookie
         setUserToken(tokenClaims.__raw);
         //guardo el token en el local storage
