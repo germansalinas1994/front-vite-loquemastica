@@ -39,7 +39,7 @@ const CardPublicacion = ({ publicaciones }) => {
                             cursor: 'pointer',
                             borderRadius: 5,
                             boxShadow: 5,
-                            mr:3,
+                            mr: 3,
                             display: 'flex',
                             flexDirection: 'column',
                             '&:hover': { boxShadow: '0px 0px 30px rgba(0, 0, 0, 0.6)' }
@@ -55,24 +55,23 @@ const CardPublicacion = ({ publicaciones }) => {
                         </Box>
                         <Divider />
 
-                        <CardActionArea
-                            sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}
-                        >
+
+                        <CardActionArea sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', flexGrow: 1 }}>
                             <Link to={`/publicacion/${p.idPublicacion}`} style={{ color: 'inherit', textDecoration: 'none' }}>
-
-
-
-                                <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center', justifyContent: 'center', width: '100%', mt: 1, mb: 1, minHeight:'334px', maxHeight:'334px' }}>
+                                <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                                     <CardMedia
                                         component="img"
                                         image={p.idProductoNavigation.urlImagen}
-                                        sx={{ maxWidth: '80%', maxHeight: '80%' }} // <-- Establece tamaños máximos para garantizar uniformidad
+                                        sx={{ 
+                                            width: '90%', // Ancho fijo
+                                            height: 300, // Altura fija
+                                            objectFit: 'contain' // Asegura que la imagen se ajuste dentro del espacio sin deformarse
+                                        }}
                                     />
                                 </Box>
-
-
                             </Link>
                         </CardActionArea>
+
                         <Divider />
 
                         <Box sx={{ position: 'relative', width: 1 }}>
