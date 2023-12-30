@@ -62,7 +62,7 @@ const CardPublicacion = ({ publicaciones }) => {
 
 
 
-                                <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center', justifyContent: 'center', width: '100%', mt: 1, mb: 1 }}>
+                                <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center', justifyContent: 'center', width: '100%', mt: 1, mb: 1, minHeight:'334px', maxHeight:'334px' }}>
                                     <CardMedia
                                         component="img"
                                         image={p.idProductoNavigation.urlImagen}
