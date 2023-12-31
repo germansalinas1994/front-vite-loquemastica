@@ -63,7 +63,7 @@ const CardPublicacion = ({ publicaciones }) => {
                                         component="img"
                                         image={p.idProductoNavigation.urlImagen}
                                         sx={{ 
-                                            width: '90%', // Ancho fijo
+                                            width: '93%', // Ancho fijo
                                             height: 300, // Altura fija
                                             objectFit: 'contain' // Asegura que la imagen se ajuste dentro del espacio sin deformarse
                                         }}
