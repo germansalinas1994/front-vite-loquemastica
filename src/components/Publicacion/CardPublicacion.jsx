@@ -22,8 +22,8 @@ const CardPublicacion = ({ publicaciones }) => {
 
     if (publicaciones.length === 0) {
         return (
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-                <Typography variant="h5" sx={{ marginBottom: '20px' }}>No se han agregado publicaciones</Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '70vh' }}>
+                <Typography variant="h5" sx={{ marginBottom: '20px' }}>No se encontraron publicaciones</Typography>
             </Box>
         );
     }
@@ -31,7 +31,7 @@ const CardPublicacion = ({ publicaciones }) => {
     return (
         <>
             {publicaciones.map((p) => (
-                <Grid item xs={12} sm={6} md={6} lg={6} xl={2} key={p.idPublicacion} mb={2} mt={2}>
+                <Grid item xs={12} sm={12} md={6} lg={4} xl={2.7} key={p.idPublicacion} mb={2} mt={2}>
                     <Card
                         sx={{
                             height: '100%', // Asegura que la tarjeta ocupe todo el espacio disponible en el Grid.

@@ -77,6 +77,7 @@ export const AuthProvider = ({ children }) => {
       } finally {
         // una vez que se obtiene el token y el rol, se setea el estado en true
         setInitializationDone(true); // Establecer cuando todo esté listo
+        hideLoadingModal();
       }
     } else if (!isLoading && !isAuthenticated) {
       //si no se logro la autenticacion y no esta cargando, se setea el estado en true para que pueda ir a la ruta invalida

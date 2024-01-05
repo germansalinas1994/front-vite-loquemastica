@@ -17,6 +17,7 @@ const Layout = ({ children }) => {
     return storedTheme ? JSON.parse(storedTheme) : false;
   });
 
+
   useEffect(() => {
     localStorage.setItem('theme', JSON.stringify(isDarkTheme));
   }, [isDarkTheme]);

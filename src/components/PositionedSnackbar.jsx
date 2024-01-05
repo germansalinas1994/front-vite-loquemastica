@@ -12,7 +12,7 @@ const PositionedSnackbar = ({ message, open, handleClose, vertical = 'top', hori
             key={vertical + horizontal}
             sx={{marginTop: '40px'}}
         >
-            <Alert onClose={handleClose} severity="error" variant="filled">
+            <Alert onClose={handleClose} severity="info" variant="filled">
                 {message}
             </Alert>
         </Snackbar>

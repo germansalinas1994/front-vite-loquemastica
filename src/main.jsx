@@ -12,6 +12,7 @@ import { CarritoProvider } from './components/Cart/CarritoProvider.jsx';
 import { Auth0Provider } from '@auth0/auth0-react';
 import { AuthProvider } from './components/User/AuthContext';
 import { SucursalProvider } from './components/User/SucursalContext';
+import { CategoriaProvider } from './components/CategoriaContext.jsx';
 
 import { CssBaseline } from '@mui/material';
 
@@ -33,12 +34,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <SucursalProvider>
               {/* para usar el layout en toda la app, envuelvo la app con el layout */}
 
+              <CategoriaProvider>
 
-              <Layout>
-                {/* esta es la app que se renderiza en el layout y usa el carrito */}
-                <App />
+                <Layout>
+                  {/* esta es la app que se renderiza en el layout y usa el carrito */}
+                  <App />
 
-              </Layout>
+                </Layout>
+              </CategoriaProvider>
             </SucursalProvider>
           </CarritoProvider>
 

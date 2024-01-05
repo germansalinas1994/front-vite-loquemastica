@@ -59,10 +59,10 @@ const Publicacion = () => {
     const handleAgregarAlCarrito = () => {
 
         if (!isAuthenticated) {
-            showSnackbar('Necesitas estar logueado para agregar al carrito');
+            showSnackbar('Debes registrarte para agregar al carrito');
         }
         if (isAuthenticated && sucursalSeleccionada == sucursalGlobal) {
-            showSnackbar('Necesitas seleccionar una sucursal para agregar al carrito');
+            showSnackbar('Debes seleccionar una sucursal para agregar al carrito');
         }
 
         if(isAuthenticated && sucursalSeleccionada != sucursalGlobal) {
@@ -73,10 +73,10 @@ const Publicacion = () => {
     //esta funcion me lleva a la page checkout, con la informacion de la publicacion, si es que estoy logueado
     const handleCheckout = () => {
         if (!isAuthenticated) {
-            showSnackbar('Necesitas estar logueado para realizar la compra');
+            showSnackbar('Debes registrarte para realizar la compra');
         } 
         if (isAuthenticated && sucursalSeleccionada == sucursalGlobal) {
-            showSnackbar('Necesitas seleccionar una sucursal para realizar la compra');
+            showSnackbar('Debes seleccionar una sucursal para realizar la compra');
         }
                   
         if(isAuthenticated && sucursalSeleccionada != sucursalGlobal) {

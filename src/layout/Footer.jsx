@@ -16,13 +16,13 @@ const Footer = () => {
             sx={{ 
                 width: '100%', 
                 backgroundColor: isDarkTheme ? '#121212' : '#E2E2E2', 
-                padding: '20px 0'
+                padding: '0px 0'
             }}
         >
-            <Container maxWidth="lg">
-                <Grid container justifyContent="space-between" alignItems="center">
+            <Container maxWidth="lg" >
+                <Grid container justifyContent="space-between" alignItems="center" mt={5} >
                     <Grid item xs={12} md={6}>
-                        <Typography align="left">
+                        <Typography align="right">
                             © {currentYear} Lo Que Mastica Tu Mascota. Todos los derechos reservados.
                         </Typography>
                     </Grid>
