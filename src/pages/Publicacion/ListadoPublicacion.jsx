@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { CategoriaContext } from '../../components/CategoriaContext';
 import SearchBar from '../../components/SearchBar';
 import Pagination from '@mui/material/Pagination';
+import { set } from 'date-fns';
 
 
 
@@ -99,6 +100,12 @@ const ListadoPublicacion = () => {
         setInput(input);
         console.log(input);
     }, [input]);
+
+    useEffect(() => {
+        setCategoriaSeleccionada(categoriaSeleccionada);
+        setCurrentPage(1);
+        
+    }, [categoriaSeleccionada,sucursalSeleccionada]);
 
     const limpiarFiltro = () => {
         setInput('');
