@@ -10,6 +10,7 @@ import { SucursalContext } from '../../components/User/SucursalContext';
 import Swal from 'sweetalert2';
 import { CategoriaContext } from '../../components/CategoriaContext';
 import SearchBar from '../../components/SearchBar';
+import Pagination from '@mui/material/Pagination';
 
 
 
@@ -17,6 +18,7 @@ const ListadoPublicacion = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
     const { isDarkTheme } = useContext(ThemeContext);
     const { categoriaSeleccionada, setCategoriaSeleccionada } = useContext(CategoriaContext);
+
 
     const { showLoadingModal, hideLoadingModal } = LoadingModal();
 
@@ -28,12 +30,21 @@ const ListadoPublicacion = () => {
     const [input, setInput] = useState('');
 
 
+    //elementos para la paginacion 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(0);
+
+
+    
+
+
+
     useEffect(() => {
         // Lógica para obtener las Publicaciones
 
         fetchPublicaciones();
 
-    }, [sucursalSeleccionada, categoriaSeleccionada, input]);
+    }, [sucursalSeleccionada, categoriaSeleccionada, input, currentPage]);
 
     const fetchPublicaciones = async () => {
         // showLoadingModal();  // <-- Mostrar el modal antes de comenzar la operación asincrónica
@@ -43,24 +54,25 @@ const ListadoPublicacion = () => {
         }
 
         try {
-            // const token = localStorage.getItem('token');
-            // const headers = {
-            //     Authorization: `Bearer ${token}`
-            // };
-
             const response = await axios.get(apiLocalKey + '/publicaciones', {
-                // headers: headers,
-                params: { sucursal: sucursalSeleccionada, categoria: categoriaSeleccionada, input: input },
+                // ... parámetros existentes ...
+                params: {
+                    sucursal: sucursalSeleccionada,
+                    categoria: categoriaSeleccionada,
+                    input: input,
+                    page: currentPage,
+                    pageSize: 12 // o el tamaño de página que prefieras
+                },
             });
-            // const response = await axios.get(apiLocalKey + '/publicaciones', {params: {sucursal: sucursalSeleccionada}},);
-            setPublicaciones(response.data.result.data)
-            hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
-            // hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
+
+            debugger;
+
+            setPublicaciones(response.data.result.data);
+            setTotalPages(response.data.result.totalPages)
 
         } catch (error) {
 
 
-            hideLoadingModal();  // <-- Ocultar el modal cuando la operación ha concluido
 
             Swal.fire({
                 title: 'Error',
@@ -69,6 +81,9 @@ const ListadoPublicacion = () => {
                 confirmButtonText: 'Aceptar'
             })
 
+        }
+        finally {
+            hideLoadingModal(); // <-- Ocultar el modal cuando finalice la operación asincrónica
         }
     };
 
@@ -107,6 +122,14 @@ const ListadoPublicacion = () => {
 
                 <CardPublicacion publicaciones={publicaciones} />
             </Grid>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Pagination
+                    count={totalPages}
+                    page={currentPage}
+                    onChange={(event, page) => setCurrentPage(page)}
+                />
+            </Box>
         </>
 
 

@@ -8,6 +8,10 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
+import { format } from "date-fns";
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import Divider from '@mui/material/Divider';
+
 
 const CardPedido = ({ pedidos, descargarFactura }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -27,6 +31,9 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
     const formatPrice = (price) => {
         return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(price);
     }
+    const formatDate = (date) => {
+        return date ? format(new Date(date), "dd/MM/yyyy") : "";
+    };
 
     return (
 
@@ -36,21 +43,51 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
                 <Grid item xs={12} md={8} lg={8} key={pedido.id}>
 
                     <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow: 5 }}>
-                        <CardContent sx={{ flex: 3, ml: 6 }}>
-                            <Typography variant="h5" gutterBottom>
+                        <CardContent sx={{ flex: 3, ml: 6, mr:3 }}>
 
-                            </Typography>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                <Typography variant="h6" gutterBottom>
+                                    {pedido.envio ?
+                                        `${pedido.envio.descripcionEnvio} -  LLega a ${pedido.envio.domicilio.descripcionCompleta}` :
+                                        `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`}
+                                </Typography>
+
+                                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                                    <Typography variant="h6" gutterBottom color={'primary.dark'}>
+                                        Pedido #{pedido.orden_MercadoPago}
+                                    </Typography>
+
+                                    <IconButton
+                                        aria-label="more"
+                                        onClick={(event) => handleClick(event, pedido.id)}
+                                    >
+                                        <MoreVertIcon />
+                                    </IconButton>
+                                    <Menu
+                                        anchorEl={anchorEl}
+                                        open={open && selectedId === pedido.id}
+                                        onClose={handleClose}
+                                    >
+                                        <MenuItem onClick={() => { handleClose(); descargarFactura(selectedId); }}>
+                                            Descargar factura
+                                        </MenuItem>
+
+                                    </Menu>
+                                </Box>
+                            </Box>
+                            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'left', mt: 0.5 }}>
+
+                                <Typography variant="body" gutterBottom>
+
+                                    <EventNoteIcon /> Fecha de compra: {formatDate(pedido.fechaAlta)}
+                                </Typography>
+                            </Box>
 
 
-                            <Typography variant="h6" gutterBottom>   Pedido #{pedido.orden_MercadoPago}  - {pedido.envio ?
-                                ` ${pedido.envio.descripcionEnvio}` :
-                                // ` ${pedido.envio.descripcionEnvio} llega a ${pedido.envio.domicilio.descripcionCompleta}` :
-                                `Retiras en la sucursal de ${pedido.publicacionPedido[0].publicacion.idSucursalNavigation.nombre}`} </Typography>
-                            <Typography variant="h6" color="text.secondary" sx={{ mt: 1 }} gutterBottom>
-                                {pedido.envio ?
-                                    ` LLega a ${pedido.envio.domicilio.descripcionCompleta}` : null
-                                }
-                            </Typography>
+                            <Divider style={{ margin: '10px 0' }} />
+
+
+
                             {/* <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
                                             {pedido.envio ?
                                                 `Estado del envío: ${pedido.envio.descripcionEnvio}` :
@@ -80,13 +117,13 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
 
                                 </Box>
                             ))}
-                  
 
-                            <Typography variant="h6" sx={{ mt: 2, textAlign: 'left' }}>
+
+                            <Typography variant="h6" sx={{ textAlign: 'right' }}>
                                 Total:   {formatPrice(pedido.total)}
                             </Typography>
                         </CardContent>
-                        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mr: 2 }}>
+                        {/* <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mr: 2 }}>
                             <IconButton
                                 aria-label="more"
                                 onClick={(event) => handleClick(event, pedido.id)}
@@ -103,7 +140,7 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
                                 </MenuItem>
 
                             </Menu>
-                        </Box>
+                        </Box> */}
                     </Card>
                 </Grid>
             ))}
