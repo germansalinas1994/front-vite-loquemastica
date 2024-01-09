@@ -221,7 +221,6 @@ const NavBar = ({ children }) => {
 
     const esAgrupador = categoria.agrupador;
     const IconoCategoria = iconMap[categoria.nombre] || PetsIcon;
-    const esCategoriaSeleccionada = categoria.idCategoria === categoriaSeleccionada;
     return (
       <React.Fragment key={categoria.idCategoria}>
         <ListItemButton

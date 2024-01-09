@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid';
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import CardPublicacion from '../../components/Publicacion/CardPublicacion';
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import ThemeContext from '../../layout/ThemeContext';
 import LoadingModal from '../../components/LoadingModal';
 import { SucursalContext } from '../../components/User/SucursalContext';
@@ -16,7 +16,7 @@ import SearchBar from '../../components/SearchBar';
 const ListadoPublicacion = () => {
     const apiLocalKey = import.meta.env.VITE_APP_API_KEY
     const { isDarkTheme } = useContext(ThemeContext);
-    const { categoriaSeleccionada } = useContext(CategoriaContext);
+    const { categoriaSeleccionada, setCategoriaSeleccionada } = useContext(CategoriaContext);
 
     const { showLoadingModal, hideLoadingModal } = LoadingModal();
 
@@ -50,7 +50,7 @@ const ListadoPublicacion = () => {
 
             const response = await axios.get(apiLocalKey + '/publicaciones', {
                 // headers: headers,
-                params: { sucursal: sucursalSeleccionada, categoria: categoriaSeleccionada, input: input},
+                params: { sucursal: sucursalSeleccionada, categoria: categoriaSeleccionada, input: input },
             });
             // const response = await axios.get(apiLocalKey + '/publicaciones', {params: {sucursal: sucursalSeleccionada}},);
             setPublicaciones(response.data.result.data)
@@ -85,14 +85,23 @@ const ListadoPublicacion = () => {
         console.log(input);
     }, [input]);
 
+    const limpiarFiltro = () => {
+        setInput('');
+        setCategoriaSeleccionada(null);
+    }
+
     return (
 
         <>
 
-            <Box sx={{ display: 'flex', justifyContent: 'flex', ml:3 }}>
-                <SearchBar inputValue={input} handleInputChange={ChangeInput} />
+            <Box sx={{ display: 'flex', justifyContent: 'flex', ml: 3 }}>
+                <SearchBar inputValue={input} handleInputChange={ChangeInput} limpiarFiltro={limpiarFiltro} />
+
 
             </Box>
+
+
+
 
             <Grid container spacing={2} sx={{ ml: 1, justifyContent: 'center', maxWidth: 1, backgroundColor: 'primary', mb: 15, padding: 5 }}>
 
