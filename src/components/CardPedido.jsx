@@ -43,7 +43,7 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
                 <Grid item xs={12} md={8} lg={8} key={pedido.id}>
 
                     <Card sx={{ display: 'flex', marginBottom: '20px', borderRadius: 5, boxShadow: 5 }}>
-                        <CardContent sx={{ flex: 3, ml: 6, mr:3 }}>
+                        <CardContent sx={{ flex: 3, ml: 6, mr: 3 }}>
 
                             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <Typography variant="h6" gutterBottom>
@@ -58,6 +58,7 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
                                     </Typography>
 
                                     <IconButton
+                                        sx={{ml:0.5}}
                                         aria-label="more"
                                         onClick={(event) => handleClick(event, pedido.id)}
                                     >
@@ -119,7 +120,7 @@ const CardPedido = ({ pedidos, descargarFactura }) => {
                             ))}
 
 
-                            <Typography variant="h6" sx={{ textAlign: 'right' }}>
+                            <Typography variant="h6" sx={{ textAlign: 'right', mr:3 }}>
                                 Total:   {formatPrice(pedido.total)}
                             </Typography>
                         </CardContent>
