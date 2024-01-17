@@ -169,9 +169,11 @@ function ResponsiveAppBar() {
 
         <Box sx={{ flexGrow: 0, position:'absolute', right:0 }}>
           <Link to={'/cart'} style={{ color: 'inherit', textDecoration: 'none' }}>
+            <Tooltip title="Ir al carrito">
             <IconButton >
               <BotonCarrito />
             </IconButton>
+            </Tooltip>
           </Link>
 
 

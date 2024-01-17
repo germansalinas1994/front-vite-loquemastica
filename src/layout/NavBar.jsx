@@ -20,7 +20,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import ResponsiveAppBar from './ResponsiveAppBar';
-import { Card, Grid, Typography } from '@mui/material';
+import { Card, Grid, Tooltip, Typography } from '@mui/material';
 import ThemeContext from './ThemeContext';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -179,7 +179,7 @@ const NavBar = ({ children }) => {
 
   const filtrarCategoria = (idCategoria) => {
 
-    if(idCategoria === categoriaSeleccionada){
+    if (idCategoria === categoriaSeleccionada) {
       setCategoriaSeleccionada(null);
       navigate('/productos');
       return;
@@ -228,9 +228,11 @@ const NavBar = ({ children }) => {
             mt: 3,
           }}
           onClick={() => esAgrupador ? toggleCategoria(categoria.idCategoria) : filtrarCategoria(categoria.idCategoria)}>
-          <ListItemIcon>
-            <IconoCategoria />
-          </ListItemIcon>
+          <Tooltip title={categoria.nombre}>
+            <ListItemIcon>
+              <IconoCategoria />
+            </ListItemIcon>
+          </Tooltip>
           <ListItemText primary={categoria.nombre} />
           {esAgrupador && (categoriasExpandidas.includes(categoria.idCategoria) ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
         </ListItemButton>
@@ -241,14 +243,14 @@ const NavBar = ({ children }) => {
                 key={subcategoria.idCategoria}
                 sx={{
                   bgcolor: subcategoria.idCategoria === categoriaSeleccionada ? 'primary.light' : 'inherit',
-                  mb:1
+                  mb: 1
                 }}
                 onClick={() => filtrarCategoria(subcategoria.idCategoria)}
               >
                 <ListItemText
                   primary={subcategoria.nombre}
                   sx={{
-                    ml:6,
+                    ml: 6,
                     // fontWeight: 'bold', // Opcional: hacer el texto en negrita
                     fontSize: 14,
                     // Puedes ajustar la tipografía como prefieras aquí
