@@ -89,6 +89,7 @@ function ResponsiveAppBar() {
         {/* esto es el texto del logo */}
         {/* el boton me tiene que llevar a la pagina de inicio */}
         <Link to={'/'} style={{ color: 'inherit', textDecoration: 'none' }}>
+          <Tooltip title="Ir al inicio">
           <img
             src={Titulo}
             alt="Logo"
@@ -98,6 +99,7 @@ function ResponsiveAppBar() {
               display: 'block' // <-- Establece tamaños máximos para garantizar uniformidad
             }}
           />
+          </Tooltip>
         </Link>
 
 
